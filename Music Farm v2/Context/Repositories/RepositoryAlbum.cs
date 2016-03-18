@@ -39,13 +39,13 @@ namespace Music_Farm_v2.Context.Repositories
 
         public List<AlbumViewModel> GetFilteredAlbums(string filter)
         {
-            var repo = _uow.GetRepo<album>();
-            return repo.GetByQuery(i => i.album_name.Contains(filter)).Select(i => i.ToModel()).ToList();
+            var repo = _uow.GetRepo<Album>();
+            return repo.GetByQuery(i => i.AlbumName.Contains(filter)).Select(i => i.ToModel()).ToList();
         }
 
         public List<AlbumViewModel> GetAllAlbums()
         {
-            var repo = _uow.GetRepo<album>();
+            var repo = _uow.GetRepo<Album>();
 
             return repo.GetByQuery().Select(i => i.ToModel()).ToList();
         }

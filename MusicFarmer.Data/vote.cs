@@ -12,12 +12,12 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class vote
+    public partial class Vote
     {
-        public int vote_id { get; set; }
-        public int user_id { get; set; }
-        public bool vote_value { get; set; }
+        public int VoteId { get; set; }
+        public bool VoteValue { get; set; }
+        public int UserId { get; set; }
     
-        public virtual user user { get; set; }
+        public virtual User User { get; set; }
     }
 }

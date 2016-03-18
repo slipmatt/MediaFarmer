@@ -12,25 +12,25 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public User()
         {
-            this.comments = new HashSet<comment>();
-            this.play_history = new HashSet<play_history>();
-            this.votes = new HashSet<vote>();
+            this.Comments = new HashSet<Comment>();
+            this.PlayHistories = new HashSet<PlayHistory>();
+            this.Votes = new HashSet<Vote>();
         }
     
-        public int user_id { get; set; }
-        public string user_name { get; set; }
-        public bool active { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comment> comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<play_history> play_history { get; set; }
+        public virtual ICollection<PlayHistory> PlayHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<vote> votes { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

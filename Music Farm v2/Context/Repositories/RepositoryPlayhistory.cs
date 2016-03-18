@@ -10,9 +10,9 @@ namespace Music_Farm_v2.Context.Repositories
     public class RepositoryPlayhistory
     {
 
-        public static List<PlayhistoryViewModel> GetAllItems(bool showCompleted=false)
+        public static List<PlayHistoryViewModel> GetAllItems(bool showCompleted=false)
         {
-            List<PlayhistoryViewModel> items = new List<PlayhistoryViewModel>();
+            List<PlayHistoryViewModel> items = new List<PlayHistoryViewModel>();
 
                 //items = GetContext().play_history
                 //.Where(i => i.play_completed.Equals(showCompleted)).ToList()

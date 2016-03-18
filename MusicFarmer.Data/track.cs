@@ -12,23 +12,23 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class track
+    public partial class Track
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public track()
+        public Track()
         {
-            this.play_history = new HashSet<play_history>();
+            this.PlayHistories = new HashSet<PlayHistory>();
         }
     
-        public int track_id { get; set; }
-        public string track_name { get; set; }
-        public Nullable<int> artist_id { get; set; }
-        public Nullable<int> album_id { get; set; }
-        public string track_URL { get; set; }
+        public int TrackId { get; set; }
+        public string TrackName { get; set; }
+        public Nullable<int> ArtistId { get; set; }
+        public Nullable<int> AlbumId { get; set; }
+        public string TrackURL { get; set; }
     
-        public virtual album album { get; set; }
-        public virtual artist artist { get; set; }
+        public virtual Album Album { get; set; }
+        public virtual Artist Artist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<play_history> play_history { get; set; }
+        public virtual ICollection<PlayHistory> PlayHistories { get; set; }
     }
 }

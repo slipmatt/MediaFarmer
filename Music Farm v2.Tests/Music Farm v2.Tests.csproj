@@ -115,11 +115,13 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Mock\Database\BaseMock.cs" />
     <Compile Include="Mock\Database\MockData\MockAlbumTests.cs" />
+    <Compile Include="Mock\Database\MockData\MockArtistTest.cs" />
     <Compile Include="Mock\Database\MockData\MockTrafficLogTests.cs" />
     <Compile Include="Mock\Database\MockHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="RepositoryTests\RepositoryAlbumTests.cs" />
+    <Compile Include="RepositoryTests\RepositoryArtistTest.cs" />
     <Compile Include="RepositoryTests\TrafficLogTests.cs" />
   </ItemGroup>
   <ItemGroup>

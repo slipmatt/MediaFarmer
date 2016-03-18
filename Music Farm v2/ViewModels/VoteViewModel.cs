@@ -9,11 +9,11 @@ namespace Music_Farm_v2.ViewModels
 {
     public class VoteViewModel
     {
-        public int vote_id { get; set; }
+        public int VoteId { get; set; }
         [Required(ErrorMessage ="A User is not linked to this vote")]
-        public int user_id { get; set; }
+        public int UserId { get; set; }
         [Required(ErrorMessage = "Please select your vote")]
         [DisplayName("Vote")]
-        public bool vote_value { get; set; }
+        public bool VoteValue { get; set; }
     }
 }

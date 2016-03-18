@@ -178,11 +178,18 @@
     <Compile Include="Helpers\ToastHelper\ToastMessage.cs" />
     <Compile Include="Helpers\ToastHelper\Toastr.cs" />
     <Compile Include="Helpers\ToastHelper\ToastType.cs" />
+    <Compile Include="Models\AlbumModel.cs" />
+    <Compile Include="Models\ArtistModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\PlayHistoryModel.cs" />
+    <Compile Include="Models\TrackModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\VoteModel.cs" />
     <Compile Include="ViewModels\AlbumViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
-    <Compile Include="ViewModels\PlayhistoryViewModel.cs" />
+    <Compile Include="ViewModels\PlayHistoryViewModel.cs" />
     <Compile Include="ViewModels\TrackViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\VoteViewModel.cs" />
@@ -291,7 +298,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

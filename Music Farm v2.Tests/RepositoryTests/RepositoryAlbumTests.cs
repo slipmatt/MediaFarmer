@@ -8,29 +8,35 @@ namespace Music_Farm_v2.Tests.RepositoryTests
     [TestClass]
     public class RepositoryAlbumTests
     {
-        //[TestInitialize]
+        Moq.Mock<Data.MusicFarmerEntities> context;
+        RepositoryAlbum repos;
 
-        //Todo the repository should be initialized once.
+        [TestInitialize]
+        public void InitializeTests()
+        {
+             context = new Mock.Database.MockData.MockAlbumTests().MockContext;
+             repos= new RepositoryAlbum(new Uow(context.Object));
+        }
+
         [TestMethod]
         public void ShouldGet1Album()
         {
-            var context = new Mock.Database.MockData.MockAlbumTests().MockContext;
-            var repos = new RepositoryAlbum(new Uow(context.Object));
-
             var items = repos.GetAllAlbums();
-
             Assert.IsTrue(items.Count  == 1);
         }
 
         [TestMethod]
         public void ShouldGetNoFilteredItems()
         {
-            var context = new Mock.Database.MockData.MockAlbumTests().MockContext;
-            var repos = new RepositoryAlbum(new Uow(context.Object));
-
             var items = repos.GetFilteredAlbums("Da Album");
-
             Assert.IsTrue(items.Count == 0);
+        }
+
+        [TestMethod]
+        public void ShouldGet1FilteredItems()
+        {
+            var items = repos.GetFilteredAlbums("Test");
+            Assert.IsTrue(items.Count == 1);
         }
     }
 }

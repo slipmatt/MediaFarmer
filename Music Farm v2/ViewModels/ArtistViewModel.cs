@@ -8,9 +8,9 @@ namespace Music_Farm_v2.ViewModels
 {
     public class ArtistViewModel
     {
-        public int artist_id { get; set; }
+        public int ArtistId { get; set; }
         [StringLength(100)]
-        [Required(ErrorMessage ="You must enter an Artist Name",AllowEmptyStrings = true)]
-        public string artist_name { get; set; }
+        [Required(ErrorMessage ="Please enter an Artist Name",AllowEmptyStrings = true)]
+        public string ArtistName { get; set; }
     }
 }

@@ -12,23 +12,23 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class play_history
+    public partial class PlayHistory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public play_history()
+        public PlayHistory()
         {
-            this.comments = new HashSet<comment>();
+            this.Comments = new HashSet<Comment>();
         }
     
-        public int play_id { get; set; }
-        public int track_id { get; set; }
-        public int user_id { get; set; }
-        public byte[] time_played { get; set; }
-        public bool play_completed { get; set; }
+        public int PlayHistoryId { get; set; }
+        public int TrackId { get; set; }
+        public int UserId { get; set; }
+        public byte[] TimePlayed { get; set; }
+        public bool PlayCompleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<comment> comments { get; set; }
-        public virtual track track { get; set; }
-        public virtual user user { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual Track Track { get; set; }
+        public virtual User User { get; set; }
     }
 }

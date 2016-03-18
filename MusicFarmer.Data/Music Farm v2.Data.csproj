@@ -51,52 +51,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="album.cs">
+    <Compile Include="Album.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
-    <Compile Include="artist.cs">
+    <Compile Include="Artist.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
-    <Compile Include="comment.cs">
+    <Compile Include="Comment.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
     <Compile Include="MusicFarmer.Context.cs">
-      <DependentUpon>MusicFarmer.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>MusicFarmer.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="MusicFarmer.cs">
-      <DependentUpon>MusicFarmer.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
     <Compile Include="MusicFarmer.Designer.cs">
-      <DependentUpon>MusicFarmer.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>MusicFarmer.edmx</DependentUpon>
     </Compile>
-    <Compile Include="play_history.cs">
+    <Compile Include="PlayHistory.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagram.cs">
+    <Compile Include="Track.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
-    <Compile Include="track.cs">
+    <Compile Include="User.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
-    <Compile Include="user.cs">
-      <DependentUpon>MusicFarmer.tt</DependentUpon>
-    </Compile>
-    <Compile Include="vote.cs">
+    <Compile Include="Vote.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <EntityDeploy Include="MusicFarmer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MusicFarmer.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="MusicFarmer.edmx.diagram">
+      <DependentUpon>MusicFarmer.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MusicFarmer.Context.tt">
@@ -109,15 +114,6 @@
       <DependentUpon>MusicFarmer.edmx</DependentUpon>
       <LastGenOutput>MusicFarmer.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MusicFarmer.edmx.diagram">
-      <DependentUpon>MusicFarmer.edmx</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

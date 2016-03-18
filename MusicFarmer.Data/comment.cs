@@ -12,14 +12,14 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class comment
+    public partial class Comment
     {
-        public int comment_id { get; set; }
-        public int play_id { get; set; }
-        public int user_id { get; set; }
-        public string comment_text { get; set; }
+        public int CommentId { get; set; }
+        public int PlayId { get; set; }
+        public string CommentText { get; set; }
+        public int UserId { get; set; }
     
-        public virtual play_history play_history { get; set; }
-        public virtual user user { get; set; }
+        public virtual PlayHistory PlayHistory { get; set; }
+        public virtual User User { get; set; }
     }
 }

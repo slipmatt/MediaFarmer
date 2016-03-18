@@ -25,13 +25,12 @@ namespace Music_Farm_v2.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<album> albums { get; set; }
-        public virtual DbSet<artist> artists { get; set; }
-        public virtual DbSet<comment> comments { get; set; }
-        public virtual DbSet<play_history> play_history { get; set; }
-        public virtual DbSet<track> tracks { get; set; }
-        public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<vote> votes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
+        public virtual DbSet<Artist> Artists { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<PlayHistory> PlayHistories { get; set; }
+        public virtual DbSet<Track> Tracks { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Vote> Votes { get; set; }
     }
 }

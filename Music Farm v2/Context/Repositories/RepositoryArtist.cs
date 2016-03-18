@@ -4,13 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UnitOfWork;
 
 namespace Music_Farm_v2.Context.Repositories
 {
     public class RepositoryArtist
     {
+        private IUow _uow;
+        public RepositoryArtist(IUow uow)
+        {
+            _uow = uow;
+        }
 
-        public static List<ArtistViewModel> GetAllItems(bool showInactive, string filterString)
+        public static List<ArtistViewModel> GetAllItems(string filterString)
         {
             List<ArtistViewModel> items = new List<ArtistViewModel>();
 
@@ -27,5 +33,7 @@ namespace Music_Farm_v2.Context.Repositories
             //}
             return items;
         }
+
+
     }
 }

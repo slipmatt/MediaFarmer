@@ -12,18 +12,18 @@ namespace Music_Farm_v2.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class artist
+    public partial class Artist
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public artist()
+        public Artist()
         {
-            this.tracks = new HashSet<track>();
+            this.Tracks = new HashSet<Track>();
         }
     
-        public int artist_id { get; set; }
-        public string artist_name { get; set; }
+        public int ArtistId { get; set; }
+        public string ArtistName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<track> tracks { get; set; }
+        public virtual ICollection<Track> Tracks { get; set; }
     }
 }
