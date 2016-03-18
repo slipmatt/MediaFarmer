@@ -1,0 +1,48 @@
+﻿@*@using PagedList
+    @using PagedList.Mvc*@
+
+@model IEnumerable<Music_Farm_v2.ViewModels.PlayhistoryViewModel>
+@{
+    ViewBag.Title = "Farmer";
+}
+
+<h2>Music Finder</h2>
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th colspan="3">Currently playing</th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.track_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_name)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.track_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.track_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user_name)
+            </td>
+            <td>
+                @Html.ActionLink(" Vote", "Vote", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+                @Html.ActionLink(" Comments", "Comments", 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*@Html.PagedListPager((IPagedList<Music_Farm_v2.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@

@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MusicFarmerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="album_name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="artist_name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comments">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="play_id" Type="int" Nullable="false" />
+          <Property Name="comment_text" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="play_history">
+          <Key>
+            <PropertyRef Name="play_id" />
+          </Key>
+          <Property Name="play_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="track_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="time_played" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="play_completed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="track">
+          <Key>
+            <PropertyRef Name="track_id" />
+          </Key>
+          <Property Name="track_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="track_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="artist_id" Type="int" />
+          <Property Name="album_id" Type="int" />
+          <Property Name="track_URL" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="votes">
+          <Key>
+            <PropertyRef Name="vote_id" />
+          </Key>
+          <Property Name="vote_id" Type="int" Nullable="false" />
+          <Property Name="vote_value" Type="bit" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_comments_play_history">
+          <End Role="play_history" Type="Self.play_history" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="comments" Type="Self.comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="play_history">
+              <PropertyRef Name="play_id" />
+            </Principal>
+            <Dependent Role="comments">
+              <PropertyRef Name="play_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comments_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="comments" Type="Self.comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="comments">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_play_history_track">
+          <End Role="track" Type="Self.track" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="play_history" Type="Self.play_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="track">
+              <PropertyRef Name="track_id" />
+            </Principal>
+            <Dependent Role="play_history">
+              <PropertyRef Name="track_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_play_history_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="play_history" Type="Self.play_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="play_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_track_album">
+          <End Role="album" Type="Self.album" Multiplicity="0..1" />
+          <End Role="track" Type="Self.track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="track">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_track_artist">
+          <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
+          <End Role="track" Type="Self.track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="track">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_votes_users">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="votes" Type="Self.votes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="votes">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MusicFarmerModelStoreContainer">
+          <EntitySet Name="album" EntityType="Self.album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="artist" EntityType="Self.artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="play_history" EntityType="Self.play_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="track" EntityType="Self.track" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="votes" EntityType="Self.votes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_comments_play_history" Association="Self.FK_comments_play_history">
+            <End Role="play_history" EntitySet="play_history" />
+            <End Role="comments" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comments_users" Association="Self.FK_comments_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="comments" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_play_history_track" Association="Self.FK_play_history_track">
+            <End Role="track" EntitySet="track" />
+            <End Role="play_history" EntitySet="play_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_play_history_users" Association="Self.FK_play_history_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="play_history" EntitySet="play_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_track_album" Association="Self.FK_track_album">
+            <End Role="album" EntitySet="album" />
+            <End Role="track" EntitySet="track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_track_artist" Association="Self.FK_track_artist">
+            <End Role="artist" EntitySet="artist" />
+            <End Role="track" EntitySet="track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_votes_users" Association="Self.FK_votes_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="votes" EntitySet="votes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MusicFarmerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="album">
+          <Key>
+            <PropertyRef Name="album_id" />
+          </Key>
+          <Property Name="album_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="album_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tracks" Relationship="Self.FK_track_album" FromRole="album" ToRole="track" />
+        </EntityType>
+        <EntityType Name="artist">
+          <Key>
+            <PropertyRef Name="artist_id" />
+          </Key>
+          <Property Name="artist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artist_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tracks" Relationship="Self.FK_track_artist" FromRole="artist" ToRole="track" />
+        </EntityType>
+        <EntityType Name="comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="play_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="play_history" Relationship="Self.FK_comments_play_history" FromRole="comments" ToRole="play_history" />
+          <Property Name="comment_text" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="MusicFarmerModel.FK_comments_users" FromRole="comment" ToRole="user" />
+        </EntityType>
+        <EntityType Name="play_history">
+          <Key>
+            <PropertyRef Name="play_id" />
+          </Key>
+          <Property Name="play_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="track_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="time_played" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="comments" Relationship="Self.FK_comments_play_history" FromRole="play_history" ToRole="comments" />
+          <NavigationProperty Name="track" Relationship="Self.FK_play_history_track" FromRole="play_history" ToRole="track" />
+          <Property Name="play_completed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="MusicFarmerModel.FK_play_history_users" FromRole="play_history" ToRole="user" />
+        </EntityType>
+        <EntityType Name="track">
+          <Key>
+            <PropertyRef Name="track_id" />
+          </Key>
+          <Property Name="track_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="track_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="artist_id" Type="Int32" />
+          <Property Name="album_id" Type="Int32" />
+          <NavigationProperty Name="album" Relationship="Self.FK_track_album" FromRole="track" ToRole="album" />
+          <NavigationProperty Name="artist" Relationship="Self.FK_track_artist" FromRole="track" ToRole="artist" />
+          <NavigationProperty Name="play_history" Relationship="Self.FK_play_history_track" FromRole="track" ToRole="play_history" />
+          <Property Name="track_URL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="comments" Relationship="MusicFarmerModel.FK_comments_users" FromRole="user" ToRole="comment" />
+          <NavigationProperty Name="play_history" Relationship="MusicFarmerModel.FK_play_history_users" FromRole="user" ToRole="play_history" />
+          <NavigationProperty Name="votes" Relationship="MusicFarmerModel.FK_votes_users" FromRole="user" ToRole="vote" />
+        </EntityType>
+        <EntityType Name="vote">
+          <Key>
+            <PropertyRef Name="vote_id" />
+          </Key>
+          <Property Name="vote_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="vote_value" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="MusicFarmerModel.FK_votes_users" FromRole="vote" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_track_album">
+          <End Role="album" Type="Self.album" Multiplicity="0..1" />
+          <End Role="track" Type="Self.track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="album">
+              <PropertyRef Name="album_id" />
+            </Principal>
+            <Dependent Role="track">
+              <PropertyRef Name="album_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_track_artist">
+          <End Role="artist" Type="Self.artist" Multiplicity="0..1" />
+          <End Role="track" Type="Self.track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="artist">
+              <PropertyRef Name="artist_id" />
+            </Principal>
+            <Dependent Role="track">
+              <PropertyRef Name="artist_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comments_play_history">
+          <End Role="play_history" Type="Self.play_history" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="comments" Type="Self.comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="play_history">
+              <PropertyRef Name="play_id" />
+            </Principal>
+            <Dependent Role="comments">
+              <PropertyRef Name="play_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_play_history_track">
+          <End Role="track" Type="Self.track" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="play_history" Type="Self.play_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="track">
+              <PropertyRef Name="track_id" />
+            </Principal>
+            <Dependent Role="play_history">
+              <PropertyRef Name="track_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MusicFarmerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="albums" EntityType="Self.album" />
+          <EntitySet Name="artists" EntityType="Self.artist" />
+          <EntitySet Name="comments" EntityType="Self.comment" />
+          <EntitySet Name="play_history" EntityType="Self.play_history" />
+          <EntitySet Name="tracks" EntityType="Self.track" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="votes" EntityType="Self.vote" />
+          <AssociationSet Name="FK_track_album" Association="Self.FK_track_album">
+            <End Role="album" EntitySet="albums" />
+            <End Role="track" EntitySet="tracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_track_artist" Association="Self.FK_track_artist">
+            <End Role="artist" EntitySet="artists" />
+            <End Role="track" EntitySet="tracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comments_play_history" Association="Self.FK_comments_play_history">
+            <End Role="play_history" EntitySet="play_history" />
+            <End Role="comments" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_play_history_track" Association="Self.FK_play_history_track">
+            <End Role="track" EntitySet="tracks" />
+            <End Role="play_history" EntitySet="play_history" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="MusicFarmerModel.sysdiagram" />
+          <AssociationSet Name="FK_comments_users" Association="MusicFarmerModel.FK_comments_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="comment" EntitySet="comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_play_history_users" Association="MusicFarmerModel.FK_play_history_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="play_history" EntitySet="play_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_votes_users" Association="MusicFarmerModel.FK_votes_users">
+            <End Role="user" EntitySet="users" />
+            <End Role="vote" EntitySet="votes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_comments_users">
+          <End Type="MusicFarmerModel.user" Role="user" Multiplicity="1" />
+          <End Type="MusicFarmerModel.comment" Role="comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_play_history_users">
+          <End Type="MusicFarmerModel.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MusicFarmerModel.play_history" Role="play_history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="play_history">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_votes_users">
+          <End Type="MusicFarmerModel.user" Role="user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MusicFarmerModel.vote" Role="vote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="vote">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MusicFarmerModelStoreContainer" CdmEntityContainer="MusicFarmerEntities">
+          <EntitySetMapping Name="albums">
+            <EntityTypeMapping TypeName="MusicFarmerModel.album">
+              <MappingFragment StoreEntitySet="album">
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+                <ScalarProperty Name="album_name" ColumnName="album_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artists">
+            <EntityTypeMapping TypeName="MusicFarmerModel.artist">
+              <MappingFragment StoreEntitySet="artist">
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="artist_name" ColumnName="artist_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comments">
+            <EntityTypeMapping TypeName="MusicFarmerModel.comment">
+              <MappingFragment StoreEntitySet="comments">
+                <ScalarProperty Name="comment_text" ColumnName="comment_text" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="play_id" ColumnName="play_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="play_history">
+            <EntityTypeMapping TypeName="MusicFarmerModel.play_history">
+              <MappingFragment StoreEntitySet="play_history">
+                <ScalarProperty Name="play_completed" ColumnName="play_completed" />
+                <ScalarProperty Name="play_id" ColumnName="play_id" />
+                <ScalarProperty Name="track_id" ColumnName="track_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="time_played" ColumnName="time_played" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tracks">
+            <EntityTypeMapping TypeName="MusicFarmerModel.track">
+              <MappingFragment StoreEntitySet="track">
+                <ScalarProperty Name="track_URL" ColumnName="track_URL" />
+                <ScalarProperty Name="track_id" ColumnName="track_id" />
+                <ScalarProperty Name="track_name" ColumnName="track_name" />
+                <ScalarProperty Name="artist_id" ColumnName="artist_id" />
+                <ScalarProperty Name="album_id" ColumnName="album_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="MusicFarmerModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="votes">
+            <EntityTypeMapping TypeName="MusicFarmerModel.vote">
+              <MappingFragment StoreEntitySet="votes">
+                <ScalarProperty Name="vote_value" ColumnName="vote_value" />
+                <ScalarProperty Name="vote_id" ColumnName="vote_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MusicFarmerModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,28 @@
+﻿@using Music_Farm_v2.Helpers.ToastHelper
+
+@if (TempData.ContainsKey("Toastr"))
+{
+    Toastr toastr = TempData["Toastr"] as Toastr;
+
+    if(toastr != null){
+        <script>
+            $(document).ready(function () {
+                toastr.options.closeButton = '@toastr.ShowCloseButton';
+                toastr.options.newestOnTop = '@toastr.ShowNewestOnTop';
+
+                @foreach(var message in toastr.ToastMessages)
+                {
+                    string toastTypeValue = message.ToastType.ToString("F").ToLower();
+                    
+                    if (message.IsSticky)
+                    {
+                        @:optionsOverride.timeOut = 0;
+                        @:optionOverride.extendedTimeOut = 0;
+                    }
+
+                    @:toastr['@toastTypeValue']('@message.Message', '@message.Title');
+                }
+            });
+        </script>
+    }
+}

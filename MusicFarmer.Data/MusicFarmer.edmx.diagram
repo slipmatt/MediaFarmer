@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="45a01ed610bf4c1daa2954d32583e025" Name="Diagram1">
+        <EntityTypeShape EntityType="MusicFarmerModel.album" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.artist" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.comment" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.play_history" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.track" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.user" Width="1.5" PointX="7.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.vote" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="MusicFarmerModel.FK_track_album" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicFarmerModel.FK_track_artist" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicFarmerModel.FK_comments_play_history" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicFarmerModel.FK_play_history_track" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MusicFarmerModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" />
+        <AssociationConnector Association="MusicFarmerModel.FK_comments_users" />
+        <AssociationConnector Association="MusicFarmerModel.FK_play_history_users" />
+        <AssociationConnector Association="MusicFarmerModel.FK_votes_users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

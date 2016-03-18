@@ -1,0 +1,114 @@
+﻿@*@using PagedList
+    @using PagedList.Mvc*@
+
+@model IEnumerable<Music_Farm_v2.ViewModels.TrackViewModel>
+@{
+    ViewBag.Title = "Farmer";
+}
+
+<h2>Music Finder</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="well well-sm form-inline">
+        <table class="table">
+            <tr>
+                <td>Search by Name:</td>
+                <td>@Html.TextBox("FilterName", ViewBag.FilterName as string)</td>
+            </tr>
+            <tr>
+                <td>Search by Artist:</td>
+                <td>@Html.TextBox("FilterArtist", ViewBag.FilterArtist as string)</td>
+            </tr>
+            <tr>
+                <td>Search by Genre:</td>
+                <td>@Html.TextBox("FilterGenre", ViewBag.FilterGenre as string)</td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Filter" class="btn btn-sm btn-info" /></td>
+            </tr>
+        </table>
+    </div>
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th colspan="3">Search Results</th>
+        <th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.track_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.track_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.artist_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.album_id)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.track_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.track_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.artist_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.album_id)
+            </td>
+            <td>@Html.ActionLink(" Queue", "Queue", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })</td>
+            <td>@Html.ActionLink(" Info", "Info", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })</td>
+        </tr>
+    }
+
+</table>
+
+<table class="table table-bordered">
+    <tr>
+        <th colspan="3">Currently Playing</th>
+        <th>
+    </tr>
+    <tr>
+        <th>
+            Name@*@Html.DisplayNameFor(model => model.Name)*@
+        </th>
+        <th>
+            Artist@*@Html.DisplayNameFor(model => model.IsActive)*@
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @*@foreach (var item in Model)
+        {*@
+    <tr>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Name)*@
+            SongName
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.IsActive)*@
+            SongArtist
+        </td>
+        <td>
+            @*@Html.ActionLink(" Vote", "Vote", null, new { id = item.ID }, new { data_modal = "", @class = "btn btn-xs btn-default" })
+                @Html.ActionLink(" Comments", "Comments", new { id = item.ID }, new { data_modal = "", @class = "btn btn-xs btn-default" })*@
+            @Html.ActionLink(" Vote", "Vote", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+            @Html.ActionLink(" Comments", "Comments", 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+        </td>
+    </tr>
+    @*}*@
+
+</table>
+
+@*@Html.PagedListPager((IPagedList<Music_Farm_v2.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@
