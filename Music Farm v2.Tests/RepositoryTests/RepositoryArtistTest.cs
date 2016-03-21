@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Music_Farm_v2.Context.Repositories;
+using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
 {
     class RepositoryArtistTest
     {
-        Moq.Mock<Data.MusicFarmerEntities> context;
+        Moq.Mock<MusicFarmerEntities> context;
         RepositoryArtist repos;
 
         [TestInitialize]
@@ -20,5 +21,6 @@ namespace Music_Farm_v2.Tests.RepositoryTests
             context = new Mock.Database.MockData.MockAlbumTests().MockContext;
             repos = new RepositoryArtist(new Uow(context.Object));
         }
+         
     }
 }

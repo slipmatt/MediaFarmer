@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using Music_Farm_v2.Data;
+using MusicFarmer.Data;
 
 namespace Music_Farm_v2.Context.Repositories
 {

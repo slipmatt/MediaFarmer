@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MusicFarmerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MusicFarmerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Album">
           <Key>
             <PropertyRef Name="AlbumId" />
@@ -37,6 +37,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="TimePlayed" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="PlayCompleted" Type="bit" Nullable="false" />
+          <Property Name="IsPlaying" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
@@ -193,8 +194,7 @@
             <End Role="Vote" EntitySet="Vote" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MusicFarmerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -237,6 +237,7 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK_comments_play_history" FromRole="PlayHistory" ToRole="Comment" />
           <NavigationProperty Name="Track" Relationship="Self.FK_play_history_track" FromRole="PlayHistory" ToRole="Track" />
           <NavigationProperty Name="User" Relationship="Self.FK_play_history_users" FromRole="PlayHistory" ToRole="User" />
+          <Property Name="IsPlaying" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Track">
           <Key>
@@ -435,6 +436,7 @@
           <EntitySetMapping Name="PlayHistories">
             <EntityTypeMapping TypeName="MusicFarmerModel.PlayHistory">
               <MappingFragment StoreEntitySet="PlayHistory">
+                <ScalarProperty Name="IsPlaying" ColumnName="IsPlaying" />
                 <ScalarProperty Name="PlayHistoryId" ColumnName="PlayHistoryId" />
                 <ScalarProperty Name="TrackId" ColumnName="TrackId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

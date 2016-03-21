@@ -15,6 +15,7 @@ namespace Music_Farm_v2.ViewModels
         public int UserId { get; set; }
         public byte[] TimePlayed { get; set; }
         public bool PlayCompleted { get; set; }
+        public bool IsPlaying { get; set; }
         public string UserName { get; set; }
         public string TrackName { get; set; }
     }

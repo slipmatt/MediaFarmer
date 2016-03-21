@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Music_Farm_v2.Data
+namespace MusicFarmer.Data
 {
     using System;
     using System.Collections.Generic;
@@ -25,6 +25,7 @@ namespace Music_Farm_v2.Data
         public int UserId { get; set; }
         public byte[] TimePlayed { get; set; }
         public bool PlayCompleted { get; set; }
+        public bool IsPlaying { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

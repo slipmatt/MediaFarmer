@@ -2,13 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Music_Farm_v2.Context.Repositories;
 using UnitOfWork;
+using MusicFarmer.Data;
 
 namespace Music_Farm_v2.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryAlbumTests
     {
-        Moq.Mock<Data.MusicFarmerEntities> context;
+        Moq.Mock<MusicFarmerEntities> context;
         RepositoryAlbum repos;
 
         [TestInitialize]

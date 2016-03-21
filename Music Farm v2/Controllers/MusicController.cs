@@ -1,14 +1,17 @@
 ﻿using Music_Farm_v2.Context.Repositories;
+using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UnitOfWork;
 
 namespace Music_Farm_v2.Controllers
 {
     public class MusicController : BaseController
     {
+        MusicFarmerEntities context = new MusicFarmerEntities();
 
         public ActionResult Album()
         {
@@ -16,11 +19,11 @@ namespace Music_Farm_v2.Controllers
             return View(item);
         }
 
-        public ActionResult Artist()
-        {
-            var item = RepositoryArtist.GetAllItems(true, "test");
-            return View(item);
-        }
+        //public ActionResult Artist()
+        //{
+        //    var item = RepositoryArtist.GetAllItems(true, "test");
+        //    return View(item);
+        //}
 
         public ActionResult Track()
         {
@@ -33,13 +36,7 @@ namespace Music_Farm_v2.Controllers
         //    var item = RepositoryComment.GetAllItems(true, "test");
         //    return View(item);
         //}
-
-        public ActionResult Playhistory()
-        {
-            var item = RepositoryPlayhistory.GetAllItems();
-            return View(item);
-        }
-
+        
         //public ActionResult Vote()
         //{
         //    var item = RepositoryVote.GetAllItems(true, "test");

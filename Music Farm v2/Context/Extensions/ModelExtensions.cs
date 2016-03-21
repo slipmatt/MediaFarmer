@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Music_Farm_v2.Data;
+using MusicFarmer.Data;
 
 namespace Music_Farm_v2.Context.Extensions
 {
@@ -75,34 +75,35 @@ namespace Music_Farm_v2.Context.Extensions
         //}
         //#endregion
 
-        //#region Playhistory
-        //public static PlayhistoryViewModel ToModel(this play_history item)
-        //{
-        //    if (item == null) return null;
-        //    return new PlayhistoryViewModel
-        //    {
-        //        play_id = item.play_id,
-        //        track_id = item.track_id,
-        //        user_id = item.user_id,
-        //        time_played = item.time_played,
-        //        user_name = item.user.user_name,
-        //        track_name = item.track.track_name,
-        //        //album_name = item.track.album.album_name
-        //    };
-        //}
-        //public static play_history ToData(this PlayhistoryViewModel item)
-        //{
-        //    if (item == null) return null;
-        //    return new play_history
-        //    {
-        //        play_id = item.play_id,
-        //        track_id = item.track_id,
-        //        user_id = item.user_id,
-        //        time_played = item.time_played
-
-        //    };
-        //}
-        //#endregion
+        #region Playhistory
+        public static PlayHistoryViewModel ToModel(this PlayHistory item)
+        {
+            if (item == null) return null;
+            return new PlayHistoryViewModel
+            {
+                PlayHistoryId = item.PlayHistoryId,
+                TrackId = item.TrackId,
+                UserId = item.UserId,
+                TimePlayed = item.TimePlayed,
+                UserName = item.User.UserName,
+                TrackName = item.Track.TrackName,
+                PlayCompleted=item.PlayCompleted
+              //  AlbumName = item.Track.Album.AlbumName
+            };
+        }
+        public static PlayHistory ToData(this PlayHistoryViewModel item)
+        {
+            if (item == null) return null;
+            return new PlayHistory
+            {
+                PlayHistoryId = item.PlayHistoryId,
+                TrackId = item.TrackId,
+                UserId = item.UserId,
+                TimePlayed = item.TimePlayed,
+                PlayCompleted = item.PlayCompleted
+            };
+        }
+        #endregion
 
         //#region User
         //public static UserViewModel ToModel(this user item)

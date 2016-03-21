@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Music_Farm_v2.ViewModels.PlayHistoryViewModel>
+
+<table class="table table-bordered">
+    <tr>
+        <th colspan="3">Currently Queued</th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.ActionLink(" Vote", "Vote", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+                @Html.ActionLink(" Comments", "Comments", 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
+            </td>
+        </tr>
+    }
+
+</table>
+

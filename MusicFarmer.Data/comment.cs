@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Music_Farm_v2.Data
+namespace MusicFarmer.Data
 {
     using System;
     using System.Collections.Generic;

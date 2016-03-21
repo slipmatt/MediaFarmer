@@ -167,10 +167,11 @@
     <Compile Include="Context\Repositories\ContextData.cs" />
     <Compile Include="Context\Repositories\RepositoryAlbum.cs" />
     <Compile Include="Context\Repositories\RepositoryArtist.cs" />
-    <Compile Include="Context\Repositories\RepositoryPlayhistory.cs" />
+    <Compile Include="Context\Repositories\RepositoryPlayHistory.cs" />
     <Compile Include="Context\Repositories\RepositoryTrack.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
+    <Compile Include="Controllers\Playhistory\PlayHistoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -286,14 +287,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Music\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Alerts.cshtml" />
     <Content Include="Views\Shared\_DeleteConfirm.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_SideMenu.cshtml" />
     <Content Include="Views\Music\Track.cshtml" />
-    <Content Include="Views\Music\Playhistory.cshtml" />
+    <Content Include="Views\PlayHistory\Index.cshtml" />
+    <Content Include="Views\PlayHistory\GetCurrentlyQueued.cshtml" />
+    <Content Include="Views\PlayHistory\GetCurrentlyPlaying.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
