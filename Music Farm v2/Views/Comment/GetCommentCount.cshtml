@@ -1,0 +1,2 @@
+﻿@model IEnumerable < Music_Farm_v2.ViewModels.CommentViewModel>
+<i>@Html.ActionLink((string) ViewBag.CommentCount, "AddComment", "Comment",new { PlayHistoryId = ViewBag.PlayHistoryId} , new { data_modal = "", @class = "fa fa-comments" })</i>

@@ -52,28 +52,30 @@ namespace Music_Farm_v2.Context.Extensions
         }
         #endregion
 
-        //#region Comment
-        //public static CommentViewModel ToModel(this comment item)
-        //{
-        //    if (item == null) return null;
-        //    return new CommentViewModel
-        //    {
-        //        comment_id = item.comment_id,
-        //        comment_text = item.comment_text,
-        //        user_id = item.user_id
-        //    };
-        //}
-        //public static comment ToData(this CommentViewModel item)
-        //{
-        //    if (item == null) return null;
-        //    return new comment
-        //    {
-        //        comment_id = item.comment_id,
-        //        comment_text = item.comment_text,
-        //        user_id = item.user_id
-        //    };
-        //}
-        //#endregion
+        #region Comment
+        public static CommentViewModel ToModel(this Comment item)
+        {
+            if (item == null) return null;
+            return new CommentViewModel
+            {
+                CommentId = item.CommentId,
+                CommentText = item.CommentText,
+                UserId = item.UserId,
+                PlayHistoryId=item.PlayHistoryId
+            };
+        }
+        public static Comment ToData(this CommentViewModel item)
+        {
+            if (item == null) return null;
+            return new Comment
+            {
+                CommentId = item.CommentId,
+                CommentText = item.CommentText,
+                UserId = item.UserId,
+                PlayHistoryId = item.PlayHistoryId
+            };
+        }
+        #endregion
 
         #region Playhistory
         public static PlayHistoryViewModel ToModel(this PlayHistory item)
@@ -105,51 +107,52 @@ namespace Music_Farm_v2.Context.Extensions
         }
         #endregion
 
-        //#region User
-        //public static UserViewModel ToModel(this user item)
-        //{
-        //    if (item == null) return null;
-        //    return new UserViewModel
-        //    {
-        //        user_id = item.user_id,
-        //        user_name = item.user_name,
-        //        active = item.active
-        //    };
-        //}
-        //public static user ToData(this UserViewModel item)
-        //{
-        //    if (item == null) return null;
-        //    return new user
-        //    {
-        //        user_id = item.user_id,
-        //        user_name = item.user_name,
-        //        active = item.active
-        //    };
-        //}
-        //#endregion
+        #region User
+        public static UserViewModel ToModel(this User item)
+        {
+            if (item == null) return null;
+            return new UserViewModel
+            {
+                UserId = item.UserId,
+                UserName = item.UserName,
+                Active = item.Active
+            };
+        }
+        public static User ToData(this UserViewModel item)
+        {
+            if (item == null) return null;
+            return new User
+            {
+                UserId = item.UserId,
+                UserName = item.UserName,
+                Active = item.Active
+            };
+        }
+        #endregion
 
-        //#region Vote
-        //public static VoteViewModel ToModel(this vote item)
-        //{
-        //    if (item == null) return null;
-        //    return new VoteViewModel
-        //    {
-        //        vote_id = item.vote_id,
-        //        vote_value = item.vote_value,
-        //        user_id = item.user_id
-        //    };
-        //}
-        //public static vote ToData(this VoteViewModel item)
-        //{
-        //    if (item == null) return null;
-        //    return new vote
-        //    {
-        //        vote_id = item.vote_id,
-        //        vote_value = item.vote_value,
-        //        user_id = item.user_id
-        //    };
-        //}
-        //#endregion
+        #region Vote
+        public static VoteViewModel ToModel(this Vote item)
+        {
+            if (item == null) return null;
+            return new VoteViewModel
+            {
+                VoteId = item.VoteId,
+                VoteValue = item.VoteValue,
+                UserId = item.UserId,
+                PlayHistoryId = item.PlayhistoryId
+            };
+        }
+        public static Vote ToData(this VoteViewModel item)
+        {
+            if (item == null) return null;
+            return new Vote
+            {
+                VoteId = item.VoteId,
+                VoteValue = item.VoteValue,
+                UserId = item.UserId
+            };
+        }
+        #endregion
 
         //#region Track
         //public static TrackViewModel ToModel(this track item)

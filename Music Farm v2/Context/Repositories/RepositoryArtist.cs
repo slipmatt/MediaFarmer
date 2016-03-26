@@ -1,5 +1,6 @@
 ﻿using Music_Farm_v2.Context.Extensions;
 using Music_Farm_v2.ViewModels;
+using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace Music_Farm_v2.Context.Repositories
 {
     public class RepositoryArtist
     {
-        private IUow _uow;
+        private static IUow _uow;
+        private static IRepository<Artist> repo;
         public RepositoryArtist(IUow uow)
         {
             _uow = uow;
+            repo = _uow.GetRepo<Artist>();
         }
 
         public static List<ArtistViewModel> GetAllItems(string filterString)

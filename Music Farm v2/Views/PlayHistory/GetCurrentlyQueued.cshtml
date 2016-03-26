@@ -24,9 +24,15 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink(" Vote", "Vote", null, 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
-                @Html.ActionLink(" Comments", "Comments", 1, new { data_modal = "", @class = "btn btn-xs btn-info" })
-            </td>
+                @{ 
+                    Html.RenderAction("GetUpVoteCount", "Vote", new { PlayHistoryId = item.PlayHistoryId });
+                }
+                @{ 
+                    Html.RenderAction("GetDownVoteCount", "Vote", new { PlayHistoryId = item.PlayHistoryId });
+                }
+                @{
+                    Html.RenderAction("GetCommentCount", "Comment", new { PlayHistoryId = item.PlayHistoryId });
+                } </td>
         </tr>
     }
 

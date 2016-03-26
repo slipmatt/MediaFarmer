@@ -17,7 +17,9 @@ namespace MusicFarmer.Data
         public int VoteId { get; set; }
         public bool VoteValue { get; set; }
         public int UserId { get; set; }
+        public int PlayhistoryId { get; set; }
     
+        public virtual PlayHistory PlayHistory { get; set; }
         public virtual User User { get; set; }
     }
 }

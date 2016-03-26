@@ -15,8 +15,7 @@ namespace Music_Farm_v2.Controllers
 
         public ActionResult Album()
         {
-            var item = RepositoryAlbum.GetAllItems(true, "test");
-            return View(item);
+            return View();
         }
 
         //public ActionResult Artist()
@@ -27,8 +26,7 @@ namespace Music_Farm_v2.Controllers
 
         public ActionResult Track()
         {
-            var item = RepositoryTrack.GetAllItems(true, "test");
-            return View(item);
+            return View();
         }
 
         //public ActionResult Comment()

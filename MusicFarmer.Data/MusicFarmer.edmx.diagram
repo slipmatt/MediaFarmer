@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ce183ee136a54b709d37f85900308bbb" Name="Diagram1">
+      <Diagram DiagramId="85d791b8d0894ad39cd4387c748ecee2" Name="Diagram1">
         <EntityTypeShape EntityType="MusicFarmerModel.Album" Width="1.5" PointX="1.5" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicFarmerModel.Artist" Width="1.5" PointX="1.5" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicFarmerModel.Comment" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicFarmerModel.PlayHistory" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.PlayHistory" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicFarmerModel.Track" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MusicFarmerModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MusicFarmerModel.Vote" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Vote" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="MusicFarmerModel.FK_track_album" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_track_artist" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_comments_play_history" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_comments_users" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_play_history_track" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_play_history_users" ManuallyRouted="false" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Vote_PlayHistory" ManuallyRouted="false" />
         <AssociationConnector Association="MusicFarmerModel.FK_votes_users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

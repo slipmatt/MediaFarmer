@@ -18,6 +18,7 @@ namespace MusicFarmer.Data
         public PlayHistory()
         {
             this.Comments = new HashSet<Comment>();
+            this.Votes = new HashSet<Vote>();
         }
     
         public int PlayHistoryId { get; set; }
@@ -31,5 +32,7 @@ namespace MusicFarmer.Data
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Track Track { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

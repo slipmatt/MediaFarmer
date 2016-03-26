@@ -167,14 +167,20 @@
     <Compile Include="Context\Repositories\ContextData.cs" />
     <Compile Include="Context\Repositories\RepositoryAlbum.cs" />
     <Compile Include="Context\Repositories\RepositoryArtist.cs" />
+    <Compile Include="Context\Repositories\RepositoryComment.cs" />
     <Compile Include="Context\Repositories\RepositoryPlayHistory.cs" />
     <Compile Include="Context\Repositories\RepositoryTrack.cs" />
+    <Compile Include="Context\Repositories\RepositoryUser.cs" />
+    <Compile Include="Context\Repositories\RepositoryVote.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Comment\CommentController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\Playhistory\PlayHistoryController.cs" />
+    <Compile Include="Controllers\Vote\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthHelper\AuthHelper.cs" />
     <Compile Include="Helpers\ReturnsHelper\JsonNetResult.cs" />
     <Compile Include="Helpers\ToastHelper\ToastMessage.cs" />
     <Compile Include="Helpers\ToastHelper\Toastr.cs" />
@@ -296,6 +302,10 @@
     <Content Include="Views\PlayHistory\Index.cshtml" />
     <Content Include="Views\PlayHistory\GetCurrentlyQueued.cshtml" />
     <Content Include="Views\PlayHistory\GetCurrentlyPlaying.cshtml" />
+    <Content Include="Views\Vote\GetUpVoteCount.cshtml" />
+    <Content Include="Views\Vote\GetDownVoteCount.cshtml" />
+    <Content Include="Views\Comment\GetCommentCount.cshtml" />
+    <Content Include="Views\Comment\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

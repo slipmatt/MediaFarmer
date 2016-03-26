@@ -1,0 +1,39 @@
+﻿@model Music_Farm_v2.ViewModels.CommentViewModel
+
+<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+        <h3 id="myModalLabel">Add Comment</h3>
+    </div>
+    
+    @using (Html.BeginForm("AddComment", "Comment", FormMethod.Post, new { @class = "modal-form" }))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(Model => Model.CommentId)
+        @Html.HiddenFor(Model =>Model.PlayHistoryId)
+        @Html.HiddenFor(Model => Model.UserId)
+        <div class="modal-body">
+            <table class="crud-table">
+                <tr>
+                    <td class="col-md-5">
+                        <div>
+                            @Html.LabelFor(model => model.CommentText)
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.EditorFor(model => model.CommentText)
+                            @Html.ValidationMessageFor(model => model.CommentText)
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="modal-footer">
+            <input type="submit" value="Save" class="btn btn-xs btn-success" />
+        </div>
+    }
+</div>

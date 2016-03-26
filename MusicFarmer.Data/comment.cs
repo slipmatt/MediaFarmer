@@ -15,7 +15,7 @@ namespace MusicFarmer.Data
     public partial class Comment
     {
         public int CommentId { get; set; }
-        public int PlayId { get; set; }
+        public int PlayHistoryId { get; set; }
         public string CommentText { get; set; }
         public int UserId { get; set; }
     

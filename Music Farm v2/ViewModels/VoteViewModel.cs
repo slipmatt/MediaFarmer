@@ -15,5 +15,6 @@ namespace Music_Farm_v2.ViewModels
         [Required(ErrorMessage = "Please select your vote")]
         [DisplayName("Vote")]
         public bool VoteValue { get; set; }
+        public int PlayHistoryId { get; set; }
     }
 }
