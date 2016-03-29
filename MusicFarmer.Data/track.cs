@@ -18,6 +18,7 @@ namespace MusicFarmer.Data
         public Track()
         {
             this.PlayHistories = new HashSet<PlayHistory>();
+            this.Favourites = new HashSet<Favourite>();
         }
     
         public int TrackId { get; set; }
@@ -30,5 +31,7 @@ namespace MusicFarmer.Data
         public virtual Artist Artist { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayHistory> PlayHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourite> Favourites { get; set; }
     }
 }

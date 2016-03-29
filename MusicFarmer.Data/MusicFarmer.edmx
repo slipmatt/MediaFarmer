@@ -28,6 +28,14 @@
           <Property Name="CommentText" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="FavouriteId" />
+          </Key>
+          <Property Name="FavouriteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TrackId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PlayHistory">
           <Key>
             <PropertyRef Name="PlayHistoryId" />
@@ -88,6 +96,34 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_Track">
+          <End Role="Track" Type="Self.Track" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="TrackId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Favourite">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -174,6 +210,7 @@
           <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favourite" EntityType="Self.Favourite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayHistory" EntityType="Self.PlayHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -185,6 +222,14 @@
           <AssociationSet Name="FK_comments_users" Association="Self.FK_comments_users">
             <End Role="User" EntitySet="User" />
             <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_Track" Association="Self.FK_Favourite_Track">
+            <End Role="Track" EntitySet="Track" />
+            <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="Self.FK_Favourite_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Favourite" EntitySet="Favourite" />
           </AssociationSet>
           <AssociationSet Name="FK_play_history_track" Association="Self.FK_play_history_track">
             <End Role="Track" EntitySet="Track" />
@@ -255,6 +300,15 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Vote" EntitySet="Votes" />
           </AssociationSet>
+          <EntitySet Name="Favourites" EntityType="MusicFarmerModel.Favourite" />
+          <AssociationSet Name="FK_Favourite_Track" Association="MusicFarmerModel.FK_Favourite_Track">
+            <End Role="Track" EntitySet="Tracks" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="MusicFarmerModel.FK_Favourite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Album">
           <Key>
@@ -310,6 +364,7 @@
           <NavigationProperty Name="Album" Relationship="MusicFarmerModel.FK_track_album" FromRole="Track" ToRole="Album" />
           <NavigationProperty Name="Artist" Relationship="MusicFarmerModel.FK_track_artist" FromRole="Track" ToRole="Artist" />
           <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_track" FromRole="Track" ToRole="PlayHistory" />
+          <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Track" ToRole="Favourite" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -321,6 +376,7 @@
           <NavigationProperty Name="Comments" Relationship="MusicFarmerModel.FK_comments_users" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_users" FromRole="User" ToRole="PlayHistory" />
           <NavigationProperty Name="Votes" Relationship="MusicFarmerModel.FK_votes_users" FromRole="User" ToRole="Vote" />
+          <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
         </EntityType>
         <EntityType Name="Vote">
           <Key>
@@ -437,6 +493,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="FavouriteId" />
+          </Key>
+          <Property Name="FavouriteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrackId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Track" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Favourite" ToRole="Track" />
+          <NavigationProperty Name="User" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="Favourite" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Favourite_Track">
+          <End Type="MusicFarmerModel.Track" Role="Track" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="TrackId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -508,6 +602,15 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="VoteValue" ColumnName="VoteValue" />
                 <ScalarProperty Name="VoteId" ColumnName="VoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="MusicFarmerModel.Favourite">
+              <MappingFragment StoreEntitySet="Favourite">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+                <ScalarProperty Name="FavouriteId" ColumnName="FavouriteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

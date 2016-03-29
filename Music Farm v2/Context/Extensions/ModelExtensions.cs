@@ -179,5 +179,30 @@ namespace Music_Farm_v2.Context.Extensions
             };
         }
         #endregion
+
+        #region Track
+        public static FavouriteViewModel ToModel(this Favourite item)
+        {
+            if (item == null) return null;
+            return new FavouriteViewModel
+            {
+                FavouriteId = item.FavouriteId,
+                UserId = item.UserId,
+                TrackId = item.TrackId,
+                UserName = item.User.UserName,
+                TrackName = item.Track.TrackName,
+            };
+        }
+        public static Favourite ToData(this FavouriteViewModel item)
+        {
+            if (item == null) return null;
+            return new Favourite
+            {
+                FavouriteId = item.FavouriteId,
+                UserId = item.UserId,
+                TrackId = item.TrackId
+            };
+        }
+        #endregion
     }
 }

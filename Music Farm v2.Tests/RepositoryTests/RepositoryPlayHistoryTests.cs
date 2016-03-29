@@ -44,6 +44,12 @@ namespace Music_Farm_v2.Tests.RepositoryTests
             Assert.IsTrue(items.Count == 2);
         }
 
-        
+        [TestMethod]
+        public void ShouldQueueTrack()
+        {
+            repos.Queue(1);
+            var items = repos.GetCurrentlyQueued();
+            Assert.IsTrue(items.Count == 3);
+        }
     }
 }

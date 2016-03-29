@@ -23,13 +23,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Music", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Music Farmer", "Index", "PlayHistory", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Music", "Index", "Music")</li>
-                    <li>@Html.ActionLink("My Favourites", "Favourites", "Music")</li>
-                    <li>@Html.ActionLink("Upload", "Upload", "Music", new { data_modal = "", @class = "fa fa-caret-down" })</li>
+                    <li>@Html.ActionLink("Currently Playing", "Index", "PlayHistory")</li>
+                    <li>@Html.ActionLink("Track Search", "Index", "Track")</li>
+                    <li>@Html.ActionLink("My Favourites", "My", "Favourite") }</li>
+                    <li>@Html.ActionLink("Upload", "Upload", "Track", new { data_modal = "", @class = "fa fa-caret-down" })</li>
                 </ul>
                 @*@Html.Partial("_SideMenu")*@
                 @Html.Partial("_LoginPartial")

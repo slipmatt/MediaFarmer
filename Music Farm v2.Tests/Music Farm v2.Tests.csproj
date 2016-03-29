@@ -117,6 +117,7 @@
     <Compile Include="Mock\Database\MockData\MockAlbumTests.cs" />
     <Compile Include="Mock\Database\MockData\MockArtistTests.cs" />
     <Compile Include="Mock\Database\MockData\MockCommentTests.cs" />
+    <Compile Include="Mock\Database\MockData\MockFavouriteTests.cs" />
     <Compile Include="Mock\Database\MockData\MockPlayHistoryTests.cs" />
     <Compile Include="Mock\Database\MockData\MockTrackTests.cs" />
     <Compile Include="Mock\Database\MockData\MockTrafficLogTests.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="RepositoryTests\RepositoryAlbumTests.cs" />
     <Compile Include="RepositoryTests\RepositoryArtistTest.cs" />
     <Compile Include="RepositoryTests\RepositoryCommentTests.cs" />
+    <Compile Include="RepositoryTests\RepositoryFavouriteTests.cs" />
     <Compile Include="RepositoryTests\RepositoryPlayHistoryTests.cs" />
     <Compile Include="RepositoryTests\RepositoryTrackTests.cs" />
     <Compile Include="RepositoryTests\RepositoryUserTests.cs" />

@@ -32,7 +32,13 @@
                 }
                 @{
                     Html.RenderAction("GetCommentCount", "Comment", new { PlayHistoryId = item.PlayHistoryId });
-                } </td>
+                } 
+                @{
+                    <i>@Html.ActionLink(" ", "AddFavourite", "Favourite", new { ID = item.TrackId }, new { @class = "fa fa-heart-o", @style = "font-size:15px;color:red;" })</i>
+
+                }
+            
+            </td>
         </tr>
     }
 

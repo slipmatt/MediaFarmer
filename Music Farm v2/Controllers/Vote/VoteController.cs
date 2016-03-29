@@ -38,7 +38,7 @@ namespace Music_Farm_v2.Controllers.Vote
 
             repos.UpVote(PlayHistoryId);
             Success("Vote", "Save successful.");
-            return View("../PlayHistory/Index");
+            return RedirectToAction("Index", "PlayHistory");
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace Music_Farm_v2.Controllers.Vote
             
             repos.DownVote(PlayHistoryId);
             Success("Vote", "Save successful.");
-            return View("../PlayHistory/Index");
+            return RedirectToAction("Index", "PlayHistory");
         }
         #endregion
     }

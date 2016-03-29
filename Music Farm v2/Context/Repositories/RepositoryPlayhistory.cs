@@ -1,4 +1,5 @@
 ﻿using Music_Farm_v2.Context.Extensions;
+using Music_Farm_v2.Helpers.AuthHelper;
 using Music_Farm_v2.ViewModels;
 using MusicFarmer.Data;
 using System;
@@ -42,6 +43,19 @@ namespace Music_Farm_v2.Context.Repositories
             return repo.GetByQuery()
                 .Where(i => i.TrackId.Equals(TrackId))
                 .Select(i => i.ToModel()).ToList();
+        }
+
+        public void Queue(int _TrackId)
+        {
+            var _userId = AuthHelper.setupUser();
+            PlayHistoryViewModel pvm = new PlayHistoryViewModel
+            {
+                TrackId = _TrackId,
+                UserId = _userId,
+            };
+
+            repo.Add(pvm.ToData());
+            repo.SaveChanges();
         }
     }
 }

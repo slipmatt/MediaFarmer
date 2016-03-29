@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Music_Farm_v2.ViewModels.FavouriteViewModel>
+
+@{
+    ViewBag.Title = "My Bestest most favourte tracks EVER";
+}
+
+<h2>Tracks</h2>
+
+@using (Html.BeginForm("Search", "Favourite", FormMethod.Get))
+{
+    <div class="well well-sm form-inline">
+        <p>
+            Find by Track Name: @Html.TextBox("TrackName", ViewBag.TrackName as string)
+            Find By Album Name @Html.TextBox("AlbumName", ViewBag.AlbumName as string)
+            Find By Artist Name @Html.TextBox("ArtistName", ViewBag.ArtistName as string)
+            <input type="submit" value="Filter" class="btn btn-sm btn-info" />
+        </p>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrackName)
+        </th>
+
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackName)
+            </td>
+            <td>
+                @Html.ActionLink("Queue This!", "Queue", "PlayHistory", new { id = item.TrackId }, new { @class = "btn btn-xs btn-default" })
+
+            </td>
+        </tr>
+    }
+
+</table>

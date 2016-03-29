@@ -20,6 +20,9 @@
         <AssociationConnector Association="MusicFarmerModel.FK_play_history_users" />
         <AssociationConnector Association="MusicFarmerModel.FK_Vote_PlayHistory" />
         <AssociationConnector Association="MusicFarmerModel.FK_votes_users" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Favourite" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Favourite_Track" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Favourite_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

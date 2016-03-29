@@ -32,5 +32,6 @@ namespace MusicFarmer.Data
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
+        public virtual DbSet<Favourite> Favourites { get; set; }
     }
 }

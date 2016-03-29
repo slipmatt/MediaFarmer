@@ -30,6 +30,14 @@ namespace Music_Farm_v2.Tests.RepositoryTests
             var _TrackId = _Track.Find(i => i.TrackName == "Track1").TrackId;
             Assert.AreEqual(1, _TrackId);
         }
+
+        [TestMethod]
+        public void ShouldGetAllFilteredTracks()
+        {
+            List<TrackViewModel> _Track = repos.SearchTrackByName("");
+            
+            Assert.IsTrue(_Track.Count==4);
+        }
         [TestMethod]
         public void ShouldGetAllFilteredTracksByAlbumName()
         {

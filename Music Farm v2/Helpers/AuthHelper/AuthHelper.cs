@@ -10,6 +10,7 @@ namespace Music_Farm_v2.Helpers.AuthHelper
 {
     public class AuthHelper
     {
+        //Does not work on Test
         public static int setupUser()
         {
             MusicFarmerEntities context = new MusicFarmerEntities();

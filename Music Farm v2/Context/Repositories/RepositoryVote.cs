@@ -64,8 +64,8 @@ namespace Music_Farm_v2.Context.Repositories
                 else
                 {
                     if (_vvm.Find
-                        (i => (i.UserId == _userId) && 
-                        (i.VoteValue == true))!=null)
+                        (i => (i.UserId == _userId) &&
+                        (i.VoteValue == true)) != null)
                     {
                         _vote = repo.GetById(_vvm.Find
                            (i => (i.UserId == _userId) &&
@@ -73,6 +73,16 @@ namespace Music_Farm_v2.Context.Repositories
                            .VoteId);
                         _vote.VoteValue = false;
                         repo.Update(_vote);
+                    }
+                    else if (_vvm.Find
+                        (i => (i.UserId == _userId) &&
+                        (i.VoteValue == false)) != null)
+                    {
+                        _vote = repo.GetById(_vvm.Find
+                           (i => (i.UserId == _userId) &&
+                           (i.VoteValue == false))
+                           .VoteId);
+                        repo.Delete(_vote);
                     }
                 }
             }
@@ -112,6 +122,16 @@ namespace Music_Farm_v2.Context.Repositories
                             .VoteId);
                         _vote.VoteValue = true;
                         repo.Update(_vote);
+                    }
+                    else if (_vvm.Find
+                        (i => (i.UserId == _userId) &&
+                        (i.VoteValue == true)) != null)
+                    {
+                        _vote = repo.GetById(_vvm.Find
+                           (i => (i.UserId == _userId) &&
+                           (i.VoteValue == true))
+                           .VoteId);
+                        repo.Delete(_vote);
                     }
                 }
             }
