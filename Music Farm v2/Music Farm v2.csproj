@@ -176,6 +176,7 @@
     <Compile Include="Controllers\Comment\CommentController.cs" />
     <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\Playhistory\PlayHistoryController.cs" />
+    <Compile Include="Controllers\Track\TrackController.cs" />
     <Compile Include="Controllers\Vote\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -306,6 +307,7 @@
     <Content Include="Views\Vote\GetDownVoteCount.cshtml" />
     <Content Include="Views\Comment\GetCommentCount.cshtml" />
     <Content Include="Views\Comment\AddComment.cshtml" />
+    <Content Include="Views\Track\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

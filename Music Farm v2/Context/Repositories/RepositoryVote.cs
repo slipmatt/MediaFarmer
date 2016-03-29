@@ -23,7 +23,7 @@ namespace Music_Farm_v2.Context.Repositories
         {
             return repo.GetByQuery()
                 .Where(i => i.VoteValue.Equals(true))
-                .Where(i => i.PlayhistoryId.Equals(PlayHistoryId))
+                .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
                 .Select(i => i.ToModel()).ToList();
         }
 
@@ -31,20 +31,95 @@ namespace Music_Farm_v2.Context.Repositories
         {
             return repo.GetByQuery()
                 .Where(i => i.VoteValue.Equals(false))
-                .Where(i => i.PlayhistoryId.Equals(PlayHistoryId))
+                .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
+                .Select(i => i.ToModel()).ToList();
+        }
+
+        public List<VoteViewModel> GetVotes(int PlayHistoryId)
+        {
+            return repo.GetByQuery()
+                .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
                 .Select(i => i.ToModel()).ToList();
         }
 
         public void DownVote(int _PlayHistoryId)
         {
             var _userId = AuthHelper.setupUser();
-            VoteViewModel User = new VoteViewModel
+            List<VoteViewModel> _vvm;
+            Vote _vote = new Vote
             {
+                VoteId=0,
                 VoteValue = false,
                 PlayHistoryId = _PlayHistoryId,
                 UserId = _userId
-            
             };
+
+            _vvm = this.GetVotes(_PlayHistoryId);
+            if (_vvm != null)
+            {
+                if (_vvm.Find(i => i.UserId == _userId) == null)
+                {
+                    repo.Add(_vote);
+                }
+                else
+                {
+                    if (_vvm.Find
+                        (i => (i.UserId == _userId) && 
+                        (i.VoteValue == true))!=null)
+                    {
+                        _vote = repo.GetById(_vvm.Find
+                           (i => (i.UserId == _userId) &&
+                           (i.VoteValue == true))
+                           .VoteId);
+                        _vote.VoteValue = false;
+                        repo.Update(_vote);
+                    }
+                }
+            }
+            else
+            {
+                repo.Add(_vote);
+            }
+            repo.SaveChanges();
+        }
+
+        public void UpVote(int _PlayHistoryId)
+        {
+            var _userId = AuthHelper.setupUser();
+            List<VoteViewModel> _vvm;
+            Vote _vote = new Vote
+            {
+                VoteValue = true,
+                PlayHistoryId = _PlayHistoryId,
+                UserId = _userId
+            };
+            _vvm = this.GetVotes(_PlayHistoryId);
+            if (_vvm != null)
+            {
+                if (_vvm.Find(i => i.UserId == _userId) == null)
+                {
+                    repo.Add(_vote);
+                }
+                else
+                {
+                    if (_vvm.Find
+                            (i => (i.UserId == _userId) &&
+                            (i.VoteValue == false)) != null)
+                    {
+                        _vote = repo.GetById(_vvm.Find
+                            (i => (i.UserId == _userId) &&
+                            (i.VoteValue == false))
+                            .VoteId);
+                        _vote.VoteValue = true;
+                        repo.Update(_vote);
+                    }
+                }
+            }
+            else
+            {
+                repo.Add(_vote);
+            }
+            repo.SaveChanges();
         }
     }
 }

@@ -139,7 +139,7 @@ namespace Music_Farm_v2.Context.Extensions
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
                 UserId = item.UserId,
-                PlayHistoryId = item.PlayhistoryId
+                PlayHistoryId = item.PlayHistoryId
             };
         }
         public static Vote ToData(this VoteViewModel item)
@@ -149,34 +149,35 @@ namespace Music_Farm_v2.Context.Extensions
             {
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
-                UserId = item.UserId
+                UserId = item.UserId,
+                PlayHistoryId = item.PlayHistoryId
             };
         }
         #endregion
 
-        //#region Track
-        //public static TrackViewModel ToModel(this track item)
-        //{
-        //    if (item == null) return null;
-        //    return new TrackViewModel
-        //    {
-        //        track_id = item.track_id,
-        //        track_name = item.track_name,
-        //        artist_id = item.artist_id,
-        //        album_id = item.album_id
-        //    };
-        //}
-        //public static track ToData(this TrackViewModel item)
-        //{
-        //    if (item == null) return null;
-        //    return new track
-        //    {
-        //        track_id = item.track_id,
-        //        track_name = item.track_name,
-        //        artist_id = item.artist_id,
-        //        album_id = item.album_id
-        //    };
-        //}
-        //#endregion
+        #region Track
+        public static TrackViewModel ToModel(this Track item)
+        {
+            if (item == null) return null;
+            return new TrackViewModel
+            {
+                TrackId = item.TrackId,
+                TrackName = item.TrackName,
+                ArtistId = item.ArtistId,
+                AlbumId = item.AlbumId
+            };
+        }
+        public static Track ToData(this TrackViewModel item)
+        {
+            if (item == null) return null;
+            return new Track
+            {
+                TrackId = item.TrackId,
+                TrackName = item.TrackName,
+                ArtistId = item.ArtistId,
+                AlbumId = item.AlbumId
+            };
+        }
+        #endregion
     }
 }
