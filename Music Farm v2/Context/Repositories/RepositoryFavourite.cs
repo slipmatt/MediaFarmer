@@ -22,7 +22,8 @@ namespace Music_Farm_v2.Context.Repositories
 
         public List<FavouriteViewModel> MyFavourites()
         {
-            var _UserId= AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _UserId = _ah.SetupUser();
             return repo.GetByQuery()
                 .Where(i => i.UserId == _UserId)
                 .Select(i => i.ToModel()).ToList();
@@ -30,7 +31,8 @@ namespace Music_Farm_v2.Context.Repositories
 
         public void AddFavourite(int ID)
         {
-            var _userId = AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _userId = _ah.SetupUser();
            FavouriteViewModel fvm = new FavouriteViewModel
            {
                 UserId = _userId,

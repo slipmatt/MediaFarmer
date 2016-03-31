@@ -29,5 +29,10 @@ namespace Music_Farm_v2.Context.Repositories
         {
             return repo.GetByQuery().Select(i => i.ToModel()).ToList();
         }
+
+        public List<AlbumViewModel> GetAlbumId(string _AlbumName)
+        {
+            return repo.GetByQuery(i=>i.AlbumName== _AlbumName).Select(i => i.ToModel()).ToList();
+        }
     }
 }

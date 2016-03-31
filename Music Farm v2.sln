@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork", "UnitOfWork\Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.Data", "MusicFarmer.Data\Music Farm v2.Data.csproj", "{8C0CFAD9-53A5-434D-854F-F550F9899699}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.Player", "Music Farm v2.Player\Music Farm v2.Player.csproj", "{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8C0CFAD9-53A5-434D-854F-F550F9899699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C0CFAD9-53A5-434D-854F-F550F9899699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C0CFAD9-53A5-434D-854F-F550F9899699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

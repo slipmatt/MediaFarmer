@@ -31,9 +31,14 @@
                 </tr>
             </table>
         </div>
-
         <div class="modal-footer">
             <input type="submit" value="Save" class="btn btn-xs btn-success" />
+
         </div>
     }
-</div>
+    <div class="modal-body">
+        <h4>Comments</h4>
+        @{
+            Html.RenderAction("CommentsView", "Comment", new { PlayHistoryId = Model.PlayHistoryId });
+        }
+    </div>

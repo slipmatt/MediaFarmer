@@ -61,7 +61,8 @@ namespace Music_Farm_v2.Context.Extensions
                 CommentId = item.CommentId,
                 CommentText = item.CommentText,
                 UserId = item.UserId,
-                PlayHistoryId=item.PlayHistoryId
+                PlayHistoryId=item.PlayHistoryId,
+                UserName = item.User.UserName
             };
         }
         public static Comment ToData(this CommentViewModel item)
@@ -164,7 +165,8 @@ namespace Music_Farm_v2.Context.Extensions
                 TrackId = item.TrackId,
                 TrackName = item.TrackName,
                 ArtistId = item.ArtistId,
-                AlbumId = item.AlbumId
+                AlbumId = item.AlbumId,
+                TrackURL=item.TrackURL
             };
         }
         public static Track ToData(this TrackViewModel item)
@@ -175,7 +177,8 @@ namespace Music_Farm_v2.Context.Extensions
                 TrackId = item.TrackId,
                 TrackName = item.TrackName,
                 ArtistId = item.ArtistId,
-                AlbumId = item.AlbumId
+                AlbumId = item.AlbumId,
+                TrackURL = item.TrackURL
             };
         }
         #endregion

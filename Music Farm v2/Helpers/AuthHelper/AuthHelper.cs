@@ -10,43 +10,26 @@ namespace Music_Farm_v2.Helpers.AuthHelper
 {
     public class AuthHelper
     {
-        //Does not work on Test
-        public static int setupUser()
+        private static IUow _uow;
+        private static IRepository<User> repo;
+        public AuthHelper(IUow uow)
         {
-            MusicFarmerEntities context = new MusicFarmerEntities();
-            int _userId;
-            var repos = new RepositoryUser(new Uow(context));
-            if (!repos.CheckIfUserExists(AuthHelper.getHostName()))
+            _uow = uow;
+            repo = _uow.GetRepo<User>();
+        }
+        public int SetupUser()
+        {
+            var repos = new RepositoryUser(_uow);
+            if (!repos.CheckIfUserExists(this.GetHostName()))
             {
-                repos.CreatUser(getHostName());
+                repos.CreatUser(this.GetHostName());
             }
-            _userId = repos.GetUserId(getHostName());
-            return _userId;
+            return repos.GetUserId(this.GetHostName());
         }
 
-        public static string getHostName()
+        public string GetHostName()
         {
-            string hName = String.Concat(Environment.UserDomainName,"/", Environment.UserName);
-
-            try
-            {
-                System.Net.IPHostEntry host = new System.Net.IPHostEntry();
-                host = System.Net.Dns.GetHostEntry(hName);
-
-                //Split out the host name from the FQDN
-                if (host.HostName.Contains("."))
-                {
-                    string[] sSplit = host.HostName.Split('.');
-                    hName = sSplit[0].ToString();
-                }
-                else
-                {
-                    hName = host.HostName.ToString();
-                }
-            }
-            catch (Exception) { }
-
-            return hName.ToLower();
+            return String.Concat(Environment.UserDomainName, "/", Environment.UserName);
         }
     }
 }

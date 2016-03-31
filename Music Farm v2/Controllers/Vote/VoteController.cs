@@ -34,8 +34,8 @@ namespace Music_Farm_v2.Controllers.Vote
         public ActionResult AddUpVote(int PlayHistoryId)
         {
             var repos = new RepositoryVote(new Uow(context));
-            var _userId = AuthHelper.setupUser();
-
+            AuthHelper _ah = new AuthHelper(new Uow(context));
+            var _userId = _ah.SetupUser();
             repos.UpVote(PlayHistoryId);
             Success("Vote", "Save successful.");
             return RedirectToAction("Index", "PlayHistory");
@@ -46,8 +46,8 @@ namespace Music_Farm_v2.Controllers.Vote
         public ActionResult AddDownVote(int PlayHistoryId)
         {
             var repos = new RepositoryVote(new Uow(context));
-            var _userId = AuthHelper.setupUser();
-            
+            AuthHelper _ah = new AuthHelper(new Uow(context));
+            var _userId = _ah.SetupUser();
             repos.DownVote(PlayHistoryId);
             Success("Vote", "Save successful.");
             return RedirectToAction("Index", "PlayHistory");

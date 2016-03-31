@@ -16,5 +16,8 @@ namespace Music_Farm_v2.ViewModels
         public int? ArtistId { get; set; }
         [Required(ErrorMessage = "An album has to be selected", AllowEmptyStrings = false)]
         public int? AlbumId { get; set; }
+        [StringLength(255)]
+        [Required(ErrorMessage = "A track URL has to be specified", AllowEmptyStrings = false)]
+        public String TrackURL { get; set; }
     }
 }

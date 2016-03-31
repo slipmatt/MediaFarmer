@@ -21,30 +21,28 @@ namespace Music_Farm_v2.Context.Repositories
         }
         public List<VoteViewModel> GetUpVotes(int PlayHistoryId)
         {
-            return repo.GetByQuery()
-                .Where(i => i.VoteValue.Equals(true))
+            return repo.GetByQuery(i => i.VoteValue.Equals(true))
                 .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
                 .Select(i => i.ToModel()).ToList();
         }
 
         public List<VoteViewModel> GetDownVotes(int PlayHistoryId)
         {
-            return repo.GetByQuery()
-                .Where(i => i.VoteValue.Equals(false))
+            return repo.GetByQuery(i => i.VoteValue.Equals(false))
                 .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
                 .Select(i => i.ToModel()).ToList();
         }
 
         public List<VoteViewModel> GetVotes(int PlayHistoryId)
         {
-            return repo.GetByQuery()
-                .Where(i => i.PlayHistoryId.Equals(PlayHistoryId))
+            return repo.GetByQuery(i => i.PlayHistoryId.Equals(PlayHistoryId))
                 .Select(i => i.ToModel()).ToList();
         }
 
         public void DownVote(int _PlayHistoryId)
         {
-            var _userId = AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _userId = _ah.SetupUser();
             List<VoteViewModel> _vvm;
             Vote _vote = new Vote
             {
@@ -95,7 +93,8 @@ namespace Music_Farm_v2.Context.Repositories
 
         public void UpVote(int _PlayHistoryId)
         {
-            var _userId = AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _userId = _ah.SetupUser();
             List<VoteViewModel> _vvm;
             Vote _vote = new Vote
             {

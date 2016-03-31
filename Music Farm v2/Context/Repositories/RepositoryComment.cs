@@ -29,10 +29,17 @@ namespace Music_Farm_v2.Context.Repositories
 
         public void AddComment(CommentViewModel item)
         {
-            var _userId = AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _userId = _ah.SetupUser();
             item.UserId = _userId;
             repo.Add(item.ToData());
             repo.SaveChanges();
+        }
+
+        public List<CommentViewModel> ViewComments(int PlayHistoryId)
+        {
+            return repo.GetByQuery(i => i.PlayHistoryId == PlayHistoryId)
+                .Select(i => i.ToModel()).ToList();
         }
     }
 }

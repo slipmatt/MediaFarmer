@@ -21,8 +21,7 @@ namespace Music_Farm_v2.Context.Repositories
 
         public int GetUserId(string _UserName)
         {
-            return repo.GetByQuery()
-               .Where(i => i.UserName.Equals(_UserName))
+            return repo.GetByQuery(i => i.UserName.Equals(_UserName))
                .Select(i => i.ToModel()).ToList()
                .Find(i => i.UserName == _UserName)
                .UserId;

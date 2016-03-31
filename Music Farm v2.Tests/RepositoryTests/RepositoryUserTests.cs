@@ -27,7 +27,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldGetUserIdFromUserName()
         {
-            int? UID = repos.GetUserId("Imtiaz");
+            int? UID = repos.GetUserId("acer/aspire");
             Assert.AreEqual(1, UID);
         }
 

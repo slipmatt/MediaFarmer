@@ -18,5 +18,6 @@ namespace Music_Farm_v2.ViewModels
         [Required(ErrorMessage = "The Comment cannot be left blank", AllowEmptyStrings = false)]
         [DisplayName("Comment")]
         public string CommentText { get; set; }
+        public string UserName { get; set; }
     }
 }

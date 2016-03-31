@@ -14,11 +14,15 @@ namespace Music_Farm_v2.Controllers.Track
     {
         MusicFarmerEntities context = new MusicFarmerEntities();
         // GET: Track
-        public ActionResult Index(string TrackName="",string AlbumName="",string ArtistName="")
+        public ActionResult Index(string TrackName = "", string AlbumName = "", string ArtistName = "")
         {
             var repos = new RepositoryTrack(new Uow(context));
             var items = repos.SearchTrackByName(TrackName);
             return View(items);
+        }
+        public ActionResult Upload()
+        {
+            return PartialView();
         }
         [HttpPost]
         public void Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
@@ -26,4 +30,11 @@ namespace Music_Farm_v2.Controllers.Track
             var repos = new RepositoryTrack(new Uow(context));
             repos.Upload(files, Album, Artist);
         }
+
+        public void RecursiveSearch()
+        {
+            var repos = new RepositoryTrack(new Uow(context));
+            repos.RecursiveSearch();
+        }
+    }
 }

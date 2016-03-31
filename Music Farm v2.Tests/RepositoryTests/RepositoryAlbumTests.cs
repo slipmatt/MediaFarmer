@@ -27,6 +27,13 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         }
 
         [TestMethod]
+        public void ShouldGetAlbumId()
+        {
+            var items = repos.GetAlbumId("Test Album").Find(i => i.AlbumName == "Test Album");
+            Assert.IsTrue(items.AlbumId == 1);
+        }
+
+        [TestMethod]
         public void ShouldGetNoFilteredItems()
         {
             var items = repos.GetFilteredAlbums("Da Album");

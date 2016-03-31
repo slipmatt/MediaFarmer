@@ -21,7 +21,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="Imtiaz"
+                    UserName="ACER/Aspire"
                 },
                 new User
                 {

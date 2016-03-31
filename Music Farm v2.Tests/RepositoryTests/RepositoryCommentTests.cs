@@ -36,11 +36,19 @@ namespace Music_Farm_v2.Tests.RepositoryTests
                 CommentId = 1,
                 CommentText = "This Rocks",
                 PlayHistoryId = 1,
-                UserId = 1
+                UserId = 1,
+                UserName = "ACER/Aspire"
             };
             repos.AddComment(item);
             var items = repos.GetComments(1);
             Assert.IsTrue(items.Count == 2);
+        }
+
+        [TestMethod]
+        public void ShouldGet1Comment()
+        {
+            var items = repos.GetComments(1);
+            Assert.IsTrue(items.Count == 1);
         }
     }
 }

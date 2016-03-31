@@ -27,12 +27,22 @@ namespace Music_Farm_v2.Controllers.Comment
         public ActionResult AddComment(int PlayHistoryId)
         {
             var repos = new RepositoryComment(new Uow(context));
-            var _userId = AuthHelper.setupUser();
+            AuthHelper _ah = new AuthHelper(new Uow(context));
+            var _userId = _ah.SetupUser();
             CommentViewModel item = new CommentViewModel {
                 CommentId = 0,
                 PlayHistoryId = PlayHistoryId,
                 UserId = _userId
             };
+            return PartialView(item);
+        }
+
+        public ActionResult CommentsView(int PlayHistoryId)
+        {
+            var repos = new RepositoryComment(new Uow(context));
+            AuthHelper _ah = new AuthHelper(new Uow(context));
+            var _userId = _ah.SetupUser();
+            var item = repos.ViewComments(PlayHistoryId);
             return PartialView(item);
         }
 
@@ -46,10 +56,8 @@ namespace Music_Farm_v2.Controllers.Comment
             {
                 repos.AddComment(item);
                 Success("Comment", "Save successful.");
-
                 return Json(new { success = true });
             }
-
             return PartialView(item);
         }
     }

@@ -313,6 +313,8 @@
     <Content Include="Views\Track\Index.cshtml" />
     <Content Include="Views\Favourite\GetFavouriteCount.cshtml" />
     <Content Include="Views\Favourite\My.cshtml" />
+    <Content Include="Views\Track\Upload.cshtml" />
+    <Content Include="Views\Comment\CommentsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
