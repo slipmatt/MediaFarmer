@@ -36,14 +36,19 @@ namespace Music_Farm_v2.Player
         }
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Player = new WMPLib.WindowsMediaPlayer();
             Player.settings.volume = 70;
             var _uow = new Uow(new MusicFarmerEntities());
             var currentVolume=0;
-            RepositoryPlayHistory repo = new RepositoryPlayHistory(_uow);
-            RepositoryVote repoVote = new RepositoryVote(_uow);
+            RepositoryPlayHistory repo;
+            RepositoryVote repoVote;
+
+            var spin = new ConsoleSpinner();
             while (true)
             {
+                repo = new RepositoryPlayHistory(_uow);
+                repoVote = new RepositoryVote(_uow);
                 var currentList = repo.GetCurrentlyPlaying();
                 PlayHistoryViewModel _CurrentTrack = currentList.FirstOrDefault();
                 
@@ -56,8 +61,9 @@ namespace Music_Farm_v2.Player
                     }
                     else
                     {
-                        Console.WriteLine("sleeping.... zzzz");
-                        Thread.Sleep(2000);
+                        Console.Write("\rThe DJ has left the building... ");
+                        spin.SleepTurn();
+                        Thread.Sleep(1000);
                     }
                 }
                 else
@@ -72,17 +78,22 @@ namespace Music_Farm_v2.Player
                     {
                         _CurrentTrack = repo.GetCurrentlyPlaying().FirstOrDefault();
                         Thread.Sleep(500);
-                        //Console.Write(".");
-                        Console.Write("\r{2} - {0} / {1} Volume level: ({3})", Player.controls.currentPositionString, Player.currentMedia.durationString, _CurrentTrack == null ? "" :  _CurrentTrack.TrackName, Player.settings.volume.ToString());
+                        //Console.WriteLine("{0}", _CurrentTrack == null ? "" : _CurrentTrack.TrackName);
 
+                        Console.Write("\r{0} / {1} Volume level: ({3})", Player.controls.currentPositionString, Player.currentMedia.durationString, _CurrentTrack == null ? "" :  _CurrentTrack.TrackName, Player.settings.volume.ToString());
+                        spin.Turn();
                         try
                         {
-                            if ((_CurrentTrack.PlayCompleted == true) || (_CurrentTrack== null))
+                            if ((_CurrentTrack.PlayCompleted == true) || (_CurrentTrack == null))
+                            {
+                                Console.Clear();
                                 break;
+                            }
                         }
                         catch
                         {
                             Player.controls.stop();
+                            Console.Clear();
                             break;
                         }
 
@@ -100,10 +111,49 @@ namespace Music_Farm_v2.Player
                             Player.settings.volume = 70;
                         }
                     }
-                    repo.SetTrackToStop(_CurrentTrack.PlayHistoryId);
-
+                    if (_CurrentTrack != null)
+                    {
+                        repo.SetTrackToStop(_CurrentTrack.PlayHistoryId);
+                        Console.Clear();
+                    }
                 }
             }
+        }
+    }
+
+    public class ConsoleSpinner
+    {
+        int counter;
+
+        public void Turn()
+        {
+            counter++;
+            switch (counter % 4)
+            {
+                case 0: Console.Write(" /"); counter = 0; break;
+                case 1: Console.Write(" -"); break;
+                case 2: Console.Write(" \\"); break;
+                case 3: Console.Write(" |"); break;
+            }
+            Thread.Sleep(100);
+            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
+        }
+        public void SleepTurn()
+        {
+            counter++;
+            switch (counter % 8)
+            {
+                case 0: Console.Write("z   "); counter = 0; break;
+                case 1: Console.Write("zz  "); break;
+                case 2: Console.Write("zzz "); break;
+                case 3: Console.Write("zzzz"); break;
+                case 4: Console.Write("zzz "); break;
+                case 5: Console.Write("zz  "); break;
+                case 6: Console.Write("z   "); break;
+                case 7: Console.Write("    "); break;
+            }
+            Thread.Sleep(100);
+            Console.SetCursorPosition(Console.CursorLeft - 2, Console.CursorTop);
         }
     }
 }

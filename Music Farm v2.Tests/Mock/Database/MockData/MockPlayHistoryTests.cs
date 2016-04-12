@@ -12,6 +12,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
         public MockPlayHistoryTests()
         {
             PopulatePlayHistories();
+            PopulateUsers();
         }
 
         private void PopulatePlayHistories()
@@ -26,7 +27,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     UserId = 1,
                     TrackId = 1,
                     Track=new Track {TrackId=1,TrackName="Test Track",TrackURL="C:\\Track1.mp3"},
-                    User=new User { UserId=1,UserName="Imtiaz", Active=true }
+                    User=new User { UserId=1,UserName="ACER/Aspire", Active=true }
                 },
                 new PlayHistory
                 {
@@ -62,6 +63,21 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
             };
             MockContext.Setup(i => i.Set<PlayHistory>()).Returns(MockHelper.GetMockSet(items).Object);
             MockContext.SetupGet(i => i.PlayHistories).Returns(() => MockHelper.GetMockSet(items).Object);
+        }
+
+        private void PopulateUsers()
+        {
+            var users = new List<User>
+            {
+                new User
+                {
+                    UserId=1,
+                    UserName="ACER/Aspire"
+                }
+            };
+            MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);
+            MockContext.SetupGet(i => i.Users).Returns(() => MockHelper.GetMockSet(users).Object);
+
         }
     }
 }

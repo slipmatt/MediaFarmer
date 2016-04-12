@@ -4,6 +4,7 @@ using MusicFarmer.Data;
 using UnitOfWork;
 using Music_Farm_v2.Context.Repositories;
 using Music_Farm_v2.ViewModels;
+using System.Linq;
 
 namespace Music_Farm_v2.Tests.RepositoryTests
 {
@@ -40,8 +41,9 @@ namespace Music_Farm_v2.Tests.RepositoryTests
                 UserName = "ACER/Aspire"
             };
             repos.AddComment(item);
-            var items = repos.GetComments(1);
-            Assert.IsTrue(items.Count == 2);
+            //var items = repos.GetComments(1);
+            //Assert.IsTrue(items.Count == 2);
+            Assert.IsTrue(context.Object.Comments.Count(i => i.PlayHistoryId == 1) == 2);
         }
 
         [TestMethod]

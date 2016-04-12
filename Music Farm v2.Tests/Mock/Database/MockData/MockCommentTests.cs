@@ -12,6 +12,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
         public MockCommentTests()
         {
             PopulateComments();
+            PopulateUsers();
         }
         private void PopulateComments()
         {
@@ -26,7 +27,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     User=new User
                     {
                         UserId=1,
-                        UserName="acer/aspire"
+                        UserName="ACER/Aspire"
                     }
                 },
                 new Comment
@@ -38,10 +39,17 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     User =new User
                     {
                         UserId=1,
-                        UserName="acer/aspire"
+                        UserName="ACER/Aspire"
                     }
                 }
             };
+            
+            MockContext.Setup(i => i.Set<Comment>()).Returns(MockHelper.GetMockSet(items).Object);
+            MockContext.SetupGet(i => i.Comments).Returns(() => MockHelper.GetMockSet(items).Object);
+        }
+
+        private void PopulateUsers()
+        {
             var users = new List<User>
             {
                 new User
@@ -50,9 +58,6 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     UserName="ACER/Aspire"
                 }
             };
-            MockContext.Setup(i => i.Set<Comment>()).Returns(MockHelper.GetMockSet(items).Object);
-            MockContext.SetupGet(i => i.Comments).Returns(() => MockHelper.GetMockSet(items).Object);
-
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);
             MockContext.SetupGet(i => i.Users).Returns(() => MockHelper.GetMockSet(users).Object);
 

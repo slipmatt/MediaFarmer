@@ -43,6 +43,9 @@ namespace Music_Farm_v2
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                       "~/Scripts/knockout-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/helpers").Include(
+                      "~/Scripts/Custom/VoidControllerAjaxHelper.js"));
         }
     }
 }

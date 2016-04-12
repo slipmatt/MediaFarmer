@@ -27,7 +27,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldGetUserIdFromUserName()
         {
-            int? UID = repos.GetUserId("acer/aspire");
+            int? UID = repos.GetUserId("ACER/Aspire");
             Assert.AreEqual(1, UID);
         }
 
@@ -40,7 +40,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldCheckIfUserDoesExist()
         {
-            bool userExists = repos.CheckIfUserExists("Imtiaz");
+            bool userExists = repos.CheckIfUserExists("ACER/Aspire");
             Assert.AreEqual(true,userExists);
         }
 
@@ -48,8 +48,8 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         public void ShouldCreateNewUser()
         {
             repos.CreatUser("SomeUser");
-            bool userExists = repos.CheckIfUserExists("SomeUser");
-            Assert.AreEqual(true, userExists);
+            Assert.IsTrue(context.Object.Users.Count(i=>i.UserName=="SomeUser")==1);
+          //  Assert.AreEqual(true, userExists);
         }
     }
 }

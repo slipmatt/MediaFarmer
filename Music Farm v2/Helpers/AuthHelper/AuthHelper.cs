@@ -29,7 +29,27 @@ namespace Music_Farm_v2.Helpers.AuthHelper
 
         public string GetHostName()
         {
-            return String.Concat(Environment.UserDomainName, "/", Environment.UserName);
+            string hName = HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
+
+            try
+            {
+                System.Net.IPHostEntry host = new System.Net.IPHostEntry();
+                host = System.Net.Dns.GetHostEntry(hName);
+
+                //Split out the host name from the FQDN
+                if (host.HostName.Contains("."))
+                {
+                    string[] sSplit = host.HostName.Split('.');
+                    hName = sSplit[0].ToString();
+                }
+                else
+                {
+                    hName = host.HostName.ToString();
+                }
+            }
+            catch (Exception) { }
+
+            return hName;
         }
     }
 }

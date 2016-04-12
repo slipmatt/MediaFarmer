@@ -36,13 +36,12 @@
                     Html.RenderAction("GetCommentCount", "Comment", new { PlayHistoryId = item.PlayHistoryId });
                 }
                 @{
-                    <i>@Html.ActionLink(" ", "AddFavourite", "Favourite", new { ID = item.TrackId }, new { @class = "fa fa-heart-o", @style = "font-size:15px;color:red;" })</i>
+                    <i>@Ajax.ActionLink(" ", "AddFavourite", "Favourite",new { ID = item.TrackId }, null, new { @class = "fa fa-heart-o", @style = "font-size:15px;color:red;" })</i>
                 }
-                
                 @{
                     if (item.UserName.ToLower() == ViewBag.ThisUser)
                     {
-                        <i>@Html.ActionLink(" ", "StopTrack", "PlayHistory", new { ID = item.PlayHistoryId }, new { @class = "fa fa-eject", @style = "font-size:15px;color:black;" })</i>
+                        <i>@Ajax.ActionLink(" ", "StopTrack", "PlayHistory", new { ID = item.PlayHistoryId },null, new { @class = "fa fa-eject", @style = "font-size:15px;color:black;" })</i>
                     }
                 }
             </td>

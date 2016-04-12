@@ -47,9 +47,22 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldQueueTrack()
         {
-            repos.Queue(1);
-            var items = repos.GetCurrentlyQueued();
-            Assert.IsTrue(items.Count == 3);
+            repos.Queue(65445);
+            Assert.IsTrue(context.Object.PlayHistories.Count(i=>!i.IsPlaying && !i.PlayCompleted) == 3);
+        }
+
+        [TestMethod]
+        public void ShouldCheckIfTrackIsQueued()
+        {
+            bool _IsQueued=repos.IsQueued(1);
+            Assert.IsTrue(_IsQueued);
+        }
+
+        [TestMethod]
+        public void ShouldCheckIfTrackIsNotQueued()
+        {
+            bool _IsQueued = repos.IsQueued(65442);
+            Assert.IsFalse(_IsQueued);
         }
     }
 }

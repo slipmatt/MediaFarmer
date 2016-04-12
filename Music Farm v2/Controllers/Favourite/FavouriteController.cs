@@ -26,7 +26,7 @@ namespace Music_Farm_v2.Controllers.Favourite
             var repos = new RepositoryFavourite(new Uow(context));
             repos.AddFavourite(ID);
             Success("Favourite", "Add to your favourites");
-            return RedirectToAction("Index", "Track");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public ActionResult My()

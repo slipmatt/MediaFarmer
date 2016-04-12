@@ -12,6 +12,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
         public MockFavouriteTests()
         {
             PopulateFavourites();
+            PopulateUsers();
         }
         private void PopulateFavourites()
         {
@@ -26,6 +27,11 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     {
                         TrackId=1,
                         TrackName="User1's Favourite Track"
+                    },
+                    User = new User
+                    {
+                        UserId=1,
+                        UserName="ACER/Aspire"
                     }
                 },
                 new Favourite
@@ -37,11 +43,31 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     {
                         TrackId=1,
                         TrackName="User1's Favourite Track"
-                    }
+                    },
+                    User = new User
+                {
+                    UserId=2,
+                    UserName="Some Other Pleb"
+                }
                 }
             };
             MockContext.Setup(i => i.Set<Favourite>()).Returns(MockHelper.GetMockSet(items).Object);
             MockContext.SetupGet(i => i.Favourites).Returns(() => MockHelper.GetMockSet(items).Object);
+
+        }
+
+        private void PopulateUsers()
+        {
+            var users = new List<User>
+            {
+                new User
+                {
+                    UserId=1,
+                    UserName="ACER/Aspire"
+                }
+            };
+            MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);
+            MockContext.SetupGet(i => i.Users).Returns(() => MockHelper.GetMockSet(users).Object);
 
         }
     }

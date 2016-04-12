@@ -38,7 +38,7 @@ namespace Music_Farm_v2.Controllers.Vote
             var _userId = _ah.SetupUser();
             repos.UpVote(PlayHistoryId);
             Success("Vote", "Save successful.");
-            return RedirectToAction("Index", "PlayHistory");
+            return Redirect(Request.UrlReferrer.ToString());
         }
         #endregion
 
@@ -50,7 +50,7 @@ namespace Music_Farm_v2.Controllers.Vote
             var _userId = _ah.SetupUser();
             repos.DownVote(PlayHistoryId);
             Success("Vote", "Save successful.");
-            return RedirectToAction("Index", "PlayHistory");
+            return Redirect(Request.UrlReferrer.ToString());
         }
         #endregion
     }

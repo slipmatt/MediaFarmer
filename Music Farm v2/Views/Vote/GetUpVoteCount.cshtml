@@ -1,2 +1,2 @@
 ﻿
-<i>@Html.ActionLink((string)ViewBag.UpCount, "AddUpVote", "Vote", new { PlayHistoryId = ViewBag.PlayHistoryId }, new { @class = "fa fa-thumbs-up", @style = "font-size:15px;color:darkseagreen;" })</i>
+<i>@Ajax.ActionLink((string)ViewBag.UpCount, "AddUpVote", "Vote", new { PlayHistoryId = ViewBag.PlayHistoryId }, null, new { @class = "fa fa-thumbs-up", @style = "font-size:15px;color:darkseagreen;" })</i>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Music Farmer</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/toastrcss")
     @Styles.Render("~/Content/jquery")
@@ -13,24 +13,27 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/toastr")
     @Scripts.Render("~/bundles/knockout")
-</head>
-<body>
+    @Scripts.Render("~/bundles/helpers")
+</head >
+<body >
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type = "button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Music Farmer", "Index", "PlayHistory", new { area = "" }, new { @class = "navbar-brand" })
+                <a href="@Url.Action("Index", "PlayHistory")" class="navbar-brand">
+                    <img src="@Url.Content("~/Content/images/Logo.jpg")"  width="50" height="50" />
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Currently Playing", "Index", "PlayHistory")</li>
                     <li>@Html.ActionLink("Track Search", "Index", "Track")</li>
-                    <li>@Html.ActionLink("My Favourites", "My", "Favourite") }</li>
-                    <li>@Html.ActionLink("Upload", "Upload", "Track", new { data_modal = "", @class = "fa fa-caret-down" })</li>
+                    <li>@Html.ActionLink("My Favourites", "My", "Favourite")</li>
+                    <li>@Ajax.ActionLink("Upload", "Upload", "Track",null,null, new { data_modal = "", @class = "fa fa-caret-down" })</li>
                 </ul>
                 @*@Html.Partial("_SideMenu")*@
                 @Html.Partial("_LoginPartial")

@@ -40,7 +40,8 @@ namespace Music_Farm_v2.Context.Repositories
         
         public void Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
         {
-            var _RootDir = "C:/Share/Music";
+           // var _RootDir = "~/Content/Media/Music";
+            var _RootDir = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(System.Web.HttpRuntime.AppDomainAppVirtualPath), "Content","Media","Music");
             if (!System.IO.Directory.Exists(_RootDir))
             {
                 System.IO.Directory.CreateDirectory(_RootDir);
@@ -52,8 +53,12 @@ namespace Music_Farm_v2.Context.Repositories
                     if (file.ContentLength > 0)
                     {
                         var _fileName = Path.GetFileName(file.FileName);
-                        var path = Path.Combine(_RootDir, Album, Artist, _fileName);
-                        file.SaveAs(path);
+                        var path = Path.Combine(_RootDir, Album, Artist);
+                        if (!System.IO.Directory.Exists(path))
+                        {
+                            System.IO.Directory.CreateDirectory(path);
+                        }
+                        file.SaveAs(Path.Combine(path, _fileName));
 
                         var repoAlbum = new RepositoryAlbum(_uow);
                         var _Album = repoAlbum.GetAlbumId(Album).Find(i => i.AlbumName == Album);
@@ -63,7 +68,7 @@ namespace Music_Farm_v2.Context.Repositories
                             TrackName = _fileName,
                             AlbumId = _AlbumId == 0 ? null : _AlbumId,
                             ArtistId = null,
-                            TrackURL = path
+                            TrackURL = Path.Combine(path, _fileName)
                         };
                         repo.Add(Track.ToData());
                         repo.SaveChanges();
@@ -72,8 +77,9 @@ namespace Music_Farm_v2.Context.Repositories
             }
         }
 
-        public void RecursiveSearch(string dir= "C:/Share/Music")
+        public void RecursiveSearch(string dir= "")
         {
+        dir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content\\Media\\");
             SearchFilesInDirectory(dir);
             foreach (string d in Directory.EnumerateDirectories(dir))
             {
