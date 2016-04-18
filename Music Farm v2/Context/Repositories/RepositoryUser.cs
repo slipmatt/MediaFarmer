@@ -1,5 +1,5 @@
-﻿using Music_Farm_v2.Context.Extensions;
-using Music_Farm_v2.ViewModels;
+﻿using MediaFarmer.Context.Extensions;
+using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Context.Repositories
+namespace MediaFarmer.Context.Repositories
 {
     public class RepositoryUser
     {

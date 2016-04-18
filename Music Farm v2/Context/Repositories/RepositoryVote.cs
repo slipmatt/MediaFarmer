@@ -1,6 +1,6 @@
-﻿using Music_Farm_v2.Context.Extensions;
-using Music_Farm_v2.Helpers.AuthHelper;
-using Music_Farm_v2.ViewModels;
+﻿using MediaFarmer.Context.Extensions;
+using MediaFarmer.Helpers.AuthHelper;
+using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Context.Repositories
+namespace MediaFarmer.Context.Repositories
 {
     public class RepositoryVote
     {
@@ -45,7 +45,7 @@ namespace Music_Farm_v2.Context.Repositories
             var _userId = _ah.SetupUser();
             var _voteId=0;
             List<VoteViewModel> _vvm;
-            VoteViewModel _vote = new VoteViewModel
+            Vote _vote = new Vote
             {
                 VoteId=0,
                 VoteValue = false,
@@ -58,7 +58,7 @@ namespace Music_Farm_v2.Context.Repositories
             {
                 if (_vvm.Find(i => i.UserId == _userId) == null)
                 {
-                    repo.Add(_vote.ToData());
+                    repo.Add(_vote);
                 }
                 else
                 {
@@ -70,10 +70,9 @@ namespace Music_Farm_v2.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == true))
                            .VoteId;
-                        _vote = repo.GetByQuery(i => i.VoteId == _voteId)
-                            .Select(i => i.ToModel()).ToList().Find(i => i.VoteId == _voteId);
+                        _vote = repo.GetById(_voteId);
                         _vote.VoteValue = false;
-                        repo.Update(_vote.ToData());
+                        repo.Update(_vote);
                     }
                     else if (_vvm.Find
                         (i => (i.UserId == _userId) &&
@@ -83,15 +82,14 @@ namespace Music_Farm_v2.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == false))
                            .VoteId;
-                        _vote = repo.GetByQuery(i => i.VoteId == _voteId)
-                             .Select(i => i.ToModel()).ToList().Find(i => i.VoteId == _voteId);
-                        repo.Delete(_vote.ToData());
+                        _vote =  repo.GetById(_voteId);
+                        repo.Delete(_vote);
                     }
                 }
             }
             else
             {
-                repo.Add(_vote.ToData());
+                repo.Add(_vote);
             }
             repo.SaveChanges();
         }
@@ -102,7 +100,7 @@ namespace Music_Farm_v2.Context.Repositories
             var _userId = _ah.SetupUser();
             List<VoteViewModel> _vvm;
             var _voteId = 0;
-            VoteViewModel _vote = new VoteViewModel
+            Vote _vote = new Vote
             {
                 VoteValue = true,
                 PlayHistoryId = _PlayHistoryId,
@@ -113,7 +111,7 @@ namespace Music_Farm_v2.Context.Repositories
             {
                 if (_vvm.Find(i => i.UserId == _userId) == null)
                 {
-                    repo.Add(_vote.ToData());
+                    repo.Add(_vote);
                 }
                 else
                 {
@@ -125,10 +123,9 @@ namespace Music_Farm_v2.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == false))
                            .VoteId;
-                        _vote = repo.GetByQuery(i => i.VoteId == _voteId)
-                            .Select(i => i.ToModel()).ToList().Find(i => i.VoteId == _voteId);
+                        _vote = repo.GetById(_voteId);
                         _vote.VoteValue = true;
-                        repo.Update(_vote.ToData());
+                        repo.Update(_vote);
                     }
                     else if (_vvm.Find
                         (i => (i.UserId == _userId) &&
@@ -138,15 +135,15 @@ namespace Music_Farm_v2.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == true))
                            .VoteId;
-                        _vote = repo.GetByQuery(i => i.VoteId == _voteId)
-                             .Select(i => i.ToModel()).ToList().Find(i => i.VoteId == _voteId);
-                        repo.Delete(_vote.ToData());
+
+                        _vote = repo.GetById(_voteId);
+                        repo.Delete(_vote);
                     }
                 }
             }
             else
             {
-                repo.Add(_vote.ToData());
+                repo.Add(_vote);
             }
             repo.SaveChanges();
         }

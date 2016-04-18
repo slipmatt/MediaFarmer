@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     //class MockTrafficLogTests : BaseMock
     //{

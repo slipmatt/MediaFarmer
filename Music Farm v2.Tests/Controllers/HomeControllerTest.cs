@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Music_Farm_v2;
-using Music_Farm_v2.Controllers;
+using MediaFarmer;
+using MediaFarmer.Controllers;
 
-namespace Music_Farm_v2.Tests.Controllers
+namespace MediaFarmer.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

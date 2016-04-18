@@ -2,11 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MusicFarmer.Data;
 using UnitOfWork;
-using Music_Farm_v2.Context.Repositories;
-using Music_Farm_v2.ViewModels;
+using MediaFarmer.Context.Repositories;
+using MediaFarmer.ViewModels;
 using System.Linq;
 
-namespace Music_Farm_v2.Tests.RepositoryTests
+namespace MediaFarmer.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryCommentTests
@@ -38,7 +38,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
                 CommentText = "This Rocks",
                 PlayHistoryId = 1,
                 UserId = 1,
-                UserName = "ACER/Aspire"
+                UserName = "ACER\\Aspire"
             };
             repos.AddComment(item);
             //var items = repos.GetComments(1);

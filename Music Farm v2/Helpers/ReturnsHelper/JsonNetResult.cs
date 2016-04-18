@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Music_Farm_v2.Helpers.ReturnsHelper
+namespace MediaFarmer.Helpers.ReturnsHelper
 {
     public class JsonNetResult : JsonResult
     {

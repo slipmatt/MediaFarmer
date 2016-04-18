@@ -1,11 +1,12 @@
-﻿using System;
+﻿using MusicFarmer.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Music_Farm_v2.ViewModels
+namespace MediaFarmer.ViewModels
 {
     public class VoteViewModel
     {
@@ -16,5 +17,7 @@ namespace Music_Farm_v2.ViewModels
         [DisplayName("Vote")]
         public bool VoteValue { get; set; }
         public int PlayHistoryId { get; set; }
+        public PlayHistory PlayHistory { get; set; }
+        public User User { get; set; }
     }
 }

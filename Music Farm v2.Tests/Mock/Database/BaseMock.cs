@@ -2,7 +2,7 @@
 using UnitOfWork;
 using MusicFarmer.Data;
 
-namespace Music_Farm_v2.Tests.Mock.Database
+namespace MediaFarmer.Tests.Mock.Database
 {
     public class BaseMock
     {

@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Music_Farm_v2.Tests.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Music_Farm_v2.Tests.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MediaFarmer.Tests.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MediaFarmer.Tests.App_Start.NinjectWebCommon), "Stop")]
 
-namespace Music_Farm_v2.Tests.App_Start
+namespace MediaFarmer.Tests.App_Start
 {
     using System;
     using System.Web;

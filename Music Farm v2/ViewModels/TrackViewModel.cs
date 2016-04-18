@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Music_Farm_v2.ViewModels
+namespace MediaFarmer.ViewModels
 {
     public class TrackViewModel
     {
@@ -18,6 +18,9 @@ namespace Music_Farm_v2.ViewModels
         public int? AlbumId { get; set; }
         [StringLength(255)]
         [Required(ErrorMessage = "A track URL has to be specified", AllowEmptyStrings = false)]
+        public string ArtistName { get; set; }
+        public string AlbumName { get; set; }
+        [StringLength(255)]
         public String TrackURL { get; set; }
     }
 }

@@ -3,13 +3,13 @@
 
 
 @{
-    ViewBag.Title = "Music Farmer v2";
+    ViewBag.Title = "Media Farmer";
 }
 
-<h2>Music Farmer V2</h2>
+<h2>Media Farmer</h2>
 
 @{ Html.RenderAction("GetCurrentlyPlaying", "PlayHistory"); }
 
 @{ Html.RenderAction("GetCurrentlyQueued", "PlayHistory"); }
 
-@*@Html.PagedListPager((IPagedList<Music_Farm_v2.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@
+@*@Html.PagedListPager((IPagedList<MediaFarmer.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@

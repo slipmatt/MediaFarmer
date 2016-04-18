@@ -7,7 +7,7 @@
     <ProjectGuid>{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Music_Farm_v2.Player</RootNamespace>
+    <RootNamespace>MediaFarmer.Player</RootNamespace>
     <AssemblyName>Music Farm v2.Player</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,6 +41,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -60,13 +64,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Music Farm v2\Music Farm v2.csproj">
+    <ProjectReference Include="..\Music Farm v2\MediaFarmer.csproj">
       <Project>{a4fe02bb-ecf2-4625-ac22-974b20740aa1}</Project>
-      <Name>Music Farm v2</Name>
+      <Name>MediaFarmer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MusicFarmer.Data\Music Farm v2.Data.csproj">
+    <ProjectReference Include="..\MusicFarmer.Data\MediaFarmer.Data.csproj">
       <Project>{8c0cfad9-53a5-434d-854f-f550f9899699}</Project>
-      <Name>Music Farm v2.Data</Name>
+      <Name>MediaFarmer.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
       <Project>{d5e3f1b9-033f-44ea-be16-d33c18a2b469}</Project>

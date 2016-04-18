@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     class MockFavouriteTests : BaseMock
     {
@@ -31,7 +31,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     User = new User
                     {
                         UserId=1,
-                        UserName="ACER/Aspire"
+                        UserName="ACER\\Aspire"
                     }
                 },
                 new Favourite
@@ -63,7 +63,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER/Aspire"
+                    UserName="ACER\\Aspire"
                 }
             };
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);

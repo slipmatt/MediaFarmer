@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Music_Farm_v2.ViewModels
+namespace MediaFarmer.ViewModels
 {
     public class FavouriteViewModel
     {

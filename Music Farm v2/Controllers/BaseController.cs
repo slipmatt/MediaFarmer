@@ -1,13 +1,13 @@
-﻿using Music_Farm_v2.Helpers;
-using Music_Farm_v2.Helpers.ReturnsHelper;
-using Music_Farm_v2.Helpers.ToastHelper;
+﻿using MediaFarmer.Helpers;
+using MediaFarmer.Helpers.ReturnsHelper;
+using MediaFarmer.Helpers.ToastHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Music_Farm_v2.Controllers
+namespace MediaFarmer.Controllers
 {
     public class BaseController : Controller
     {

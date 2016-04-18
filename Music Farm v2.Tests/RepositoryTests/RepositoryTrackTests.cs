@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Music_Farm_v2.Context.Repositories;
-using Music_Farm_v2.ViewModels;
+using MediaFarmer.Context.Repositories;
+using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Tests.RepositoryTests
+namespace MediaFarmer.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryTrackTests

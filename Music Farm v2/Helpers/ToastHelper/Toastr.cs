@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Music_Farm_v2.Helpers.ToastHelper
+namespace MediaFarmer.Helpers.ToastHelper
 {
     /// <summary>
     /// Main toastr implementation class

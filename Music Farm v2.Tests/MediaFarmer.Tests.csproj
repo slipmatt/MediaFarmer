@@ -9,7 +9,7 @@
     <ProjectGuid>{EB50DC56-D446-4351-ADA2-B389A6962E1F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Music_Farm_v2.Tests</RootNamespace>
+    <RootNamespace>MediaFarmer.Tests</RootNamespace>
     <AssemblyName>Music Farm v2.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -143,13 +143,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Music Farm v2\Music Farm v2.csproj">
+    <ProjectReference Include="..\Music Farm v2\MediaFarmer.csproj">
       <Project>{A4FE02BB-ECF2-4625-AC22-974B20740AA1}</Project>
-      <Name>Music Farm v2</Name>
+      <Name>MediaFarmer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MusicFarmer.Data\Music Farm v2.Data.csproj">
+    <ProjectReference Include="..\MusicFarmer.Data\MediaFarmer.Data.csproj">
       <Project>{8c0cfad9-53a5-434d-854f-f550f9899699}</Project>
-      <Name>Music Farm v2.Data</Name>
+      <Name>MediaFarmer.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
       <Project>{d5e3f1b9-033f-44ea-be16-d33c18a2b469}</Project>

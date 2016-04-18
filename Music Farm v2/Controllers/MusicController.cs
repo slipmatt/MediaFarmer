@@ -1,4 +1,4 @@
-﻿using Music_Farm_v2.Context.Repositories;
+﻿using MediaFarmer.Context.Repositories;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Controllers
+namespace MediaFarmer.Controllers
 {
     public class MusicController : BaseController
     {

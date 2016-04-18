@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Music_Farm_v2.Context.Repositories;
-using Music_Farm_v2.ViewModels;
+using MediaFarmer.Context.Repositories;
+using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Tests.RepositoryTests
+namespace MediaFarmer.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryUserTests
@@ -27,7 +27,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldGetUserIdFromUserName()
         {
-            int? UID = repos.GetUserId("ACER/Aspire");
+            int? UID = repos.GetUserId("ACER\\Aspire");
             Assert.AreEqual(1, UID);
         }
 
@@ -40,7 +40,7 @@ namespace Music_Farm_v2.Tests.RepositoryTests
         [TestMethod]
         public void ShouldCheckIfUserDoesExist()
         {
-            bool userExists = repos.CheckIfUserExists("ACER/Aspire");
+            bool userExists = repos.CheckIfUserExists("ACER\\Aspire");
             Assert.AreEqual(true,userExists);
         }
 

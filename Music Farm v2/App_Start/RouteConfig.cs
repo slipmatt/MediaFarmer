@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Music_Farm_v2
+namespace MediaFarmer
 {
     public class RouteConfig
     {

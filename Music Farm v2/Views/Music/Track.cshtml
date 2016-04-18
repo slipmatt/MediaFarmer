@@ -1,7 +1,7 @@
 ﻿@*@using PagedList
     @using PagedList.Mvc*@
 
-@model IEnumerable<Music_Farm_v2.ViewModels.TrackViewModel>
+@model IEnumerable<MediaFarmer.ViewModels.TrackViewModel>
 @{
     ViewBag.Title = "Farmer";
 }
@@ -111,4 +111,4 @@
 
 </table>
 
-@*@Html.PagedListPager((IPagedList<Music_Farm_v2.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@
+@*@Html.PagedListPager((IPagedList<MediaFarmer.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@

@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Music_Farm_v2</RootNamespace>
+    <RootNamespace>MediaFarmer</RootNamespace>
     <AssemblyName>Music Farm v2</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
@@ -83,6 +83,10 @@
     </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -212,6 +216,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Themes\base\accordion.css" />
     <Content Include="Content\Themes\base\all.css" />
     <Content Include="Content\Themes\base\autocomplete.css" />
@@ -330,9 +335,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MusicFarmer.Data\Music Farm v2.Data.csproj">
+    <ProjectReference Include="..\MusicFarmer.Data\MediaFarmer.Data.csproj">
       <Project>{8c0cfad9-53a5-434d-854f-f550f9899699}</Project>
-      <Name>Music Farm v2.Data</Name>
+      <Name>MediaFarmer.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
       <Project>{d5e3f1b9-033f-44ea-be16-d33c18a2b469}</Project>

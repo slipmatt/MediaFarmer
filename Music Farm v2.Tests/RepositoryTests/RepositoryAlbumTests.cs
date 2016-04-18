@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Music_Farm_v2.Context.Repositories;
+using MediaFarmer.Context.Repositories;
 using UnitOfWork;
 using MusicFarmer.Data;
 
-namespace Music_Farm_v2.Tests.RepositoryTests
+namespace MediaFarmer.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryAlbumTests

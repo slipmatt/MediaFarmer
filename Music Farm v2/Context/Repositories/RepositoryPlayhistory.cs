@@ -1,6 +1,6 @@
-﻿using Music_Farm_v2.Context.Extensions;
-using Music_Farm_v2.Helpers.AuthHelper;
-using Music_Farm_v2.ViewModels;
+﻿using MediaFarmer.Context.Extensions;
+using MediaFarmer.Helpers.AuthHelper;
+using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using UnitOfWork;
 
-namespace Music_Farm_v2.Context.Repositories
+namespace MediaFarmer.Context.Repositories
 {
     public class RepositoryPlayHistory
     {
@@ -20,14 +20,18 @@ namespace Music_Farm_v2.Context.Repositories
 
         public List<PlayHistoryViewModel> GetCurrentlyQueued()
         {
-            var repo = _uow.GetRepo<PlayHistory>();
-            return repo.GetByQuery(i => !i.PlayCompleted)
-                .Where(i => i.IsPlaying.Equals(false))
-                .Select(i => i.ToModel()).ToList();
+            using (_uow)
+            {
+                var repo = _uow.GetRepo<PlayHistory>();
+                return repo.GetByQuery(i => !i.PlayCompleted)
+                    .Where(i => i.IsPlaying.Equals(false))
+                    .Select(i => i.ToModel()).ToList();
+            }
         }
 
         public List<PlayHistoryViewModel> GetCurrentlyPlaying()
         {
+
             var repo = _uow.GetRepo<PlayHistory>();
             return repo.GetByQuery(i => i.IsPlaying)
                 .Where(i => i.PlayCompleted.Equals(false))

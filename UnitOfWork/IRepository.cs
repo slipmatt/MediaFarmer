@@ -16,10 +16,9 @@ namespace UnitOfWork
 
         void Delete(T entity);
 
-        T GetUpdatedItem(T entity);
-
-        //GetById does not work for unit testing with mock database
         T GetById(object id);
+
+        T GetUpdatedItem(T entity);
         
         void SaveChanges();
 

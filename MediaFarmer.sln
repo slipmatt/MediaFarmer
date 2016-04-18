@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2", "Music Farm v2\Music Farm v2.csproj", "{A4FE02BB-ECF2-4625-AC22-974B20740AA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer", "Music Farm v2\MediaFarmer.csproj", "{A4FE02BB-ECF2-4625-AC22-974B20740AA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.Tests", "Music Farm v2.Tests\Music Farm v2.Tests.csproj", "{EB50DC56-D446-4351-ADA2-B389A6962E1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.Tests", "Music Farm v2.Tests\MediaFarmer.Tests.csproj", "{EB50DC56-D446-4351-ADA2-B389A6962E1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitOfWork", "UnitOfWork\UnitOfWork.csproj", "{D5E3F1B9-033F-44EA-BE16-D33C18A2B469}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.Data", "MusicFarmer.Data\Music Farm v2.Data.csproj", "{8C0CFAD9-53A5-434D-854F-F550F9899699}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.Data", "MusicFarmer.Data\MediaFarmer.Data.csproj", "{8C0CFAD9-53A5-434D-854F-F550F9899699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.Player", "Music Farm v2.Player\Music Farm v2.Player.csproj", "{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.Player", "Music Farm v2.Player\MediaFarmer.Player.csproj", "{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Music Farm v2.WpfPlayer", "Music Farm v2.WpfPlayer\Music Farm v2.WpfPlayer.csproj", "{9DA5182E-A003-441E-A960-2335E7C4E727}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.WpfPlayer", "Music Farm v2.WpfPlayer\MediaFarmer.WpfPlayer.csproj", "{9DA5182E-A003-441E-A960-2335E7C4E727}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

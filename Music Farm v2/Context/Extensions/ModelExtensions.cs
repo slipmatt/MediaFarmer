@@ -1,12 +1,12 @@
-﻿using Music_Farm_v2.ViewModels;
-using Music_Farm_v2.Context.Repositories;
+﻿using MediaFarmer.ViewModels;
+using MediaFarmer.Context.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MusicFarmer.Data;
 
-namespace Music_Farm_v2.Context.Extensions
+namespace MediaFarmer.Context.Extensions
 {
     public static class ModelExtensions
     {
@@ -140,7 +140,9 @@ namespace Music_Farm_v2.Context.Extensions
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
                 UserId = item.UserId,
-                PlayHistoryId = item.PlayHistoryId
+                PlayHistoryId = item.PlayHistoryId,
+                PlayHistory=item.PlayHistory,
+                User = item.User
             };
         }
         public static Vote ToData(this VoteViewModel item)
@@ -151,7 +153,9 @@ namespace Music_Farm_v2.Context.Extensions
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
                 UserId = item.UserId,
-                PlayHistoryId = item.PlayHistoryId
+                PlayHistoryId = item.PlayHistoryId,
+                PlayHistory = item.PlayHistory,
+                User = item.User
             };
         }
         #endregion
@@ -166,7 +170,9 @@ namespace Music_Farm_v2.Context.Extensions
                 TrackName = item.TrackName,
                 ArtistId = item.ArtistId,
                 AlbumId = item.AlbumId,
-                TrackURL=item.TrackURL
+                TrackURL=item.TrackURL,
+                AlbumName = item.Album ==null ? "" : item.Album.AlbumName,
+                ArtistName = item.Artist == null ? "" : item.Artist.ArtistName
             };
         }
         public static Track ToData(this TrackViewModel item)
@@ -183,7 +189,7 @@ namespace Music_Farm_v2.Context.Extensions
         }
         #endregion
 
-        #region Track
+        #region Favourite
         public static FavouriteViewModel ToModel(this Favourite item)
         {
             if (item == null) return null;

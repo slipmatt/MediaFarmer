@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using UnitOfWork;
-using Music_Farm_v2.ViewModels;
-using Music_Farm_v2.Context.Extensions;
-using Music_Farm_v2.Helpers.AuthHelper;
+using MediaFarmer.ViewModels;
+using MediaFarmer.Context.Extensions;
+using MediaFarmer.Helpers.AuthHelper;
 
-namespace Music_Farm_v2.Context.Repositories
+namespace MediaFarmer.Context.Repositories
 {
     public class RepositoryFavourite
     {

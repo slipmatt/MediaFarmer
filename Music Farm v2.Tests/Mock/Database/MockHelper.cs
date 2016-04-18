@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Music_Farm_v2.Tests.Mock.Database
+namespace MediaFarmer.Tests.Mock.Database
 {
     class MockHelper
     {

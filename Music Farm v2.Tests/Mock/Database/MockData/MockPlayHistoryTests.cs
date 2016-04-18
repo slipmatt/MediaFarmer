@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     class MockPlayHistoryTests : BaseMock
     {
@@ -27,7 +27,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     UserId = 1,
                     TrackId = 1,
                     Track=new Track {TrackId=1,TrackName="Test Track",TrackURL="C:\\Track1.mp3"},
-                    User=new User { UserId=1,UserName="ACER/Aspire", Active=true }
+                    User=new User { UserId=1,UserName="ACER\\Aspire", Active=true }
                 },
                 new PlayHistory
                 {
@@ -72,7 +72,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER/Aspire"
+                    UserName="ACER\\Aspire"
                 }
             };
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);

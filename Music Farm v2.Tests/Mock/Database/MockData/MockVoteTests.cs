@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     public class MockVoteTests: BaseMock
     {
@@ -27,19 +27,19 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                     User = new User
                     {
                         UserId=1,
-                        UserName="ACER/Aspire"
+                        UserName="ACER\\Aspire"
                     }
                 },
                 new Vote
                 {
-                    VoteId=1,
+                    VoteId=5,
                     VoteValue=false,
                     PlayHistoryId = 50,
                     UserId=1,
                     User = new User
                     {
                         UserId=1,
-                        UserName="ACER/Aspire"
+                        UserName="ACER\\Aspire"
                     }
                 },
                 new Vote
@@ -91,7 +91,7 @@ namespace Music_Farm_v2.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER/Aspire"
+                    UserName="ACER\\Aspire"
                 }
             };
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);

@@ -70,10 +70,9 @@ namespace UnitOfWork
             DbSet.Remove(entity);
         }
 
-        //GetById does not work for unit testing with mock database
         public T GetById(object id)
         {
-            return DbSet.Find(id);
+            return DbSet.Find(id);       
         }
 
         /// <summary>
@@ -102,11 +101,11 @@ namespace UnitOfWork
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query);
             }
             else
             {
-                return query.ToList();
+                return query;
             }
         }
 

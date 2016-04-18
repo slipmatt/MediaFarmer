@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MusicFarmer.Data;
-using Music_Farm_v2.Context.Repositories;
+using MediaFarmer.Context.Repositories;
 using UnitOfWork;
-using Music_Farm_v2.ViewModels;
+using MediaFarmer.ViewModels;
 
-namespace Music_Farm_v2.Tests.RepositoryTests
+namespace MediaFarmer.Tests.RepositoryTests
 {
     [TestClass]
     public class RepositoryFavouriteTests

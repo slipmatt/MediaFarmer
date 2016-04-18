@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     public class MockTrackTests : BaseMock
     {

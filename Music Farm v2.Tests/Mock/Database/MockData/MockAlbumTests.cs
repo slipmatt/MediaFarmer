@@ -1,5 +1,5 @@
 ﻿
-using Music_Farm_v2.Models;
+using MediaFarmer.Models;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Music_Farm_v2.Tests.Mock.Database.MockData
+namespace MediaFarmer.Tests.Mock.Database.MockData
 {
     class MockAlbumTests : BaseMock
     {
