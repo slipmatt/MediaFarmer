@@ -29,17 +29,39 @@ namespace MediaFarmer.Context.Repositories
                 .Select(i => i.ToModel()).ToList();
         }
 
-        public void AddFavourite(int ID)
+        public bool AddFavourite(int ID)
         {
+            bool _state = false;
             AuthHelper _ah = new AuthHelper(_uow);
             var _userId = _ah.SetupUser();
-           FavouriteViewModel fvm = new FavouriteViewModel
-           {
-                UserId = _userId,
-                TrackId = ID
-            };
-            repo.Add(fvm.ToData());
-            repo.SaveChanges();
+            if (!this.FavouriteExists(_userId, ID))
+            {
+                FavouriteViewModel fvm = new FavouriteViewModel
+                {
+                    UserId = _userId,
+                    TrackId = ID
+                };
+
+                repo.Add(fvm.ToData());
+                repo.SaveChanges();
+                _state = true;
+            }
+            return _state;
         }
+        public bool FavouriteExists(int UserId, int ID)
+        {
+            var id =repo.GetByQuery()
+                .Where(i => i.UserId == UserId && i.TrackId == ID)
+                .Select(i => i.FavouriteId).FirstOrDefault();
+            if (id==0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
     }
 }

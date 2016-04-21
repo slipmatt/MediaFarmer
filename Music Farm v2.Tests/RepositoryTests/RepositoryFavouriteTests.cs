@@ -27,8 +27,10 @@ namespace MediaFarmer.Tests.RepositoryTests
         }
 
         [TestMethod]
-        public void ShouldAddUserFavourite()
+        public void ShouldCheckIfFavouriteExists()
         {
+            var fvm = repos.FavouriteExists(1, 1);
+            Assert.IsTrue(fvm);
         }
     }
 }

@@ -20,26 +20,20 @@ namespace MediaFarmer.Context.Repositories
 
         public List<PlayHistoryViewModel> GetCurrentlyQueued()
         {
-            using (_uow)
-            {
-                var repo = _uow.GetRepo<PlayHistory>();
-                return repo.GetByQuery(i => !i.PlayCompleted)
-                    .Where(i => i.IsPlaying.Equals(false))
-                    .Select(i => i.ToModel()).ToList();
-            }
+            var repo = _uow.GetRepo<PlayHistory>();
+            return repo.GetByQuery(i => !i.PlayCompleted)
+                .Where(i => i.IsPlaying.Equals(false))
+                .Select(i => i.ToModel()).ToList();
         }
 
         public List<PlayHistoryViewModel> GetCurrentlyPlaying()
         {
-
             var repo = _uow.GetRepo<PlayHistory>();
             return repo.GetByQuery(i => i.IsPlaying)
                 .Where(i => i.PlayCompleted.Equals(false))
                 .Select(i => i.ToModel()).ToList();
         }
-
-
-
+        
         public List<PlayHistoryViewModel> GetPlayCount(int TrackId)
         {
             var repo = _uow.GetRepo<PlayHistory>();

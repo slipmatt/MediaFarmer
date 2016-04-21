@@ -11,17 +11,29 @@ using PagedList;
 
 namespace MediaFarmer.Controllers.Track
 {
-    public class TrackController : Controller
+    public class TrackController : BaseController
     {
         MusicFarmerEntities context = new MusicFarmerEntities();
         // GET: Track
-        public ActionResult Index(string TrackName = "", string AlbumName = "", string ArtistName = "", int Page=1)
+        public ActionResult Index(string TrackName = "", string AlbumName = "", string ArtistName = "", string URL="", int Page=1)
         {
             using (var context = new Uow(this.context))
             {
                 var repos = new RepositoryTrack(context);
-                var items = repos.SearchTrackByName(TrackName);
-                
+                List<TrackViewModel> items;
+                //TODO: Clean up this shit hack code
+                if (URL != "")
+                {
+                    items=repos.SearchTrackByURL(URL);
+                }
+                else
+                {
+                    items = repos.SearchTrackByURL(URL);
+                }
+                ViewBag.TrackName = TrackName;
+                ViewBag.AlbumName = AlbumName;
+                ViewBag.ArtistNamr = ArtistName;
+                ViewBag.URL = URL;
                 return View(items.ToPagedList(Page,50));
             }
         }
@@ -30,12 +42,22 @@ namespace MediaFarmer.Controllers.Track
             return PartialView();
         }
         [HttpPost]
-        public void Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
+        public ActionResult Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
         {
             using (var context = new Uow(this.context))
             {
                 var repos = new RepositoryTrack(context);
-                repos.Upload(files, Album, Artist);
+                if (repos.Upload(files, Album, Artist))
+                {
+                    Success("File Upload", "Save successful.");
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    Warning("File Upload", "Upload Failed.");
+                    return Json(new { success = true });
+                }
+                
             }
         }
 

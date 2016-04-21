@@ -43,11 +43,11 @@ namespace MediaFarmer.Context.Repositories
         {
             AuthHelper _ah = new AuthHelper(_uow);
             var _userId = _ah.SetupUser();
-            var _voteId=0;
+            var _voteId = 0;
             List<VoteViewModel> _vvm;
             Vote _vote = new Vote
             {
-                VoteId=0,
+                VoteId = 0,
                 VoteValue = false,
                 PlayHistoryId = _PlayHistoryId,
                 UserId = _userId
@@ -82,7 +82,7 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == false))
                            .VoteId;
-                        _vote =  repo.GetById(_voteId);
+                        _vote = repo.GetById(_voteId);
                         repo.Delete(_vote);
                     }
                 }
@@ -135,7 +135,6 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == true))
                            .VoteId;
-
                         _vote = repo.GetById(_voteId);
                         repo.Delete(_vote);
                     }

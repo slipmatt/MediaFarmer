@@ -19,22 +19,15 @@ namespace MediaFarmer.Context.Repositories
             repo = _uow.GetRepo<Artist>();
         }
 
-        public static List<ArtistViewModel> GetAllItems(string filterString)
+        public List<ArtistViewModel> GetFilteredArtists(string filter)
         {
-            List<ArtistViewModel> items = new List<ArtistViewModel>();
+            return repo.GetByQuery(i => i.ArtistName.Contains(filter)).Select(i => i.ToModel()).ToList();
+        }
 
-            //if (!string.IsNullOrEmpty(filterString))
-            //{
-            //    items = GetContext().artists
-            //    .Where(i => i.artist_name.Contains(filterString)).ToList()
-            //    .Select(i => i.ToModel()).ToList();
-            //}
-            //else
-            //{
-            //    items = GetContext().artists
-            //    .Select(i => i.ToModel()).ToList();
-            //}
-            return items;
+        public void AddArtist(ArtistViewModel _Artist)
+        {
+            repo.Add(_Artist.ToData());
+            repo.SaveChanges();
         }
 
 

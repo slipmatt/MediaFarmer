@@ -140,9 +140,7 @@ namespace MediaFarmer.Context.Extensions
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
                 UserId = item.UserId,
-                PlayHistoryId = item.PlayHistoryId,
-                PlayHistory=item.PlayHistory,
-                User = item.User
+                PlayHistoryId = item.PlayHistoryId
             };
         }
         public static Vote ToData(this VoteViewModel item)
@@ -153,9 +151,7 @@ namespace MediaFarmer.Context.Extensions
                 VoteId = item.VoteId,
                 VoteValue = item.VoteValue,
                 UserId = item.UserId,
-                PlayHistoryId = item.PlayHistoryId,
-                PlayHistory = item.PlayHistory,
-                User = item.User
+                PlayHistoryId = item.PlayHistoryId
             };
         }
         #endregion
@@ -170,8 +166,9 @@ namespace MediaFarmer.Context.Extensions
                 TrackName = item.TrackName,
                 ArtistId = item.ArtistId,
                 AlbumId = item.AlbumId,
-                TrackURL=item.TrackURL,
-                AlbumName = item.Album ==null ? "" : item.Album.AlbumName,
+                TrackURL = item.TrackURL,
+                PreviewURL = string.Concat("Content\\", item.TrackURL.Substring(item.TrackURL.IndexOf("Media"))),
+                AlbumName = item.Album == null ? "" : item.Album.AlbumName,
                 ArtistName = item.Artist == null ? "" : item.Artist.ArtistName
             };
         }
@@ -184,7 +181,7 @@ namespace MediaFarmer.Context.Extensions
                 TrackName = item.TrackName,
                 ArtistId = item.ArtistId,
                 AlbumId = item.AlbumId,
-                TrackURL = item.TrackURL
+                TrackURL = item.TrackURL,
             };
         }
         #endregion
@@ -200,6 +197,7 @@ namespace MediaFarmer.Context.Extensions
                 TrackId = item.TrackId,
                 UserName = item.User.UserName,
                 TrackName = item.Track.TrackName,
+                
             };
         }
         public static Favourite ToData(this FavouriteViewModel item)

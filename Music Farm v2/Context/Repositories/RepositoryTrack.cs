@@ -20,10 +20,21 @@ namespace MediaFarmer.Context.Repositories
             repo = _uow.GetRepo<Track>();
         }
 
+        public void AddMetaData(string Album, String Artist)
+        {
+
+        }
+
         public List<TrackViewModel> SearchTrackByName(string _TrackName)
         {
             return repo.GetByQuery(i => i.TrackName.ToLower().Contains(_TrackName.ToLower()) || (_TrackName==""))
                 .Select(i=>i.ToModel()).ToList();
+        }
+
+        public List<TrackViewModel> SearchTrackByURL(string _TrackURL)
+        {
+            return repo.GetByQuery(i => i.TrackURL.ToLower().Contains(_TrackURL.ToLower()) || (_TrackURL == ""))
+                .Select(i => i.ToModel()).ToList();
         }
 
         public List<TrackViewModel> SearchTrackByAlbumName(string _AlbumName)
@@ -38,8 +49,9 @@ namespace MediaFarmer.Context.Repositories
                 .Select(i => i.ToModel()).ToList();
         }
         
-        public void Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
+        public bool Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
         {
+            bool _state = false;
            // var _RootDir = "~/Content/Media/Music";
             var _RootDir = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath(System.Web.HttpRuntime.AppDomainAppVirtualPath), "Content","Media","Music");
             if (!System.IO.Directory.Exists(_RootDir))
@@ -60,26 +72,63 @@ namespace MediaFarmer.Context.Repositories
                         }
                         file.SaveAs(Path.Combine(path, _fileName));
 
-                        var repoAlbum = new RepositoryAlbum(_uow);
-                        var _Album = repoAlbum.GetAlbumId(Album).Find(i => i.AlbumName == Album);
-                        int? _AlbumId = _Album == null ? 0 : _Album.AlbumId;
+                        AlbumViewModel ThisAlbum = AddAlbum(Album);
+                        ArtistViewModel ThisArtist = AddArtist(Artist);
                         TrackViewModel Track = new TrackViewModel
                         {
                             TrackName = _fileName,
-                            AlbumId = _AlbumId == 0 ? null : _AlbumId,
-                            ArtistId = null,
+                            AlbumId = ThisAlbum.AlbumId,
+                            ArtistId = ThisArtist.ArtistId,
                             TrackURL = Path.Combine(path, _fileName)
                         };
+
                         repo.Add(Track.ToData());
                         repo.SaveChanges();
+                        _state = true;
                     }
                 }
             }
+            return _state;
         }
 
-        public void RecursiveSearch(string dir= "")
+        private AlbumViewModel AddAlbum(string Album)
         {
-        dir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content\\Media\\");
+            AlbumViewModel ThisAlbum;
+            var repoAlbum = new RepositoryAlbum(_uow);
+            ThisAlbum = repoAlbum.GetFilteredAlbums(Album).FirstOrDefault();
+            if (ThisAlbum == null)
+            {
+                ThisAlbum = new AlbumViewModel
+                {
+                    AlbumName = Album
+                };
+                repoAlbum.AddAlbum(ThisAlbum);
+                ThisAlbum = repoAlbum.GetFilteredAlbums(Album).FirstOrDefault();
+            }
+            return ThisAlbum;
+        }
+
+        private ArtistViewModel AddArtist(string Artist)
+        {
+            ArtistViewModel ThisArtist;
+            var repoArtist = new RepositoryArtist(_uow);
+            ThisArtist = repoArtist.GetFilteredArtists(Artist).FirstOrDefault();
+            if (ThisArtist == null)
+            {
+                ThisArtist = new ArtistViewModel
+                {
+                    ArtistName = Artist
+                };
+                repoArtist.AddArtist(ThisArtist);
+                ThisArtist = repoArtist.GetFilteredArtists(Artist).FirstOrDefault();
+            }
+            return ThisArtist;
+        }
+
+        public void RecursiveSearch(string dir= "Content\\Media\\")
+        {
+            List<TrackViewModel> tvm = new List<TrackViewModel>();
+        dir=Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dir);
             SearchFilesInDirectory(dir);
             foreach (string d in Directory.EnumerateDirectories(dir))
             {
@@ -98,6 +147,11 @@ namespace MediaFarmer.Context.Repositories
                 {
                     var _filePath = file;
                     var _fileName = Path.GetFileNameWithoutExtension(_filePath);
+                    if (_fileName.Length>100)
+                    {
+                        _fileName= string.Concat(_fileName.Remove(96), "...");
+                    }
+
                     var repoAlbum = new RepositoryAlbum(_uow);
                     TrackViewModel Track = new TrackViewModel
                     {
@@ -114,7 +168,7 @@ namespace MediaFarmer.Context.Repositories
                         {
                             repo.SaveChanges();
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             
                         }
@@ -122,6 +176,36 @@ namespace MediaFarmer.Context.Repositories
                     }
                 }
             }
+        }
+
+
+
+        public List<TrackViewModel> ListFilesInDirectory(string SourceDirectory)
+        {
+            List<TrackViewModel> tvm = new List<TrackViewModel>();
+
+            foreach (string file in Directory.EnumerateFiles(SourceDirectory, "*.*", SearchOption.AllDirectories)
+             .Where(s => s.ToLower().EndsWith(".mp3")
+             || s.ToLower().EndsWith(".wma")
+             || s.ToLower().EndsWith(".wav")))
+            { 
+                if (!(file == null))
+                {
+                    var _filePath = file;
+                    var _fileName = Path.GetFileNameWithoutExtension(_filePath);
+                    var repoAlbum = new RepositoryAlbum(_uow);
+                    TrackViewModel Track = new TrackViewModel
+                    {
+                        TrackName = _fileName,
+                        AlbumId = null,
+                        ArtistId = null,
+                        TrackURL = _filePath
+                    };
+
+                    tvm.Add(Track);
+                }
+            }
+            return tvm;
         }
     }
 }

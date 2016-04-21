@@ -34,5 +34,11 @@ namespace MediaFarmer.Context.Repositories
         {
             return repo.GetByQuery(i=>i.AlbumName== _AlbumName).Select(i => i.ToModel()).ToList();
         }
+
+        public void AddAlbum(AlbumViewModel _Album)
+        {
+            repo.Add(_Album.ToData());
+            repo.SaveChanges();
+        }
     }
 }

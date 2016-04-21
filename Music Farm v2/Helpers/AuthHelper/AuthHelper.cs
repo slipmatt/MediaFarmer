@@ -27,9 +27,10 @@ namespace MediaFarmer.Helpers.AuthHelper
             return repos.GetUserId(this.GetHostName());
         }
 
+
         public string GetHostName()
         {
-            string hName = string.Concat(Environment.UserDomainName,"\\", Environment.UserName);
+            string hName = HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
             try
             {
                 System.Net.IPHostEntry host = new System.Net.IPHostEntry();
@@ -48,7 +49,7 @@ namespace MediaFarmer.Helpers.AuthHelper
             }
             catch (Exception) { }
 
-            return hName;
+            return hName.ToLower();
         }
     }
 }

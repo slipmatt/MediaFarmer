@@ -38,88 +38,99 @@ namespace MediaFarmer.Player
         {
             Console.CursorVisible = false;
             Player = new WMPLib.WindowsMediaPlayer();
-            Player.settings.volume = 70;
-            var _uow = new Uow(new MusicFarmerEntities());
-            var currentVolume=0;
-            RepositoryPlayHistory repo;
-            RepositoryVote repoVote;
-
-            var spin = new ConsoleSpinner();
-            while (true)
+            Player.settings.volume = 50;
+            using (var _uow = new Uow(new MusicFarmerEntities()))
             {
-                repo = new RepositoryPlayHistory(_uow);
-                repoVote = new RepositoryVote(_uow);
-                var currentList = repo.GetCurrentlyPlaying();
-                PlayHistoryViewModel _CurrentTrack = currentList.FirstOrDefault();
-                
-                if (!currentList.Any())
+                var currentVolume = 0;
+                RepositoryPlayHistory repo;
+                RepositoryVote repoVote;
+
+                var spin = new ConsoleSpinner();
+                while (true)
                 {
-                    if (repo.GetCurrentlyQueued().Any())
-                    {
-                        _CurrentTrack = repo.GetCurrentlyQueued().FirstOrDefault();
-                        repo.SetTrackToPlay(_CurrentTrack.PlayHistoryId);
-                    }
-                    else
-                    {
-                        Console.Write("\rThe DJ has left the building... ");
-                        spin.SleepTurn();
-                        Thread.Sleep(1000);
-                    }
-                }
-                else
-                {
-                    RepositoryTrack repoTrack = new RepositoryTrack(_uow);
-                    var nextSong = repoTrack.SearchTrackByName("").Find(i => i.TrackId == _CurrentTrack.TrackId).TrackURL;
-                    Uri songUri = new Uri(nextSong);
 
-                    Player.URL = nextSong;
-                    Player.controls.play();
-                    while (Player.playState == WMPPlayState.wmppsPlaying || Player.playState == WMPPlayState.wmppsBuffering || Player.playState == WMPPlayState.wmppsTransitioning)
+                    repo = new RepositoryPlayHistory(_uow);
+                    repoVote = new RepositoryVote(_uow);
+                    var currentList = repo.GetCurrentlyPlaying();
+                    PlayHistoryViewModel _CurrentTrack = currentList.FirstOrDefault();
+
+                    if (!currentList.Any())
                     {
-                        _CurrentTrack = repo.GetCurrentlyPlaying().FirstOrDefault();
-                        Thread.Sleep(500);
-                        //Console.WriteLine("{0}", _CurrentTrack == null ? "" : _CurrentTrack.TrackName);
-
-                        Console.Write("\r{0} / {1} Volume level: ({3})", Player.controls.currentPositionString, Player.currentMedia.durationString, _CurrentTrack == null ? "" :  _CurrentTrack.TrackName, Player.settings.volume.ToString());
-                        spin.Turn();
-                        try
+                        if (repo.GetCurrentlyQueued().Any())
                         {
-                            if ((_CurrentTrack.PlayCompleted == true) || (_CurrentTrack == null))
-                            {
-                                Console.Clear();
-                                break;
-                            }
-                        }
-                        catch
-                        {
-                            Player.controls.stop();
-                            Console.Clear();
-                            break;
-                        }
-
-                        var currentVotes = repoVote.GetUpVotes(_CurrentTrack.PlayHistoryId).Count - repoVote.GetDownVotes(_CurrentTrack.PlayHistoryId).Count;
-                        if (currentVotes<0)
-                        {
-                            VolumeDown(70, currentVotes);
-                        }
-                        else if (currentVotes > 0)
-                        {
-                            VolumeUp(70, currentVotes);
+                            _CurrentTrack = repo.GetCurrentlyQueued().FirstOrDefault();
+                            repo.SetTrackToPlay(_CurrentTrack.PlayHistoryId);
                         }
                         else
                         {
-                            Player.settings.volume = 70;
+                            Console.Write("\rThe DJ has left the building... ");
+                            spin.SleepTurn();
+                            Thread.Sleep(1000);
+                            
                         }
                     }
-                    if (_CurrentTrack != null)
+                    else
                     {
-                        repo.SetTrackToStop(_CurrentTrack.PlayHistoryId);
-                        Console.Clear();
+                        RepositoryTrack repoTrack = new RepositoryTrack(_uow);
+                        var nextSong = repoTrack.SearchTrackByName("").Find(i => i.TrackId == _CurrentTrack.TrackId).TrackURL;
+                        Uri songUri = new Uri(nextSong);
+
+                        Player.URL = nextSong;
+                        Player.controls.play();
+                        while (Player.playState == WMPPlayState.wmppsPlaying || Player.playState == WMPPlayState.wmppsBuffering || Player.playState == WMPPlayState.wmppsTransitioning)
+                        {
+                            _CurrentTrack = repo.GetCurrentlyPlaying().FirstOrDefault();
+                            Thread.Sleep(500);
+                            //Console.WriteLine("{0}", _CurrentTrack == null ? "" : _CurrentTrack.TrackName);
+
+                            Console.Write("\r{0} / {1} Volume level: ({3})", Player.controls.currentPositionString, Player.currentMedia.durationString, _CurrentTrack == null ? "" : _CurrentTrack.TrackName, Player.settings.volume.ToString());
+                            DJDrop(Player.controls.currentPosition, Player.currentMedia.duration);
+                            spin.Turn();
+                            try
+                            {
+                                if ((_CurrentTrack.PlayCompleted == true) || (_CurrentTrack == null))
+                                {
+                                    Console.Clear();
+                                    break;
+                                }
+                            }
+                            catch
+                            {
+                                Player.controls.stop();
+                                Console.Clear();
+                                break;
+                            }
+
+                            var currentVotes = repoVote.GetUpVotes(_CurrentTrack.PlayHistoryId).Count - repoVote.GetDownVotes(_CurrentTrack.PlayHistoryId).Count;
+                            if (currentVotes < 0)
+                            {
+                                VolumeDown(50, currentVotes);
+                            }
+                            else if (currentVotes > 0)
+                            {
+                                VolumeUp(50, currentVotes);
+                            }
+                            else
+                            {
+                                Player.settings.volume = 50;
+                            }
+                        }
+                        if (_CurrentTrack != null)
+                        {
+                            repo.SetTrackToStop(_CurrentTrack.PlayHistoryId);
+                            Console.Clear();
+                        }
                     }
                 }
             }
         }
+        private static void DJDrop(double CurrentTime, double TotalTime)
+        {
+            //Drop a random DJ drop halfway through a track
+        }
+
     }
+
 
     public class ConsoleSpinner
     {

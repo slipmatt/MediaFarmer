@@ -29,8 +29,14 @@ namespace MediaFarmer.Controllers.Favourite
             using (var context = new Uow(this.context))
             {
                 var repos = new RepositoryFavourite(context);
-                repos.AddFavourite(ID);
-                Success("Favourite", "Add to your favourites");
+                if (repos.AddFavourite(ID))
+                {
+                    Success("Favourite", "Add to your favourites");
+                }
+                else
+                {
+                    Warning("Favourite", "This Track already Exists in your Favourites");
+                }
                 return Redirect(Request.UrlReferrer.ToString());
             }
         }

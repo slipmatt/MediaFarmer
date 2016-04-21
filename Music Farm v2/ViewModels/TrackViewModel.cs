@@ -16,11 +16,10 @@ namespace MediaFarmer.ViewModels
         public int? ArtistId { get; set; }
         [Required(ErrorMessage = "An album has to be selected", AllowEmptyStrings = false)]
         public int? AlbumId { get; set; }
-        [StringLength(255)]
         [Required(ErrorMessage = "A track URL has to be specified", AllowEmptyStrings = false)]
-        public string ArtistName { get; set; }
-        public string AlbumName { get; set; }
-        [StringLength(255)]
         public String TrackURL { get; set; }
+        public string PreviewURL { get; set; }
+        public string AlbumName { get; set; }
+        public string ArtistName { get; set; }
     }
 }

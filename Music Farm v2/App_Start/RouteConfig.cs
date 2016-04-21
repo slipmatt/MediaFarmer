@@ -16,7 +16,7 @@ namespace MediaFarmer
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Music", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PlayHistory", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
