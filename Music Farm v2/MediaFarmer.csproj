@@ -168,6 +168,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\Extensions\ModelExtensions.cs" />
+    <Compile Include="Context\Http\HttpContextManager.cs" />
     <Compile Include="Context\Repositories\ContextData.cs" />
     <Compile Include="Context\Repositories\RepositoryAlbum.cs" />
     <Compile Include="Context\Repositories\RepositoryArtist.cs" />

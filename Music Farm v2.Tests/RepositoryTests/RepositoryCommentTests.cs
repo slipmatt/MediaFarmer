@@ -5,6 +5,9 @@ using UnitOfWork;
 using MediaFarmer.Context.Repositories;
 using MediaFarmer.ViewModels;
 using System.Linq;
+using System.Web;
+using System.IO;
+using MediaFarmer.Tests.RepositoryTests.Helpers;
 
 namespace MediaFarmer.Tests.RepositoryTests
 {
@@ -19,6 +22,16 @@ namespace MediaFarmer.Tests.RepositoryTests
         {
             context = new Mock.Database.MockData.MockCommentTests().MockContext;
             repos = new RepositoryComment(new Uow(context.Object));
+            // Step 1: Setup the HTTP Request
+            var HttpRequest = new HttpRequest("", "http://localhost/", "");
+            HttpRequest.AddServerVariable("REMOTE_HOST", "ACER\\ASPIRE");
+            // Step 2: Setup the HTTP Response
+            var httpResponce = new HttpResponse(new StringWriter());
+
+            // Step 3: Setup the Http Context
+            var httpContext = new HttpContext(HttpRequest, httpResponce);
+            // Step 4: Assign the Context
+            HttpContext.Current = httpContext;
         }
 
         [TestMethod]
@@ -31,8 +44,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         [TestMethod]
         public void ShouldAddAComment()
         {
-
-            CommentViewModel item = new CommentViewModel
+             CommentViewModel item = new CommentViewModel
             {
                 CommentId = 1,
                 CommentText = "This Rocks",

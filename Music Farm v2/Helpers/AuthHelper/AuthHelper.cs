@@ -1,4 +1,5 @@
-﻿using MediaFarmer.Context.Repositories;
+﻿using MediaFarmer.Context.Http;
+using MediaFarmer.Context.Repositories;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace MediaFarmer.Helpers.AuthHelper
 
         public string GetHostName()
         {
-            string hName = HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
+            string hName = HttpContextManager.Current.Request.ServerVariables["REMOTE_HOST"];
             try
             {
                 System.Net.IPHostEntry host = new System.Net.IPHostEntry();
