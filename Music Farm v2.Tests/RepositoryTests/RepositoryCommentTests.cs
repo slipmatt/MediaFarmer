@@ -5,8 +5,6 @@ using UnitOfWork;
 using MediaFarmer.Context.Repositories;
 using MediaFarmer.ViewModels;
 using System.Linq;
-using System.Web;
-using System.IO;
 using MediaFarmer.Tests.RepositoryTests.Helpers;
 
 namespace MediaFarmer.Tests.RepositoryTests
@@ -22,16 +20,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         {
             context = new Mock.Database.MockData.MockCommentTests().MockContext;
             repos = new RepositoryComment(new Uow(context.Object));
-            // Step 1: Setup the HTTP Request
-            var HttpRequest = new HttpRequest("", "http://localhost/", "");
-            HttpRequest.AddServerVariable("REMOTE_HOST", "ACER\\ASPIRE");
-            // Step 2: Setup the HTTP Response
-            var httpResponce = new HttpResponse(new StringWriter());
-
-            // Step 3: Setup the Http Context
-            var httpContext = new HttpContext(HttpRequest, httpResponce);
-            // Step 4: Assign the Context
-            HttpContext.Current = httpContext;
+            MockIIS.MockIISHost();
         }
 
         [TestMethod]
@@ -50,11 +39,9 @@ namespace MediaFarmer.Tests.RepositoryTests
                 CommentText = "This Rocks",
                 PlayHistoryId = 1,
                 UserId = 1,
-                UserName = "ACER\\Aspire"
+                UserName = "acer\\aspire"
             };
             repos.AddComment(item);
-            //var items = repos.GetComments(1);
-            //Assert.IsTrue(items.Count == 2);
             Assert.IsTrue(context.Object.Comments.Count(i => i.PlayHistoryId == 1) == 2);
         }
 

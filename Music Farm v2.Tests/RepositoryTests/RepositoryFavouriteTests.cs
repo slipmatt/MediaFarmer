@@ -4,6 +4,7 @@ using MusicFarmer.Data;
 using MediaFarmer.Context.Repositories;
 using UnitOfWork;
 using MediaFarmer.ViewModels;
+using MediaFarmer.Tests.RepositoryTests.Helpers;
 
 namespace MediaFarmer.Tests.RepositoryTests
 {
@@ -18,6 +19,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         {
             context = new Mock.Database.MockData.MockFavouriteTests().MockContext;
             repos = new RepositoryFavourite(new Uow(context.Object));
+            MockIIS.MockIISHost();
         }
         [TestMethod]
         public void ShouldShowAllFavouritesPerUser()

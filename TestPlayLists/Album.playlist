@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="MediaFarmer.Tests.RepositoryTests.RepositoryAlbumTests.ShouldGetNoFilteredItems" /><Add Test="MediaFarmer.Tests.RepositoryTests.RepositoryAlbumTests.ShouldGet1Album" /><Add Test="MediaFarmer.Tests.RepositoryTests.RepositoryAlbumTests.ShouldGet1FilteredItems" /></Playlist>

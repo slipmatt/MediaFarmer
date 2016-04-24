@@ -154,6 +154,16 @@ namespace MediaFarmer.Context.Extensions
                 PlayHistoryId = item.PlayHistoryId
             };
         }
+        public static Vote UpdateData(this Vote dbItem, VoteViewModel item)
+        {
+            if (item == null) return dbItem;
+            dbItem.VoteValue = item.VoteValue;
+            return dbItem;
+        }
+        public static Vote DeleteData(this Vote dbItem, VoteViewModel item)
+        {
+            return dbItem;
+        }
         #endregion
 
         #region Track

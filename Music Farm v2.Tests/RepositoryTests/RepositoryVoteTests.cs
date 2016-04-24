@@ -4,6 +4,7 @@ using MusicFarmer.Data;
 using MediaFarmer.Context.Repositories;
 using UnitOfWork;
 using System.Linq;
+using MediaFarmer.Tests.RepositoryTests.Helpers;
 
 namespace MediaFarmer.Tests.RepositoryTests
 {
@@ -18,6 +19,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         {
             context = new Mock.Database.MockData.MockVoteTests().MockContext;
             repos = new RepositoryVote(new Uow(context.Object));
+            MockIIS.MockIISHost();
         }
         [TestMethod]
         public void ShouldGetUpVotesOfTrack()
@@ -64,7 +66,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         public void ShouldCancelDownVote()
         {
             repos.DownVote(50);
-            Assert.AreEqual(context.Object.Votes.Count(i => i.PlayHistoryId == 1 && i.VoteValue), 1);
+            Assert.AreEqual(context.Object.Votes.Count(i => i.PlayHistoryId == 50 && !i.VoteValue), 1);
         }
     }
 }

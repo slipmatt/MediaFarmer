@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork;
+using MediaFarmer.Tests.RepositoryTests.Helpers;
 
 namespace MediaFarmer.Tests.RepositoryTests
 {
@@ -21,6 +22,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         {
             context = new Mock.Database.MockData.MockPlayHistoryTests().MockContext;
             repos = new RepositoryPlayHistory(new Uow(context.Object));
+            MockIIS.MockIISHost();
         }
 
         [TestMethod]

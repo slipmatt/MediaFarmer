@@ -70,9 +70,9 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == true))
                            .VoteId;
-                        _vote = repo.GetById(_voteId);
+                        _vote = repo.GetByQuery(i => i.VoteId == _voteId).FirstOrDefault();
                         _vote.VoteValue = false;
-                        repo.Update(_vote);
+                        repo.Update(_vote.UpdateData(_vote.ToModel()));
                     }
                     else if (_vvm.Find
                         (i => (i.UserId == _userId) &&
@@ -82,8 +82,8 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == false))
                            .VoteId;
-                        _vote = repo.GetById(_voteId);
-                        repo.Delete(_vote);
+                        _vote = repo.GetByQuery(i => i.VoteId == _voteId).FirstOrDefault();
+                        repo.Delete(_vote.DeleteData(_vote.ToModel()));
                     }
                 }
             }
@@ -123,9 +123,9 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == false))
                            .VoteId;
-                        _vote = repo.GetById(_voteId);
+                        _vote = repo.GetByQuery(i => i.VoteId == _voteId).FirstOrDefault();
                         _vote.VoteValue = true;
-                        repo.Update(_vote);
+                        repo.Update(_vote.UpdateData(_vote.ToModel()));
                     }
                     else if (_vvm.Find
                         (i => (i.UserId == _userId) &&
@@ -135,8 +135,8 @@ namespace MediaFarmer.Context.Repositories
                            (i => (i.UserId == _userId) &&
                            (i.VoteValue == true))
                            .VoteId;
-                        _vote = repo.GetById(_voteId);
-                        repo.Delete(_vote);
+                        _vote = repo.GetByQuery(i => i.VoteId == _voteId).FirstOrDefault();
+                        repo.Delete(_vote.DeleteData(_vote.ToModel()));
                     }
                 }
             }

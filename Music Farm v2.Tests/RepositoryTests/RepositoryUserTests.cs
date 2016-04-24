@@ -27,7 +27,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         [TestMethod]
         public void ShouldGetUserIdFromUserName()
         {
-            int? UID = repos.GetUserId("ACER\\Aspire");
+            int? UID = repos.GetUserId("acer\\aspire");
             Assert.AreEqual(1, UID);
         }
 
@@ -40,7 +40,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         [TestMethod]
         public void ShouldCheckIfUserDoesExist()
         {
-            bool userExists = repos.CheckIfUserExists("ACER\\Aspire");
+            bool userExists = repos.CheckIfUserExists("acer\\aspire");
             Assert.AreEqual(true,userExists);
         }
 

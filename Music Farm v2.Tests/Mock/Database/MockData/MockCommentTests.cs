@@ -27,7 +27,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     User=new User
                     {
                         UserId=1,
-                        UserName="ACER\\Aspire"
+                        UserName="acer\\aspire"
                     }
                 },
                 new Comment
@@ -39,7 +39,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     User =new User
                     {
                         UserId=1,
-                        UserName="ACER\\Aspire"
+                        UserName="acer\\aspire"
                     }
                 }
             };
@@ -55,7 +55,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER\\Aspire"
+                    UserName="acer\\aspire"
                 }
             };
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);

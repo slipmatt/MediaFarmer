@@ -27,7 +27,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     UserId = 1,
                     TrackId = 1,
                     Track=new Track {TrackId=1,TrackName="Test Track",TrackURL="C:\\Track1.mp3"},
-                    User=new User { UserId=1,UserName="ACER\\Aspire", Active=true }
+                    User=new User { UserId=1,UserName="acer\\aspire", Active=true }
                 },
                 new PlayHistory
                 {
@@ -72,7 +72,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER\\Aspire"
+                    UserName="acer\\aspire"
                 }
             };
             MockContext.Setup(i => i.Set<User>()).Returns(MockHelper.GetMockSet(users).Object);

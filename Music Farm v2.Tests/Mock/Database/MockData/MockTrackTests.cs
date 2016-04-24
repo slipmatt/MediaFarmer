@@ -23,6 +23,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     TrackName="Track1",
                     AlbumId=1,
                     ArtistId=1,
+                    TrackURL="C:\\Media\\Music\\Track1.mp3",
                     Album=new Album
                     {
                         AlbumId=1,
@@ -40,6 +41,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     TrackName="Track2",
                     AlbumId=1,
                     ArtistId=2,
+                    TrackURL="C:\\Media\\Music\\Track2.mp3",
                     Album=new Album
                     {
                         AlbumId=1,
@@ -57,6 +59,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     TrackName="Track3",
                     AlbumId=1,
                     ArtistId=3,
+                    TrackURL="C:\\Media\\Music\\Track3.mp3",
                     Album=new Album
                     {
                         AlbumId=1,
@@ -74,6 +77,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     TrackName="Track15",
                     AlbumId=2,
                     ArtistId=1,
+                    TrackURL="C:\\Media\\Music\\Track15.mp3",
                     Album=new Album
                     {
                         AlbumId=1,

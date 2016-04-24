@@ -117,7 +117,7 @@ namespace MediaFarmer.Player
                         }
                         if (_CurrentTrack != null)
                         {
-                            repo.SetTrackToStop(_CurrentTrack.PlayHistoryId);
+                            repo.AnonSetTrackToStop(_CurrentTrack.PlayHistoryId);
                             Console.Clear();
                         }
                     }

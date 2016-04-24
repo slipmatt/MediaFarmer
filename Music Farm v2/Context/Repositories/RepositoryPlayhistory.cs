@@ -54,16 +54,32 @@ namespace MediaFarmer.Context.Repositories
             repo.SaveChanges();
         }
 
-        public void SetTrackToStop(int PlayHistoryId)
+        public void AnonSetTrackToStop(int PlayHistoryId)
         {
             var repo = _uow.GetRepo<PlayHistory>();
-            PlayHistory ph = repo.GetByQuery()
-                .ToList()
-                .Find(i => i.PlayHistoryId == PlayHistoryId);
+            PlayHistory ph = repo.GetByQuery(i => i.PlayHistoryId == PlayHistoryId).FirstOrDefault();
             ph.IsPlaying = false;
             ph.PlayCompleted = true;
             repo.Update(ph);
             repo.SaveChanges();
+        }
+
+        public bool SetTrackToStop(int PlayHistoryId)
+        {
+            bool _state = false;
+            AuthHelper _ah = new AuthHelper(_uow);
+            var _userId = _ah.SetupUser();
+            var repo = _uow.GetRepo<PlayHistory>();
+            PlayHistory ph = repo.GetByQuery(i=>i.PlayHistoryId == PlayHistoryId && i.UserId ==_userId).FirstOrDefault();
+            if (ph != null)
+            {
+                ph.IsPlaying = false;
+                ph.PlayCompleted = true;
+                repo.Update(ph);
+                repo.SaveChanges();
+                _state = true;
+            }
+            return _state;
         }
 
         public bool Queue(int _TrackId)

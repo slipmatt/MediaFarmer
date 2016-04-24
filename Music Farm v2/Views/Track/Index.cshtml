@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<MediaFarmer.ViewModels.TrackViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Track Search";
+}
+
+<h2>Tracks</h2>
+
+@using (Html.BeginForm("Index", "Track", FormMethod.Get))
+{
+    <div class="well well-sm form-inline">
+        <p>
+            <table>
+                <tr>
+                    <td>
+                        Find by Track Name:
+                    </td>
+                    <td>
+                        @Html.TextBox("TrackName", ViewBag.TrackName as string)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Find By Album Name 
+                    </td>
+                    <td>
+                        @Html.TextBox("AlbumName", ViewBag.AlbumName as string)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Find By Artist Name
+                    </td>
+                    <td>
+                        @Html.TextBox("ArtistName", ViewBag.ArtistName as string)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Find By URL
+                    </td>
+                    <td>
+                        @Html.TextBox("URL", ViewBag.URL as string)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Filter" class="btn btn-sm btn-info" />
+                    </td>
+                </tr>
+            </table>
+        </p>
+    </div>
+}
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+<table class="table">
+    <tr>
+        <th>
+            Track Name
+        </th>
+        <th>
+            Album Name
+        </th>
+        <th>
+            Artist Name
+        </th>
+
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistName)
+            </td>
+            <td>
+                @Html.ActionLink("Queue This!", "Queue", "PlayHistory", new { id = item.TrackId }, new { @class = "btn btn-xs btn-default" })
+            </td>
+            <td>
+                <audio controls>
+                    <source src="@item.PreviewURL" type ="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </td>
+        </tr>
+    }
+
+</table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", 
+    new { page }))

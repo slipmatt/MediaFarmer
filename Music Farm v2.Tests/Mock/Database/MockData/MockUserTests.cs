@@ -21,7 +21,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                 new User
                 {
                     UserId=1,
-                    UserName="ACER\\Aspire"
+                    UserName="acer\\aspire"
                 },
                 new User
                 {
