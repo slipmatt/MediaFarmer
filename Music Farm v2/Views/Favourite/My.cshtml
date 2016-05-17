@@ -19,13 +19,15 @@
 }
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TrackName)
-        </th>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackName)
+            </th>
 
-        <th>Actions</th>
-    </tr>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {

@@ -50,5 +50,20 @@ namespace MediaFarmer.Tests.RepositoryTests
             List<TrackViewModel> _Track = repos.SearchTrackByArtistName("Artist 1");
             Assert.IsTrue(_Track.Count == 2);
         }
+
+        [TestMethod]
+        public void ShouldUpdateTrackDetails()
+        {
+            TrackViewModel _Track = new TrackViewModel
+            {
+                TrackId = 1,
+                TrackName = "1",
+                AlbumId = 1,
+                ArtistId = 1,
+                TrackURL = "C:\\Media\\Music\\Track1.mp3",
+            };
+            repos.UpdateTrackInfo(_Track);
+            Assert.IsTrue(context.Object.Tracks.Count(i=>i.TrackName=="1") == 1);
+        }
     }
 }

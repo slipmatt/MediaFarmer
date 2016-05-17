@@ -70,7 +70,7 @@ namespace MediaFarmer.Context.Repositories
             AuthHelper _ah = new AuthHelper(_uow);
             var _userId = _ah.SetupUser();
             var repo = _uow.GetRepo<PlayHistory>();
-            PlayHistory ph = repo.GetByQuery(i=>i.PlayHistoryId == PlayHistoryId && i.UserId ==_userId).FirstOrDefault();
+            PlayHistory ph = repo.GetByQuery(i=>i.PlayHistoryId == PlayHistoryId && (i.UserId ==_userId || i.User.UserName.ToLower() == "jukeBox auto queue")).FirstOrDefault();
             if (ph != null)
             {
                 ph.IsPlaying = false;
@@ -109,5 +109,7 @@ namespace MediaFarmer.Context.Repositories
                 .Select(i => i.ToModel()).ToList();
             return _phvm.Find(i => i.TrackId == TrackId) == null ? false : true;
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicFarmer.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace MediaFarmer.ViewModels
         public string PreviewURL { get; set; }
         public string AlbumName { get; set; }
         public string ArtistName { get; set; }
+        public Album Album { get; set; }
+        public Artist Artist { get; set; }
     }
 }

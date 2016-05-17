@@ -63,6 +63,9 @@
     <Compile Include="Favourite.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
+    <Compile Include="JukeBoxTracks_Result.cs">
+      <DependentUpon>MusicFarmer.tt</DependentUpon>
+    </Compile>
     <Compile Include="MusicFarmer.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -28,6 +28,7 @@ namespace MediaFarmer.Tests.Mock.Database.MockData
                     TrackId = 1,
                     Track=new Track {TrackId=1,TrackName="Test Track",TrackURL="C:\\Track1.mp3"},
                     User=new User { UserId=1,UserName="acer\\aspire", Active=true }
+
                 },
                 new PlayHistory
                 {

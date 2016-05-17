@@ -48,7 +48,33 @@ namespace MediaFarmer.Context.Repositories
             return repo.GetByQuery(i => i.Artist.ArtistName.ToLower().Contains(_ArtistName.ToLower()))
                 .Select(i => i.ToModel()).ToList();
         }
-        
+
+        public List<TrackViewModel> SearchTrack(string trackName, string albumName, string artistName, string URL)
+        {
+            List<TrackViewModel> searchMash = new List<TrackViewModel>();
+            if (!String.IsNullOrEmpty(trackName))
+            {
+                searchMash.AddRange(SearchTrackByName(trackName));
+            }
+
+            if (!String.IsNullOrEmpty(albumName))
+            {
+                searchMash.AddRange(SearchTrackByAlbumName(albumName));
+            }
+
+            if (!String.IsNullOrEmpty(artistName))
+            {
+                searchMash.AddRange(SearchTrackByArtistName(artistName));
+            }
+
+            if (!String.IsNullOrEmpty(URL) || searchMash.Count==0)
+            {
+                searchMash.AddRange(SearchTrackByURL(URL));
+            }
+
+            return searchMash;
+        }
+
         public bool Upload(IEnumerable<HttpPostedFileBase> files, string Album, String Artist)
         {
             bool _state = false;
@@ -62,6 +88,15 @@ namespace MediaFarmer.Context.Repositories
             {
                 if (!(file == null))
                 {
+                    if (!
+                            (
+                                file.FileName.Contains(".mp3") ||
+                                file.FileName.Contains(".wmv") ||
+                                file.FileName.Contains(".wav")
+                            )
+                        )
+                        return false;
+
                     if (file.ContentLength > 0)
                     {
                         var _fileName = Path.GetFileName(file.FileName);
@@ -89,6 +124,21 @@ namespace MediaFarmer.Context.Repositories
                 }
             }
             return _state;
+        }
+
+        public void UpdateTrackInfo(TrackViewModel _Track)
+        { 
+            var existingTrack = repo.GetByQuery(i => i.TrackId == _Track.TrackId).FirstOrDefault();
+            
+            AlbumViewModel ThisAlbum = AddAlbum(_Track.AlbumName);
+            ArtistViewModel ThisArtist = AddArtist(_Track.ArtistName);
+
+            existingTrack.TrackName = _Track.TrackName;
+            existingTrack.AlbumId = ThisAlbum.AlbumId;
+            existingTrack.ArtistId = ThisArtist.ArtistId;
+            existingTrack.TrackURL = _Track.TrackURL;
+            repo.Update(existingTrack.UpdateData(existingTrack.ToModel()));
+            repo.SaveChanges();
         }
 
         private AlbumViewModel AddAlbum(string Album)

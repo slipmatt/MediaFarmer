@@ -21,22 +21,53 @@ namespace MediaFarmer.Controllers.Track
             {
                 var repos = new RepositoryTrack(context);
                 List<TrackViewModel> items;
-                //TODO: Clean up this shit hack code
-                if (URL != "")
-                {
-                    items=repos.SearchTrackByURL(URL);
-                }
-                else
-                {
-                    items = repos.SearchTrackByURL(URL);
-                }
+
+                    items=repos.SearchTrack(TrackName, AlbumName, ArtistName, URL);
+
                 ViewBag.TrackName = TrackName;
                 ViewBag.AlbumName = AlbumName;
-                ViewBag.ArtistNamr = ArtistName;
+                ViewBag.ArtistName = ArtistName;
                 ViewBag.URL = URL;
+                ViewBag.Page = Page;
                 return View(items.ToPagedList(Page,50));
             }
         }
+
+        public ActionResult PlayLocal(int ID)
+        {
+            using (var context = new Uow(this.context))
+            {
+                List<TrackViewModel> ThisTrack = new List<TrackViewModel>();
+                var repos = new RepositoryTrack(context);
+                ThisTrack.Add(repos.SearchTrackByName("").Find(i => i.TrackId == ID));
+                return PartialView(ThisTrack);
+            }
+        }
+
+        public ActionResult TrackData(int ID)
+        {
+            using (var context = new Uow(this.context))
+            {
+                TrackViewModel ThisTrack;
+                var repos = new RepositoryTrack(context);
+                ThisTrack=(repos.SearchTrackByName("").Find(i => i.TrackId == ID));
+                return PartialView(ThisTrack);
+            }
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TrackData(TrackViewModel Track)
+        {
+            using (var context = new Uow(this.context))
+            {
+                var repos = new RepositoryTrack(context);
+                repos.UpdateTrackInfo(Track);
+            }
+            Success("Product", "Save successful.");
+            return Json(new { success = true });
+        }
+
         public ActionResult Upload()
         {
             return PartialView();

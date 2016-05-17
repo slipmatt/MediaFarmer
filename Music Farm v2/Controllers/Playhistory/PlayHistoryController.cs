@@ -51,7 +51,7 @@ namespace MediaFarmer.Controllers.Playhistory
             }
         }
 
-        public ActionResult Queue(int ID)
+        public ActionResult Queue(int ID, string TrackName, string AlbumName, string ArtistName, string URL, int Page)
         {
             using (var context = new Uow(this.context))
             {
@@ -64,7 +64,7 @@ namespace MediaFarmer.Controllers.Playhistory
                 {
                     Warning("Not Queued", "Track is in the Que");
                 }
-                return RedirectToAction("Index", "Track");
+                return RedirectToAction("Index", "Track", new { TrackName = TrackName, AlbumName = AlbumName, ArtistName= ArtistName, URL = URL, Page= Page });
             }
         }
 

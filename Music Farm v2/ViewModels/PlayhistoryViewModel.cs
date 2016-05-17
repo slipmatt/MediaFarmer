@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicFarmer.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace MediaFarmer.ViewModels
         public bool IsPlaying { get; set; }
         public string UserName { get; set; }
         public string TrackName { get; set; }
+        public User User { get; set; }
+        public Track Track { get; set; }
     }
 }

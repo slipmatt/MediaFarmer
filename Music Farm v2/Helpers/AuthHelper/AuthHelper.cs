@@ -31,9 +31,11 @@ namespace MediaFarmer.Helpers.AuthHelper
 
         public string GetHostName()
         {
-            string hName = HttpContextManager.Current.Request.ServerVariables["REMOTE_HOST"];
+            string hName = "";
             try
             {
+                hName = HttpContextManager.Current.Request.ServerVariables["REMOTE_HOST"];
+            
                 System.Net.IPHostEntry host = new System.Net.IPHostEntry();
                 host = System.Net.Dns.GetHostEntry(hName);
 
@@ -48,7 +50,10 @@ namespace MediaFarmer.Helpers.AuthHelper
                     hName = host.HostName.ToString();
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                hName = "JukeBox Auto Queue";
+            }
 
             return hName.ToLower();
         }

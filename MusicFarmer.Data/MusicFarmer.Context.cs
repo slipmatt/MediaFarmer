@@ -12,6 +12,8 @@ namespace MusicFarmer.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class MusicFarmerEntities : DbContext
     {
@@ -33,5 +35,10 @@ namespace MusicFarmer.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
+    
+        public virtual ObjectResult<JukeBoxTracks_Result> JukeBoxTracks()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JukeBoxTracks_Result>("JukeBoxTracks");
+        }
     }
 }

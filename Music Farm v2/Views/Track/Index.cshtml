@@ -58,19 +58,21 @@
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page }))
 <table class="table">
-    <tr>
-        <th>
-            Track Name
-        </th>
-        <th>
-            Album Name
-        </th>
-        <th>
-            Artist Name
-        </th>
+    <thead>
+        <tr>
+            <th>
+                Track Name
+            </th>
+            <th>
+                Album Name
+            </th>
+            <th>
+                Artist Name
+            </th>
 
-        <th>Actions</th>
-    </tr>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {
@@ -85,13 +87,9 @@
                 @Html.DisplayFor(modelItem => item.ArtistName)
             </td>
             <td>
-                @Html.ActionLink("Queue This!", "Queue", "PlayHistory", new { id = item.TrackId }, new { @class = "btn btn-xs btn-default" })
-            </td>
-            <td>
-                <audio controls>
-                    <source src="@item.PreviewURL" type ="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
+                @Html.ActionLink("Queue This!", "Queue", "PlayHistory", new { id = item.TrackId, TrackName = ViewBag.TrackName, AlbumName = ViewBag.AlbumName, ArtistName = ViewBag.ArtistName, URL = ViewBag.URL, Page = ViewBag.Page    }, new { @class = "btn btn-xs btn-success" })
+                @Html.ActionLink("Play Local", "PlayLocal", "Track", new { id = item.TrackId }, new { data_modal = "", @class = "btn btn-xs btn-default" })
+                @Html.ActionLink("Track Data", "TrackData", "Track", new { id = item.TrackId }, new { data_modal = "", @class = "btn btn-xs btn-info" })
             </td>
         </tr>
     }

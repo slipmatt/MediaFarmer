@@ -26,6 +26,7 @@ namespace MusicFarmer.Data
         public Nullable<int> ArtistId { get; set; }
         public Nullable<int> AlbumId { get; set; }
         public string TrackURL { get; set; }
+        public byte[] UploadTime { get; set; }
     
         public virtual Album Album { get; set; }
         public virtual Artist Artist { get; set; }

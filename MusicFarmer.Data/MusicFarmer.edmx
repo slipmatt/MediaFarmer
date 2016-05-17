@@ -55,7 +55,8 @@
           <Property Name="TrackName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ArtistId" Type="int" />
           <Property Name="AlbumId" Type="int" />
-          <Property Name="TrackURL" Type="varchar" MaxLength="255" />
+          <Property Name="TrackURL" Type="varchar(max)" />
+          <Property Name="UploadTime" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -206,6 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="JukeBoxTracks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MusicFarmerModelStoreContainer">
           <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
@@ -309,6 +311,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Favourite" EntitySet="Favourites" />
           </AssociationSet>
+          <FunctionImport Name="JukeBoxTracks" ReturnType="Collection(MusicFarmerModel.JukeBoxTracks_Result)" />
         </EntityContainer>
         <EntityType Name="Album">
           <Key>
@@ -360,11 +363,12 @@
           <Property Name="TrackName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ArtistId" Type="Int32" />
           <Property Name="AlbumId" Type="Int32" />
-          <Property Name="TrackURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TrackURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Album" Relationship="MusicFarmerModel.FK_track_album" FromRole="Track" ToRole="Album" />
           <NavigationProperty Name="Artist" Relationship="MusicFarmerModel.FK_track_artist" FromRole="Track" ToRole="Artist" />
           <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_track" FromRole="Track" ToRole="PlayHistory" />
           <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Track" ToRole="Favourite" />
+          <Property Name="UploadTime" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -531,6 +535,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="JukeBoxTracks_Result">
+          <Property Type="Int32" Name="TrackId" Nullable="false" />
+          <Property Type="String" Name="TrackName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Votes" Nullable="true" />
+          <Property Type="Int32" Name="Favourites" Nullable="true" />
+          <Property Type="Int32" Name="Played" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -578,6 +589,7 @@
           <EntitySetMapping Name="Tracks">
             <EntityTypeMapping TypeName="MusicFarmerModel.Track">
               <MappingFragment StoreEntitySet="Track">
+                <ScalarProperty Name="UploadTime" ColumnName="UploadTime" />
                 <ScalarProperty Name="TrackURL" ColumnName="TrackURL" />
                 <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
                 <ScalarProperty Name="ArtistId" ColumnName="ArtistId" />
@@ -614,6 +626,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="JukeBoxTracks" FunctionName="MusicFarmerModel.Store.JukeBoxTracks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MusicFarmerModel.JukeBoxTracks_Result">
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+                <ScalarProperty Name="TrackName" ColumnName="TrackName" />
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="Favourites" ColumnName="Favourites" />
+                <ScalarProperty Name="Played" ColumnName="Played" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -103,6 +103,8 @@ namespace MediaFarmer.Context.Extensions
                 TrackId = item.TrackId,
                 UserId = item.UserId,
                 TimePlayed = item.TimePlayed,
+                Track = item.Track,
+                User = item.User,
                 PlayCompleted = item.PlayCompleted
             };
         }
@@ -169,6 +171,7 @@ namespace MediaFarmer.Context.Extensions
         #region Track
         public static TrackViewModel ToModel(this Track item)
         {
+            
             if (item == null) return null;
             return new TrackViewModel
             {
@@ -177,7 +180,7 @@ namespace MediaFarmer.Context.Extensions
                 ArtistId = item.ArtistId,
                 AlbumId = item.AlbumId,
                 TrackURL = item.TrackURL,
-                PreviewURL = string.Concat("Content\\", item.TrackURL.Substring(item.TrackURL.IndexOf("Media"))),
+                PreviewURL = string.Concat("/Content\\", item.TrackURL.Substring(item.TrackURL.IndexOf("Media"))),
                 AlbumName = item.Album == null ? "" : item.Album.AlbumName,
                 ArtistName = item.Artist == null ? "" : item.Artist.ArtistName
             };
@@ -193,6 +196,21 @@ namespace MediaFarmer.Context.Extensions
                 AlbumId = item.AlbumId,
                 TrackURL = item.TrackURL,
             };
+        }
+
+        public static Track UpdateData(this Track dbItem, TrackViewModel item)
+        {
+            if (item == null) return dbItem;
+            dbItem.TrackId = item.TrackId;
+            dbItem.TrackName = item.TrackName;
+            dbItem.TrackURL = item.TrackURL;
+            dbItem.AlbumId = item.AlbumId;
+            dbItem.ArtistId = item.ArtistId;
+            return dbItem;
+        }
+        public static Track DeleteData(this Track dbItem, TrackViewModel item)
+        {
+            return dbItem;
         }
         #endregion
 
@@ -221,5 +239,33 @@ namespace MediaFarmer.Context.Extensions
             };
         }
         #endregion
+
+        #region JukeBox
+        public static JukeBoxViewModel ToModel(this JukeBoxTracks_Result item)
+        {
+            if (item == null) return null;
+            return new JukeBoxViewModel
+            {
+                TrackId = item.TrackId,
+                TrackName = item.TrackName,
+                Votes = item.Votes,
+                Favourites = item.Favourites,
+                Played = item.Played
+            };
+        }
+        public static JukeBoxTracks_Result ToData(this JukeBoxViewModel item)
+        {
+            if (item == null) return null;
+            return new JukeBoxTracks_Result
+            {
+                TrackId = item.TrackId,
+                TrackName = item.TrackName,
+                Votes = item.Votes,
+                Favourites = item.Favourites,
+                Played = item.Played
+            };
+        }
+        #endregion
+
     }
 }

@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<MediaFarmer.ViewModels.CommentViewModel>
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CommentText)
-        </th>   
-    </tr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentText)
+            </th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {

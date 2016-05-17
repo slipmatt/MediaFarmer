@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<MediaFarmer.ViewModels.PlayHistoryViewModel>
 
 <table class="table table-bordered">
-    <tr>
-        <th colspan="3">Currently Queued</th>
-    </tr>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TrackName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>Actions</th>
-    </tr>
+    <thead>
+        <tr>
+            <th colspan="3">Currently Queued</th>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {

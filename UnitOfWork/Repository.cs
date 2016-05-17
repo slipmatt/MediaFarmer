@@ -75,6 +75,11 @@ namespace UnitOfWork
             return DbSet.Find(id);       
         }
 
+        public IEnumerable<T> ExecWithStoreProcedure(string query, params object[] parameters)
+        {
+            return DbContext.Database.SqlQuery<T>(query, parameters);
+        }
+
         /// <summary>
         /// This implementation of getting by query allow a person to include objects in the results.
         /// </summary>

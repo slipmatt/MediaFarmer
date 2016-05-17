@@ -34,7 +34,8 @@ namespace MediaFarmer
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/PagedList.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/Custom/CustomStyles.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*"));

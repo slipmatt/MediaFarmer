@@ -36,9 +36,13 @@ namespace MediaFarmer.Player
         }
         static void Main(string[] args)
         {
+            int JukeBoxWakeUp = 8;
+            int JukeBoxSleep = 18;
             Console.CursorVisible = false;
             Player = new WMPLib.WindowsMediaPlayer();
             Player.settings.volume = 50;
+            var sleepTimer = 0;
+            var jukeBoxOffset = 0;
             using (var _uow = new Uow(new MusicFarmerEntities()))
             {
                 var currentVolume = 0;
@@ -66,7 +70,23 @@ namespace MediaFarmer.Player
                             Console.Write("\rThe DJ has left the building... ");
                             spin.SleepTurn();
                             Thread.Sleep(1000);
-                            
+
+                            if (DateTime.Now.Hour >= JukeBoxWakeUp && DateTime.Now.Hour <= JukeBoxSleep)
+                            {
+                                sleepTimer += 1;
+                                if (sleepTimer >= 20)
+                                {
+                                    var jukeBoxRepo = new RepositoryJukeBox(_uow);
+                                    List<JukeBoxViewModel> items = jukeBoxRepo.GetJukeBoxTracks();
+                                    JukeBoxViewModel jbvm = items.ElementAt(jukeBoxOffset);
+                                    repo.Queue(jbvm.TrackId);
+                                    jukeBoxOffset += 1;
+                                    if (jukeBoxOffset > items.Count())
+                                    {
+                                        jukeBoxOffset = 0;
+                                    }
+                                }
+                            }
                         }
                     }
                     else
@@ -79,6 +99,7 @@ namespace MediaFarmer.Player
                         Player.controls.play();
                         while (Player.playState == WMPPlayState.wmppsPlaying || Player.playState == WMPPlayState.wmppsBuffering || Player.playState == WMPPlayState.wmppsTransitioning)
                         {
+                            sleepTimer = 0;
                             _CurrentTrack = repo.GetCurrentlyPlaying().FirstOrDefault();
                             Thread.Sleep(500);
                             //Console.WriteLine("{0}", _CurrentTrack == null ? "" : _CurrentTrack.TrackName);
@@ -127,6 +148,11 @@ namespace MediaFarmer.Player
         private static void DJDrop(double CurrentTime, double TotalTime)
         {
             //Drop a random DJ drop halfway through a track
+        }
+
+        private static void QueueAJukeBoxTrack()
+        {
+
         }
 
     }

@@ -16,7 +16,10 @@ namespace UnitOfWork
 
         void Delete(T entity);
 
+
         T GetById(object id);
+
+        IEnumerable<T> ExecWithStoreProcedure(string query, params object[] parameters);
 
         T GetUpdatedItem(T entity);
         
