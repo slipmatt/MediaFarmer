@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.Data", "MusicFa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.Player", "Music Farm v2.Player\MediaFarmer.Player.csproj", "{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.PlayerService", "MediaFarmer.PlayerService\MediaFarmer.PlayerService.csproj", "{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Release|x64.ActiveCfg = Release|Any CPU
 		{FC747881-16B1-4A4C-8D0E-14F816E9F4CD}.Release|x64.Build.0 = Release|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Debug|x64.Build.0 = Debug|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Release|x64.ActiveCfg = Release|Any CPU
+		{44B7D6CD-60A8-4FC5-A0B8-D145DC80F741}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
