@@ -44,7 +44,7 @@ namespace MediaFarmer.PlayerService
 
         protected override void OnStart(string[] args)
         {
-            TrackSniffer();
+            Thread thread = new Thread(MediaFarmerPlayerService.TrackSniffer);
         }
 
         protected override void OnStop()

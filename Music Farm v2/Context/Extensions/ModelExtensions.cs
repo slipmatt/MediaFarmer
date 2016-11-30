@@ -89,8 +89,8 @@ namespace MediaFarmer.Context.Extensions
                 UserId = item.UserId,
                 TimePlayed = item.TimePlayed,
                 UserName = item.User.UserName,
-                TrackName = item.Track.TrackName,
-                PlayCompleted=item.PlayCompleted
+                TrackName = item.Track!=null ? item.Track.TrackName : "Unknown",
+                PlayCompleted=item.PlayCompleted,
               //  AlbumName = item.Track.Album.AlbumName
             };
         }
