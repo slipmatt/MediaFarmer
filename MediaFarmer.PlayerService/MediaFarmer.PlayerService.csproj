@@ -62,9 +62,7 @@
       <DependentUpon>MediaFarmerPlayerService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="PlayerService.Installer.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PlayerService.Installer.cs" />
     <Compile Include="PlayerService.Installer.Designer.cs">
       <DependentUpon>PlayerService.Installer.cs</DependentUpon>
     </Compile>
