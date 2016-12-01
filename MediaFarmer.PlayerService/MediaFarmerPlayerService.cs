@@ -19,7 +19,7 @@ namespace MediaFarmer.PlayerService
     public partial class MediaFarmerPlayerService : ServiceBase
     {
         private static WMPLib.WindowsMediaPlayer Player;
-
+        private static bool stopping;
         public static void VolumeUp(int initVolume, int votes)
         {
             if (Player.settings.volume < 100)
@@ -44,14 +44,21 @@ namespace MediaFarmer.PlayerService
 
         protected override void OnStart(string[] args)
         {
-            Thread thread = new Thread(MediaFarmerPlayerService.TrackSniffer);
+            this.EventLog.WriteEntry("MediaFarmer Service Starting.");
+            stopping = false;
+            ThreadPool.QueueUserWorkItem(new WaitCallback(TrackSniffer));
+            // Thread thread = new Thread(MediaFarmerPlayerService.TrackSniffer);
         }
 
         protected override void OnStop()
         {
+            this.EventLog.WriteEntry("MediaFarmer Service Stopping.");
+            // Indicate that the service is stopping and wait for the finish  
+            // of the main service function (ServiceWorkerThread). 
+            stopping = true;
         }
 
-        public static void TrackSniffer()
+        public static void TrackSniffer(object state)
         {
             int JukeBoxWakeUp = 8;
             int JukeBoxSleep = 18;
@@ -63,7 +70,7 @@ namespace MediaFarmer.PlayerService
             {
                 RepositoryPlayHistory repo;
                 RepositoryVote repoVote;
-                while (true)
+                while (!stopping)
                 {
 
                     repo = new RepositoryPlayHistory(_uow);
@@ -150,6 +157,7 @@ namespace MediaFarmer.PlayerService
                     }
                 }
             }
+            stopping = true;
         }
         private static void DJDrop(double CurrentTime, double TotalTime)
         {
