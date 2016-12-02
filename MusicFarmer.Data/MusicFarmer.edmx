@@ -47,6 +47,15 @@
           <Property Name="PlayCompleted" Type="bit" Nullable="false" />
           <Property Name="IsPlaying" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="SettingValue">
+          <Key>
+            <PropertyRef Name="SettingValueId" />
+          </Key>
+          <Property Name="SettingValueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SettingValue" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Track">
           <Key>
             <PropertyRef Name="TrackId" />
@@ -55,8 +64,8 @@
           <Property Name="TrackName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ArtistId" Type="int" />
           <Property Name="AlbumId" Type="int" />
-          <Property Name="TrackURL" Type="varchar(max)" />
-          <Property Name="UploadTime" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="TrackURL" Type="varchar" MaxLength="255" />
+          <Property Name="UploadTime" Type="timestamp" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -214,6 +223,7 @@
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favourite" EntityType="Self.Favourite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayHistory" EntityType="Self.PlayHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SettingValue" EntityType="Self.SettingValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vote" EntityType="Self.Vote" Schema="dbo" store:Type="Tables" />
@@ -312,6 +322,7 @@
             <End Role="Favourite" EntitySet="Favourites" />
           </AssociationSet>
           <FunctionImport Name="JukeBoxTracks" ReturnType="Collection(MusicFarmerModel.JukeBoxTracks_Result)" />
+          <EntitySet Name="SettingValues" EntityType="MusicFarmerModel.SettingValue" />
         </EntityContainer>
         <EntityType Name="Album">
           <Key>
@@ -363,12 +374,12 @@
           <Property Name="TrackName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ArtistId" Type="Int32" />
           <Property Name="AlbumId" Type="Int32" />
-          <Property Name="TrackURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TrackURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Album" Relationship="MusicFarmerModel.FK_track_album" FromRole="Track" ToRole="Album" />
           <NavigationProperty Name="Artist" Relationship="MusicFarmerModel.FK_track_artist" FromRole="Track" ToRole="Artist" />
           <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_track" FromRole="Track" ToRole="PlayHistory" />
           <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Track" ToRole="Favourite" />
-          <Property Name="UploadTime" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="UploadTime" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -542,6 +553,15 @@
           <Property Type="Int32" Name="Favourites" Nullable="true" />
           <Property Type="Int32" Name="Played" Nullable="true" />
         </ComplexType>
+        <EntityType Name="SettingValue">
+          <Key>
+            <PropertyRef Name="SettingValueId" />
+          </Key>
+          <Property Name="SettingValueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SettingName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettingValue1" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -637,6 +657,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SettingValues">
+            <EntityTypeMapping TypeName="MusicFarmerModel.SettingValue">
+              <MappingFragment StoreEntitySet="SettingValue">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SettingValue1" ColumnName="SettingValue" />
+                <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+                <ScalarProperty Name="SettingValueId" ColumnName="SettingValueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

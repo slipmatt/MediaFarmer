@@ -25,7 +25,7 @@ namespace MediaFarmer.PlayerService
             }
 #else
             {
-                MediaFarmerPlayerService.TrackSniffer();
+                MediaFarmerPlayerService.TrackSniffer(null);
             }
 #endif
         }

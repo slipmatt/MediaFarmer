@@ -1,0 +1,62 @@
+﻿@model MediaFarmer.ViewModels.SettingValueViewModel
+
+<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+        <h3 id="myModalLabel">Edit Settings</h3>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.SettingId)
+            <div class="modal-body">
+                <table class="crud-table">
+                    <tr>
+                        <td class="col-md-5">
+                            <div>
+                                @Html.LabelFor(model => model.SettingName)
+                                @Html.ValidationMessageFor(model => model.SettingName, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                        <td class="col-md-5">
+                            <div>
+                                @Html.LabelFor(model => model.SettingValue)
+                                @Html.ValidationMessageFor(model => model.SettingValue, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                        <td class="col-md-5">
+                            <div>
+                                @Html.LabelFor(model => model.Active)
+                                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-5">
+                            <div>
+                                @Html.EditorFor(model => model.SettingName, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </td>
+                        <td class="col-md-5">
+                            <div>
+                               @Html.EditorFor(model => model.SettingValue, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </td>
+                        <td class="col-md-5">
+                            <div>
+                                @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <input type="submit" value="Save" class="btn btn-xs btn-success" />
+            </div>
+        </div>
+    }
