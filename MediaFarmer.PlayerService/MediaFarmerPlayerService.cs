@@ -13,6 +13,7 @@ using MusicFarmer.Data;
 using System.Threading;
 using UnitOfWork;
 using WMPLib;
+using MediaFarmer.Enumerators;
 
 namespace MediaFarmer.PlayerService
 {
@@ -42,6 +43,13 @@ namespace MediaFarmer.PlayerService
             InitializeComponent();
         }
 
+        public void StartDebug()
+        {
+            this.EventLog.WriteEntry("MediaFarmer Service Starting. (DEBUG)");
+            stopping = false;
+            MediaFarmerStartService();
+        }
+
         protected override void OnStart(string[] args)
         {
             this.EventLog.WriteEntry("MediaFarmer Service Starting.");
@@ -58,24 +66,16 @@ namespace MediaFarmer.PlayerService
             stopping = true;
         }
 
-        private static List<SettingValueViewModel> GetJukeBoxSettings(IUow _uow)
+        public static void MediaFarmerStartService()
         {
-                var repos = new RepositorySettings(_uow);
-                return repos.GetAllSettings();
+            var threadedTimers = ThreadedTimers.Instance;
+            threadedTimers.IsShuttingDown = false;
+            threadedTimers.RefreshTrackQueue = new System.Threading.Timer(ThreadedTimerExecutions.RefreshTrackQueue, null,
+                5000, 5000);
         }
-
-        private static void UpdateJukeBoxSilenceTimer(IUow _uow)
-        {
-            
-                var repos = new RepositorySettings(_uow);
-                var setting = repos.GetFilteredSettingsByName("Minutes of Silence").FirstOrDefault();
-                setting.SettingValue -= 1;
-                repos.UpdateSetting(setting);
-        }
-
+        
         public static void TrackSniffer(object state)
         {
-            var jukeBoxSettings = new List<SettingValueViewModel>();
             var JukeBoxWakeUp=0;
             var JukeBoxSleep = 0;
     Player = new WindowsMediaPlayer();
@@ -90,7 +90,9 @@ namespace MediaFarmer.PlayerService
                 while (!stopping)
                 {
                     repoSettings = new RepositorySettings(_uow);
-                    jukeBoxSettings= repoSettings.GetAllSettings();
+                    
+                   
+                       var jukeBoxSettings= repoSettings.GetFilteredSettingsByName(" ");
 
                     JukeBoxWakeUp = jukeBoxSettings.Find(settings => settings.SettingName == "Jukebox Start Time").SettingValue;
                     JukeBoxSleep = jukeBoxSettings.Find(settings => settings.SettingName == "Jukebox End Time").SettingValue;
@@ -147,28 +149,30 @@ namespace MediaFarmer.PlayerService
                     else
                     {
                         RepositoryTrack repoTrack = new RepositoryTrack(_uow);
+
                         var nextSong = repoTrack.SearchTrackByName("").Find(i => i.TrackId == _CurrentTrack.TrackId).TrackURL;
                         Uri songUri = new Uri(nextSong);
 
                         Player.URL = nextSong;
                         Player.controls.play();
                         while (Player.playState == WMPPlayState.wmppsPlaying || Player.playState == WMPPlayState.wmppsBuffering || Player.playState == WMPPlayState.wmppsTransitioning)
-                        {
-                            repoSettings = new RepositorySettings(_uow);
-                            jukeBoxSettings = repoSettings.GetAllSettings();
-                            if (jukeBoxSettings.Find(settings => settings.SettingName == "Minutes of Silence").Active)
+                        { 
+                            
+                            var playingJukeBoxSettings = repoSettings.GetFilteredSettingsByName(" ");
+                            if (playingJukeBoxSettings.Find(settings => settings.SettingName == "Minutes of Silence").Active)
                             {
                                 var silencedMinutes = 0;
-                                var minutes = jukeBoxSettings.Find(settings => settings.SettingName == "Minutes of Silence").SettingValue;
-                                while (minutes * 60 >= silencedMinutes)
+                                var minutes = playingJukeBoxSettings.Find(settings => settings.SettingName == "Minutes of Silence").SettingValue;
+                                while (minutes >= silencedMinutes)
                                 {
                                     Player.settings.volume = 0;
                                     Thread.Sleep(60000);
+                                    silencedMinutes += 60;
                                     var setting = repoSettings.GetFilteredSettingsByName("Minutes of Silence").FirstOrDefault();
                                     setting.SettingValue -= 1;
                                     repoSettings.UpdateSetting(setting);
                                 }
-                                Player.settings.volume = jukeBoxSettings.Find(settings => settings.SettingName == "Start Volume").SettingValue;
+                                Player.settings.volume = playingJukeBoxSettings.Find(settings => settings.SettingName == "Start Volume").SettingValue;
                             }
                             sleepTimer = 0;
                             _CurrentTrack = repo.GetCurrentlyPlaying().FirstOrDefault();

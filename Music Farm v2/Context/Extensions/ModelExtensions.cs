@@ -91,6 +91,8 @@ namespace MediaFarmer.Context.Extensions
                 UserName = item.User.UserName,
                 TrackName = item.Track != null ? item.Track.TrackName : "Unknown",
                 PlayCompleted = item.PlayCompleted,
+                Track = item.Track,
+                User = item.User
                 //  AlbumName = item.Track.Album.AlbumName
             };
         }

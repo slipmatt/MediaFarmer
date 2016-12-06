@@ -25,7 +25,9 @@ namespace MediaFarmer.PlayerService
             }
 #else
             {
-                MediaFarmerPlayerService.TrackSniffer(null);
+                var mediaFarmerPlayerService = new MediaFarmerPlayerService();
+                mediaFarmerPlayerService.StartDebug();
+                System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
             }
 #endif
         }

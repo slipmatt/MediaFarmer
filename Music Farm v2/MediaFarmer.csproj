@@ -188,6 +188,7 @@
     <Compile Include="Controllers\Settings\SettingsController.cs" />
     <Compile Include="Controllers\Track\TrackController.cs" />
     <Compile Include="Controllers\Vote\VoteController.cs" />
+    <Compile Include="Enumerators\SettingsEnumerator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
