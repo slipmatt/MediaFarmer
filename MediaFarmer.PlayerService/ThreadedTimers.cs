@@ -8,6 +8,7 @@ using MediaFarmer.Context.Repositories;
 using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using WMPLib;
+using MediaFarmer.PlayerService.Classes;
 
 namespace MediaFarmer.PlayerService
 {
@@ -18,7 +19,6 @@ namespace MediaFarmer.PlayerService
 
         public System.Threading.Timer RefreshTrackQueue { get; set; }
         public bool IsShuttingDown { get; set; }
-
         private ThreadedTimers()
         {
             IsShuttingDown = false;
@@ -27,38 +27,96 @@ namespace MediaFarmer.PlayerService
 
     public class ThreadedTimerExecutions
     {
+        private static List<SettingValueViewModel> _settings { get; set; }
+        private static MediaPlayerController _player { get; set; }
+        private static PlayListController _playList { get; set; }
+
         public static void RefreshTrackQueue(object obj)
         {
-            var playList = PlayListController.Instance;
-            var player = MediaPlayerController.Instance;
-            
+            var track = new PlayHistoryViewModel();
+            _playList = PlayListController.Instance;
+            _player = MediaPlayerController.Instance;
             using (var uow = new Uow(new MusicFarmerEntities()))
             {
-                playList.InitializePlaylist(uow);
-                player.InitializePlayer();
-                playList.RefreshPlaylist();
-                //This check is for the case when the service shuts down unexpectedly
-                //and the track is still marked as playing in the DB. play will resume from
-                //this track then move over to the Queue
-                if (playList.IsPlayingTrack())
+                var repoSettings = new RepositorySettings(uow);
+                var repoVotes = new RepositoryVote(uow);
+
+                _playList.InitializePlaylist(uow);
+                _player.InitializePlayer();
+                _playList.RefreshPlaylist();
+
+                _settings = repoSettings.GetAllSettings();
+                SetPlayerSettings();
+
+                if (_player.IsMuted)
                 {
-                    var ph = playList.GetPlayingTrack();
-                    PlayTrack(playList.GetPlayingTrack().Track.TrackURL, player);
+                    return;
                 }
 
-                else if (playList.HasTrackQueued())
+                if (_player.IsPlaying() || (_player.GetDuration()>_player.GetElapsed()))
                 {
-                    PlayTrack(playList.GetNextQueuedTrack().Track.TrackURL, player);
+                    SetPlayerVolumeBasedOnVotes(repoVotes.GetUpVotes(track.PlayHistoryId).Count, repoVotes.GetDownVotes(track.PlayHistoryId).Count);
                 }
+                else
+                {
+                    ChangeTrack();
+                }
+
+                if (_playList.IsPlayingTrack() && !(_player.IsPlaying()))
+                {
+                    var ph = _playList.GetPlayingTrack();
+                    track = _playList.GetPlayingTrack();
+                    PlayTrack(track.Track.TrackURL);
+                }
+
+                else if (_playList.HasTrackQueued() && !(_player.IsPlaying()))
+                {
+                    track = _playList.GetNextQueuedTrack();
+                    PlayTrack(track.Track.TrackURL);
+                }
+                else
+                {
+                    //Jukebox
+                }
+
+                
+
             }
         }
 
-        private static void PlayTrack(string Url, MediaPlayerController mediaPlayer)
+        private static void ChangeTrack()
         {
-            if (!(mediaPlayer.IsPlaying()))
+            if (_player.PlayedTrack)
             {
-                mediaPlayer.PlayTrack(Url);
+                _playList.StopCurrentTrack();
             }
+            _playList.GetNextQueuedTrack();
+        }
+
+        private static void SetPlayerVolumeBasedOnVotes(int upVote, int downVote)
+        {
+            var initVolume = _settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.StartVolume).SettingValue;
+            var increment = _settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.VolumeIncrements).SettingValue;
+            var currentVotes = upVote - downVote;
+            _player.SetVolume(initVolume + (increment * currentVotes));
+        }
+
+        private static void SetPlayerSettings()
+        {
+            if (_settings.Any(s => s.Active == true && s.SettingId == (int)MediaFarmer.Enumerators.Settings.MinutesOfSilence))
+            {
+                _player.Mute();
+            }
+            else
+            {
+                _player.UnMute();
+                _player.SetVolume(_settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.StartVolume).SettingValue);
+            }
+        }
+
+        private static void PlayTrack(string Url)
+        {
+            _player.PlayTrack(Url);
         }
     }
 }

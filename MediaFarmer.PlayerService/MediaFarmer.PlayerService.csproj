@@ -55,14 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\VoteController.cs" />
     <Compile Include="MediaFarmerPlayerService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MediaFarmerPlayerService.Designer.cs">
       <DependentUpon>MediaFarmerPlayerService.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaPlayerController.cs" />
-    <Compile Include="PlayListController.cs" />
+    <Compile Include="Classes\MediaPlayerController.cs" />
+    <Compile Include="Classes\PlayListController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PlayerService.Installer.cs">
       <SubType>Component</SubType>

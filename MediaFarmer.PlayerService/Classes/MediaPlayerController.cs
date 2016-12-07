@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WMPLib;
 
-namespace MediaFarmer.PlayerService
+namespace MediaFarmer.PlayerService.Classes
 {
     public class MediaPlayerController
     {
@@ -17,6 +17,10 @@ namespace MediaFarmer.PlayerService
 
         public bool IsShuttingDown { get; set; }
 
+        public bool IsInitialized { get; set; }
+        public bool IsMuted { get; set; }
+        public bool PlayedTrack { get; set; }
+
         private static WMPLib.WindowsMediaPlayer Player;
 
         private MediaPlayerController()
@@ -26,16 +30,36 @@ namespace MediaFarmer.PlayerService
 
         public void InitializePlayer()
         {
-            Player = new WindowsMediaPlayer();
+            if (!IsInitialized)
+            {
+                Player = new WindowsMediaPlayer();
+                IsInitialized = true;
+                PlayedTrack = false;
+            }
+        }
+
+        public double? GetDuration()
+        {
+            return Player.currentMedia?.duration;
+        }
+        public double? GetElapsed()
+        {
+            return Player.controls?.currentPosition;
         }
 
         public void PlayTrack(string Url)
         {
             Player.URL = Url;
             Player.controls.play();
+            PlayedTrack = true;
         }
 
-        public static void VolumeUp(int initVolume, int votes)
+        public void SetVolume(int volume)
+        {
+            Player.settings.volume = volume;
+        }
+
+        public void VolumeUp(int initVolume, int votes)
         {
             if (Player.settings.volume < 100)
             {
@@ -44,7 +68,7 @@ namespace MediaFarmer.PlayerService
 
         }
 
-        public static void VolumeDown(int initVolume, int votes)
+        public void VolumeDown(int initVolume, int votes)
         {
             if (Player.settings.volume > 10)
             {
@@ -52,12 +76,18 @@ namespace MediaFarmer.PlayerService
             }
         }
 
-        public static void Mute()
+        public void Mute()
         {
-                Player.settings.volume = 0;
+            Player.settings.volume = 0;
+            IsMuted = true;
         }
 
-        public static  WMPPlayState PlayerState()
+        public void UnMute()
+        {
+            IsMuted = false;
+        }
+
+        public static WMPPlayState PlayerState()
         {
             return Player.playState;
         }

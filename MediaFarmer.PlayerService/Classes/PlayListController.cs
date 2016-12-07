@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnitOfWork;
 
-namespace MediaFarmer.PlayerService
+namespace MediaFarmer.PlayerService.Classes
 {
     public class PlayListController
     {
@@ -42,6 +42,11 @@ namespace MediaFarmer.PlayerService
         public bool IsPlayingTrack()
         {
             return repo.GetCurrentlyPlaying().Any();
+        }
+
+        public void StopCurrentTrack()
+        {
+                repo.AnonSetTrackToStop(this.GetPlayingTrack().PlayHistoryId);
         }
 
         public PlayHistoryViewModel GetPlayingTrack()

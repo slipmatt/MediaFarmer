@@ -21,7 +21,7 @@ namespace MediaFarmer.Context.Repositories
         }
         public List<SettingValueViewModel> GetAllSettings()
         {
-            return repo.GetByQuery(i=>i.SettingName!="").Select(i => i.ToModel()).ToList();
+            return repo.GetByQuery().Select(i => i.ToModel()).ToList();
         }
 
         public List<SettingValueViewModel> GetFilteredSettingsByName(string filter)
