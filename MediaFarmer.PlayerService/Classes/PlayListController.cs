@@ -31,7 +31,7 @@ namespace MediaFarmer.PlayerService.Classes
 
         public void RefreshPlaylist()
         {
-            Playlist= repo.GetCurrentlyQueued();
+            Playlist = repo.GetCurrentlyQueued();
         }
 
         public bool HasTrackQueued()
@@ -44,14 +44,14 @@ namespace MediaFarmer.PlayerService.Classes
             return repo.GetCurrentlyPlaying().Any();
         }
 
-        public void StopCurrentTrack()
-        {
-                repo.AnonSetTrackToStop(this.GetPlayingTrack().PlayHistoryId);
-        }
-
         public PlayHistoryViewModel GetPlayingTrack()
         {
             return repo.GetCurrentlyPlaying().FirstOrDefault();
+        }
+
+        public void SetPlayingTrack(int PlayHistoryId)
+        {
+            repo.SetTrackToPlay(PlayHistoryId);
         }
 
         public PlayHistoryViewModel GetNextQueuedTrack()
@@ -59,9 +59,12 @@ namespace MediaFarmer.PlayerService.Classes
             return Playlist.FirstOrDefault();
         }
 
-        public static void RemoveFromQueue(int Id)
+        public void RemoveFromQueue(PlayHistoryViewModel PlayHistoryItem)
         {
-            repo.AnonSetTrackToStop(Id);
+            if (PlayHistoryItem != null)
+            {
+                repo.AnonSetTrackToStop(PlayHistoryItem.PlayHistoryId);
+            }
         }
     }
 }

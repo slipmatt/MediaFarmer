@@ -53,34 +53,35 @@ namespace MediaFarmer.PlayerService
                     return;
                 }
 
-                if (_player.IsPlaying() || (_player.GetDuration()>_player.GetElapsed()))
-                {
-                    SetPlayerVolumeBasedOnVotes(repoVotes.GetUpVotes(track.PlayHistoryId).Count, repoVotes.GetDownVotes(track.PlayHistoryId).Count);
-                }
-                else
+                if (!_player.IsPlaying())
+                
                 {
                     ChangeTrack();
                 }
 
                 if (_playList.IsPlayingTrack() && !(_player.IsPlaying()))
                 {
-                    var ph = _playList.GetPlayingTrack();
                     track = _playList.GetPlayingTrack();
-                    PlayTrack(track.Track.TrackURL);
                 }
 
                 else if (_playList.HasTrackQueued() && !(_player.IsPlaying()))
                 {
                     track = _playList.GetNextQueuedTrack();
-                    PlayTrack(track.Track.TrackURL);
                 }
                 else
                 {
                     //Jukebox
                 }
-
-                
-
+                if (_player.IsPlaying())
+                {
+                    track = _playList.GetPlayingTrack();
+                    SetPlayerVolumeBasedOnVotes(repoVotes.GetUpVotes(track.PlayHistoryId).Count, repoVotes.GetDownVotes(track.PlayHistoryId).Count);
+                }
+                else
+                {
+                    PlayTrack(track.Track.TrackURL);
+                    _playList.SetPlayingTrack(track.PlayHistoryId);
+                }
             }
         }
 
@@ -88,7 +89,7 @@ namespace MediaFarmer.PlayerService
         {
             if (_player.PlayedTrack)
             {
-                _playList.StopCurrentTrack();
+                _playList.RemoveFromQueue(_playList.GetPlayingTrack());
             }
             _playList.GetNextQueuedTrack();
         }

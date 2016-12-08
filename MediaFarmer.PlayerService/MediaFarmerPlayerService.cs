@@ -71,7 +71,7 @@ namespace MediaFarmer.PlayerService
             var threadedTimers = ThreadedTimers.Instance;
             threadedTimers.IsShuttingDown = false;
             threadedTimers.RefreshTrackQueue = new System.Threading.Timer(ThreadedTimerExecutions.RefreshTrackQueue, null,
-                2000, 2000);
+                5000, 5000);
         }
         
         public static void TrackSniffer(object state)
