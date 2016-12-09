@@ -61,7 +61,7 @@ namespace MediaFarmer.Context.Extensions
                 CommentId = item.CommentId,
                 CommentText = item.CommentText,
                 UserId = item.UserId,
-                PlayHistoryId=item.PlayHistoryId,
+                PlayHistoryId = item.PlayHistoryId,
                 UserName = item.User.UserName
             };
         }
@@ -89,9 +89,11 @@ namespace MediaFarmer.Context.Extensions
                 UserId = item.UserId,
                 TimePlayed = item.TimePlayed,
                 UserName = item.User.UserName,
-                TrackName = item.Track!=null ? item.Track.TrackName : "Unknown",
-                PlayCompleted=item.PlayCompleted,
-              //  AlbumName = item.Track.Album.AlbumName
+                TrackName = item.Track != null ? item.Track.TrackName : "Unknown",
+                PlayCompleted = item.PlayCompleted,
+                Track = item.Track,
+                User = item.User
+                //  AlbumName = item.Track.Album.AlbumName
             };
         }
         public static PlayHistory ToData(this PlayHistoryViewModel item)
@@ -171,7 +173,7 @@ namespace MediaFarmer.Context.Extensions
         #region Track
         public static TrackViewModel ToModel(this Track item)
         {
-            
+
             if (item == null) return null;
             return new TrackViewModel
             {
@@ -225,7 +227,7 @@ namespace MediaFarmer.Context.Extensions
                 TrackId = item.TrackId,
                 UserName = item.User.UserName,
                 TrackName = item.Track.TrackName,
-                
+
             };
         }
         public static Favourite ToData(this FavouriteViewModel item)
@@ -267,5 +269,41 @@ namespace MediaFarmer.Context.Extensions
         }
         #endregion
 
+        #region Vote
+        public static SettingValueViewModel ToModel(this SettingValue item)
+        {
+            if (item == null) return null;
+            return new SettingValueViewModel
+            {
+                SettingId = item.SettingValueId,
+                SettingName = item.SettingName,
+                SettingValue = item.SettingValue1,
+                Active = item.Active
+            };
+        }
+        public static SettingValue ToData(this SettingValueViewModel item)
+        {
+            if (item == null) return null;
+            return new SettingValue
+            {
+                SettingValueId = item.SettingId,
+                SettingName = item.SettingName,
+                SettingValue1 = item.SettingValue,
+                Active = item.Active
+            };
+        }
+        public static SettingValue UpdateData(this SettingValue dbItem, SettingValueViewModel item)
+        {
+            if (item == null) return dbItem;
+            dbItem.SettingName = item.SettingName;
+            dbItem.SettingValue1 = item.SettingValue;
+            dbItem.Active = item.Active;
+            return dbItem;
+        }
+        public static SettingValue DeleteData(this SettingValue dbItem, SettingValueViewModel item)
+        {
+            return dbItem;
+        }
+        #endregion
     }
 }

@@ -59,14 +59,14 @@ namespace MediaFarmer.Tests.RepositoryTests
         public void ShouldCancelUpVote()
         {
             repos.UpVote(1);
-            Assert.IsTrue(context.Object.Votes.Count(i => i.PlayHistoryId == 1 && i.VoteValue)==3);
+            Assert.AreEqual(context.Object.Votes.Count(i => i.PlayHistoryId == 1 && i.VoteValue),4);
         }
 
         [TestMethod]
         public void ShouldCancelDownVote()
         {
             repos.DownVote(50);
-            Assert.AreEqual(context.Object.Votes.Count(i => i.PlayHistoryId == 50 && !i.VoteValue), 1);
+            Assert.AreEqual(context.Object.Votes.Count(i => i.PlayHistoryId == 50 && !i.VoteValue), 2);
         }
     }
 }

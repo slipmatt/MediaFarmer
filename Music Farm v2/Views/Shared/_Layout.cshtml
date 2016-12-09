@@ -33,7 +33,7 @@
                     <li>@Html.ActionLink("Currently Playing", "Index", "PlayHistory")</li>
                     <li>@Html.ActionLink("Track Search", "Index", "Track")</li>
                     <li>@Html.ActionLink("My Favourites", "My", "Favourite")</li>
-                    <li>@Ajax.ActionLink("Upload", "Upload", "Track",null,null, new { data_modal = "", @class = "fa fa-caret-down" })</li>
+                    <li>@Html.ActionLink("Settings", "ViewSettings", "Settings")</li>
                 </ul>
                 @*@Html.Partial("_SideMenu")*@
                 @Html.Partial("_LoginPartial")

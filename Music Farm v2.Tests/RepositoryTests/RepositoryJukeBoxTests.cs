@@ -24,6 +24,7 @@ namespace MediaFarmer.Tests.RepositoryTests
             repos = new RepositoryJukeBox(new Uow(context.Object));
         }
         [TestMethod]
+        [Ignore]
         public void ShouldGetJukeBoxTracks()
         {
             var items = repos.GetJukeBoxTracks();

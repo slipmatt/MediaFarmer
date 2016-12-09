@@ -55,12 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\JukeBoxController.cs" />
+    <Compile Include="Classes\VoteController.cs" />
     <Compile Include="MediaFarmerPlayerService.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MediaFarmerPlayerService.Designer.cs">
       <DependentUpon>MediaFarmerPlayerService.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\MediaPlayerController.cs" />
+    <Compile Include="Classes\PlayListController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PlayerService.Installer.cs">
       <SubType>Component</SubType>
@@ -69,6 +73,7 @@
       <DependentUpon>PlayerService.Installer.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThreadedTimers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

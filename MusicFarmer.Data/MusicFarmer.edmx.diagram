@@ -23,6 +23,7 @@
         <EntityTypeShape EntityType="MusicFarmerModel.Favourite" Width="1.5" PointX="3" PointY="1.125" />
         <AssociationConnector Association="MusicFarmerModel.FK_Favourite_Track" />
         <AssociationConnector Association="MusicFarmerModel.FK_Favourite_User" />
+        <EntityTypeShape EntityType="MusicFarmerModel.SettingValue" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

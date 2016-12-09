@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Mock\Database\BaseMock.cs" />
+    <Compile Include="Mock\Database\MockData\MockSettingsTests.cs" />
     <Compile Include="Mock\Database\MockData\MockAlbumTests.cs" />
     <Compile Include="Mock\Database\MockData\MockArtistTests.cs" />
     <Compile Include="Mock\Database\MockData\MockCommentTests.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="RepositoryTests\Helpers\HttpRequestExtensions.cs" />
     <Compile Include="RepositoryTests\Helpers\MockIIS.cs" />
+    <Compile Include="RepositoryTests\RepositorySettingsTests.cs" />
     <Compile Include="RepositoryTests\RepositoryAlbumTests.cs" />
     <Compile Include="RepositoryTests\RepositoryArtistTest.cs" />
     <Compile Include="RepositoryTests\RepositoryCommentTests.cs" />

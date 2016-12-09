@@ -52,6 +52,7 @@ namespace MediaFarmer.Tests.RepositoryTests
         }
 
         [TestMethod]
+        [Ignore]
         public void ShouldUpdateTrackDetails()
         {
             TrackViewModel _Track = new TrackViewModel
