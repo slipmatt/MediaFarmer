@@ -18,7 +18,9 @@ namespace MediaFarmer.PlayerService.Classes
         public static JukeBoxController Instance { get { return lazy.Value; } }
         public static int Position { get; set; }
         public bool IsShuttingDown { get; set; }
-
+        public bool IsPosInitialized { get; set; }
+        public int TimeToWait { get; set; }
+        public bool Active { get; set; }
         private JukeBoxController()
         {
             IsShuttingDown = false;
@@ -27,7 +29,26 @@ namespace MediaFarmer.PlayerService.Classes
         public void InitializeJukeBox(IUow uow)
         {
             repo = new RepositoryJukeBox(uow);
-            Position = 0;
+            if (!IsPosInitialized)
+            {
+                Position = 0;
+                IsPosInitialized = true;
+                TimeToWait = -1;
+                Active = false;
+            }
+        }
+
+        public void SetTimeToWait(int Duration)
+        {
+            if (TimeToWait == -1)
+            {
+                TimeToWait = Duration;
+            }
+        }
+
+        public void SetActive(bool ActiveSetting)
+        {
+            Active = ActiveSetting;
         }
 
         public void RefreshJukeBox()

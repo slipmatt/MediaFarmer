@@ -37,26 +37,19 @@ namespace MediaFarmer.PlayerService
             var track = new PlayHistoryViewModel();
             _playList = PlayListController.Instance;
             _player = MediaPlayerController.Instance;
+            _jukeboxAutoqueue = JukeBoxController.Instance;
             using (var uow = new Uow(new MusicFarmerEntities()))
             {
-                var repoSettings = new RepositorySettings(uow);
                 var repoVotes = new RepositoryVote(uow);
-
-                _playList.InitializePlaylist(uow);
-                _player.InitializePlayer();
-                _playList.RefreshPlaylist();
-                _jukeboxAutoqueue.RefreshJukeBox();
-
-                _settings = repoSettings.GetAllSettings();
+                InitializeRepos(uow);
                 SetPlayerSettings();
-
+                SetJukeBoxSettings();
                 if (_player.IsMuted)
                 {
                     return;
                 }
 
                 if (!_player.IsPlaying())
-                
                 {
                     ChangeTrack();
                 }
@@ -65,15 +58,28 @@ namespace MediaFarmer.PlayerService
                 {
                     track = _playList.GetPlayingTrack();
                 }
-
+                else if ((_player.IsPlaying()) && (!(_playList.IsPlayingTrack())))
+                {
+                    //Trust me on this one.
+                    //___________________________________________________
+                    //| Stop the track to resync the DB with the Player  |
+                    //|__________________________________________________|
+                
+                    _player.Stop();
+                    _jukeboxAutoqueue.IncrementPosition();
+                    return;
+                }
                 else if (_playList.HasTrackQueued() && !(_player.IsPlaying()))
                 {
                     track = _playList.GetNextQueuedTrack();
                 }
-                else
+                else if (!_player.IsPlaying())
                 {
                     SpinUpJukeBox();
+                    return;
                 }
+                
+                
                 if (_player.IsPlaying())
                 {
                     track = _playList.GetPlayingTrack();
@@ -81,15 +87,39 @@ namespace MediaFarmer.PlayerService
                 }
                 else
                 {
-                    PlayTrack(track.Track.TrackURL);
-                    _playList.SetPlayingTrack(track.PlayHistoryId);
+                    LoadNewTrack(track);
                 }
             }
         }
 
+        private static void LoadNewTrack(PlayHistoryViewModel track)
+        {
+            if (track.TrackId != 0)
+            {
+                PlayTrack(track.Track.TrackURL);
+                _playList.SetPlayingTrack(track.PlayHistoryId);
+            }
+        }
+
+        private static void InitializeRepos(Uow uow)
+        {
+            _playList.InitializePlaylist(uow);
+            _jukeboxAutoqueue.InitializeJukeBox(uow);
+            var repoSettings = new RepositorySettings(uow);
+            _player.InitializePlayer();
+            _playList.RefreshPlaylist();
+            _settings = repoSettings.GetAllSettings();
+            _jukeboxAutoqueue.RefreshJukeBox();
+        }
+
         private static void SpinUpJukeBox()
         {
+            if (!_jukeboxAutoqueue.Active)
+            {
+                return;
+            }
             _playList.QueueTrack(_jukeboxAutoqueue.GetNextTrack().TrackId);
+            _jukeboxAutoqueue.IncrementPosition();
         }
 
         private static void ChangeTrack()
@@ -111,7 +141,7 @@ namespace MediaFarmer.PlayerService
 
         private static void SetPlayerSettings()
         {
-            if (_settings.Any(s => s.Active == true && s.SettingId == (int)MediaFarmer.Enumerators.Settings.MinutesOfSilence))
+            if (_settings.Any(s => s.Active == true && s.SettingId == (int)MediaFarmer.Enumerators.Settings.Mute))
             {
                 _player.Mute();
             }
@@ -119,6 +149,19 @@ namespace MediaFarmer.PlayerService
             {
                 _player.UnMute();
                 _player.SetVolume(_settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.StartVolume).SettingValue);
+            }
+        }
+
+        private static void SetJukeBoxSettings()
+        {
+            if (_settings.Any(s=>s.SettingId == (int)MediaFarmer.Enumerators.Settings.JukeBoxAutoQueue))
+            {
+                _jukeboxAutoqueue.Active = _settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.JukeBoxAutoQueue).Active;
+            }
+
+            if (_settings.Any(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.SecondsToAutoQueue))
+            {
+                _jukeboxAutoqueue.TimeToWait = _settings.Find(s => s.SettingId == (int)MediaFarmer.Enumerators.Settings.SecondsToAutoQueue).SettingValue;
             }
         }
 

@@ -104,7 +104,7 @@ namespace MediaFarmer.PlayerService.Classes
             }
         }
 
-        public static void Stop()
+        public void Stop()
         {
             Player.controls.stop();
         }
