@@ -30,6 +30,7 @@ namespace MediaFarmer.PlayerService
         private static List<SettingValueViewModel> _settings { get; set; }
         private static MediaPlayerController _player { get; set; }
         private static PlayListController _playList { get; set; }
+        private static JukeBoxController _jukeboxAutoqueue { get; set; }
 
         public static void RefreshTrackQueue(object obj)
         {
@@ -44,6 +45,7 @@ namespace MediaFarmer.PlayerService
                 _playList.InitializePlaylist(uow);
                 _player.InitializePlayer();
                 _playList.RefreshPlaylist();
+                _jukeboxAutoqueue.RefreshJukeBox();
 
                 _settings = repoSettings.GetAllSettings();
                 SetPlayerSettings();
@@ -70,7 +72,7 @@ namespace MediaFarmer.PlayerService
                 }
                 else
                 {
-                    //Jukebox
+                    SpinUpJukeBox();
                 }
                 if (_player.IsPlaying())
                 {
@@ -83,6 +85,11 @@ namespace MediaFarmer.PlayerService
                     _playList.SetPlayingTrack(track.PlayHistoryId);
                 }
             }
+        }
+
+        private static void SpinUpJukeBox()
+        {
+            _playList.QueueTrack(_jukeboxAutoqueue.GetNextTrack().TrackId);
         }
 
         private static void ChangeTrack()

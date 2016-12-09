@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\JukeBoxController.cs" />
     <Compile Include="Classes\VoteController.cs" />
     <Compile Include="MediaFarmerPlayerService.cs">
       <SubType>Component</SubType>

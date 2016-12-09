@@ -34,6 +34,11 @@ namespace MediaFarmer.PlayerService.Classes
             Playlist = repo.GetCurrentlyQueued();
         }
 
+        public void QueueTrack(int trackId)
+        {
+                repo.Queue(trackId);
+        }
+
         public bool HasTrackQueued()
         {
             return Playlist.Any();
