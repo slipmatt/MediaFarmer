@@ -37,8 +37,7 @@ namespace MediaFarmer.API.Controllers
         [System.Web.Http.HttpGet]
         public string GetSetting(int id)
         {
-           SettingValueViewModel settings = new SettingValueViewModel();
-            settings = _settings.GetAllSettings().Find(i=>i.SettingId==id);
+            SettingValueViewModel settings = _settings.GetAllSettings().Find(i => i.SettingId == id);
             return JsonConvert.SerializeObject(settings);
         }
 
