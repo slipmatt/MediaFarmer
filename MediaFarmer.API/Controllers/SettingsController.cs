@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 using UnitOfWork;
 using Newtonsoft.Json;
+using System.Web.Http.Results;
 
 namespace MediaFarmer.API.Controllers
 {
+    [RoutePrefix("api/Settings")]
     public class SettingsController : ApiController
     {
         private RepositorySettings _settings;
@@ -21,7 +22,9 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Settings
-        public string GetSettings()
+        [Route("")]
+        [System.Web.Http.HttpGet]
+        public string GetAllSettings()
         {
             List<SettingValueViewModel> settings = new List<SettingValueViewModel>();
             settings = _settings.GetAllSettings();
@@ -29,11 +32,22 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Settings/5
-        public string Get(int id)
+        [Route("{id}")]
+        [System.Web.Http.HttpGet]
+        public string GetSetting(int id)
         {
-           SettingValueViewModel settings = new SettingValueViewModel();
-            settings = _settings.GetAllSettings().Find(i=>i.SettingId==id);
+            SettingValueViewModel settings = _settings.GetAllSettings().Find(i => i.SettingId == id);
             return JsonConvert.SerializeObject(settings);
+        }
+
+        // GET: api/Settings/5
+        [Route("Update")]
+        [System.Web.Http.HttpPost]
+        public OkResult Post(SettingValueViewModel setting)
+        {
+            SettingValueViewModel settings = new SettingValueViewModel();
+            _settings.UpdateSetting(setting);
+            return Ok();
         }
     }
 }
