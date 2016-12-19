@@ -8,12 +8,11 @@ using System.Web;
 using System.Web.Http;
 using UnitOfWork;
 using Newtonsoft.Json;
-using AttributeRouting;
-using System.Web.Mvc;
 using System.Web.Http.Results;
 
 namespace MediaFarmer.API.Controllers
 {
+    [RoutePrefix("api/Settings")]
     public class SettingsController : ApiController
     {
         private RepositorySettings _settings;
@@ -23,7 +22,7 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Settings
-        [AttributeRouting.Web.Mvc.Route("api/Settings")]
+        [Route("")]
         [System.Web.Http.HttpGet]
         public string GetAllSettings()
         {
@@ -33,7 +32,7 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Settings/5
-        [AttributeRouting.Web.Mvc.Route("api/Settings/{id}")]
+        [Route("{id}")]
         [System.Web.Http.HttpGet]
         public string GetSetting(int id)
         {
@@ -42,7 +41,7 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Settings/5
-        [AttributeRouting.Web.Mvc.Route("api/Settings/Update")]
+        [Route("Update")]
         [System.Web.Http.HttpPost]
         public OkResult Post(SettingValueViewModel setting)
         {

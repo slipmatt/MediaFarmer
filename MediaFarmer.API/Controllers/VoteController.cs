@@ -38,16 +38,18 @@ namespace MediaFarmer.API.Controllers
 
         [Route("CountUpvotes/{id}")]
         [System.Web.Http.HttpGet]
-        public List<VoteViewModel> CountUpvotes(int id)
+        public string CountUpvotes(int id)
         {
-            return _vote.GetUpVotes(id);
+            var vvm = _vote.GetUpVotes(id);
+            return JsonConvert.SerializeObject(vvm);
         }
 
         [Route("CountDownvotes/{id}")]
         [System.Web.Http.HttpGet]
-        public List<VoteViewModel> CountDownvotes(int id)
+        public string CountDownvotes(int id)
         {
-            return _vote.GetDownVotes(id);
+            var vvm = _vote.GetDownVotes(id);
+            return JsonConvert.SerializeObject(vvm);
         }
     }
 }

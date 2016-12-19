@@ -8,12 +8,11 @@ using System.Web;
 using System.Web.Http;
 using UnitOfWork;
 using Newtonsoft.Json;
-using AttributeRouting;
-using System.Web.Mvc;
 using System.Web.Http.Results;
 
 namespace MediaFarmer.API.Controllers
 {
+    [RoutePrefix("api/Track")]
     public class TrackController : ApiController
     {
         private RepositoryTrack _track;
@@ -23,7 +22,7 @@ namespace MediaFarmer.API.Controllers
         }
 
         // GET: api/Track
-        [AttributeRouting.Web.Mvc.Route("api/Track")]
+        [Route("")]
         [System.Web.Http.HttpGet]
         public string GetTracks(string q="")
         {
