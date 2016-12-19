@@ -91,11 +91,29 @@ namespace MediaFarmer.Context.Extensions
                 UserName = item.User.UserName,
                 TrackName = item.Track != null ? item.Track.TrackName : "Unknown",
                 PlayCompleted = item.PlayCompleted,
+                IsPlaying = item.IsPlaying,
                 Track = item.Track,
                 User = item.User
                 //  AlbumName = item.Track.Album.AlbumName
             };
         }
+
+        public static PlayHistoryViewModel ToAPIModel(this PlayHistoryViewModel item)
+        {
+            if (item == null) return null;
+            return new PlayHistoryViewModel
+            {
+                PlayHistoryId = item.PlayHistoryId,
+                TrackId = item.TrackId,
+                UserId = item.UserId,
+                TimePlayed = item.TimePlayed,
+                UserName = item.User.UserName,
+                TrackName = item.Track != null ? item.Track.TrackName : "Unknown",
+                PlayCompleted = item.PlayCompleted,
+                IsPlaying = item.IsPlaying,
+            };
+        }
+
         public static PlayHistory ToData(this PlayHistoryViewModel item)
         {
             if (item == null) return null;
@@ -107,7 +125,8 @@ namespace MediaFarmer.Context.Extensions
                 TimePlayed = item.TimePlayed,
                 Track = item.Track,
                 User = item.User,
-                PlayCompleted = item.PlayCompleted
+                PlayCompleted = item.PlayCompleted,
+                IsPlaying = item.IsPlaying,
             };
         }
         #endregion
