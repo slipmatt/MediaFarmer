@@ -9,11 +9,12 @@ using System.Web.Http;
 using UnitOfWork;
 using Newtonsoft.Json;
 using System.Web.Http.Results;
+using MediaFarmer.API.Interfaces;
 
 namespace MediaFarmer.API.Controllers
 {
     [RoutePrefix("api/Track")]
-    public class TrackController : ApiController
+    public class TrackController : ApiController, ITrackController
     {
         private RepositoryTrack _track;
         public TrackController()
