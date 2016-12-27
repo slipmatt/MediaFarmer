@@ -61,7 +61,6 @@ namespace MediaFarmer.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //Binding gets set here
         }        
     }
 }

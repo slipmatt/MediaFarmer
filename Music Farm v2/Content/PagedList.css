@@ -17,11 +17,8 @@
   margin-left: -1px;
   line-height: 1.428571429;
   text-decoration: none;
-  background-color: #222;
+  background-color: #ffffff;
   border: 1px solid #dddddd;
-  border-color: #428bca;
-  color: #5bc0de;
-  border-color: #428bca;
 }
 
 .pagination > li:first-child > a,
@@ -53,7 +50,7 @@
   z-index: 2;
   color: #ffffff;
   cursor: default;
-  background-color: #5bc0de;
+  background-color: #428bca;
   border-color: #428bca;
 }
 
@@ -61,10 +58,10 @@
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
-  color: #5bc0de;
+  color: #999999;
   cursor: not-allowed;
   background-color: #ffffff;
-  border-color: #428bca;
+  border-color: #dddddd;
 }
 
 .pagination-lg > li > a,
