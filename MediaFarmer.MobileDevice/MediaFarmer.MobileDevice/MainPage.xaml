@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MediaFarmer.MobileDevice"
              x:Class="MediaFarmer.MobileDevice.MainPage">
+  <local:TracksPage />
+    <NavigationPage Title="PlayHistory">
+       <local:PlayHistoryPage />
+    </NavigationPage>
 
-  <Label Text="Welcome to Xamarin Forms!"
-           VerticalOptions="Center"
-           HorizontalOptions="Center" />
-
-</ContentPage>
+</TabbedPage>

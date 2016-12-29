@@ -13,7 +13,13 @@ namespace MediaFarmer.MobileDevice
         {
             InitializeComponent();
 
-            MainPage = new MediaFarmer.MobileDevice.MainPage();
+            //  MainPage = new MediaFarmer.MobileDevice.MainPage();
+            var tabsXaml = new TabbedPage();
+            tabsXaml.Children.Add(new TracksPage { Title = "Tracks", Icon = "tracks.png" });
+            tabsXaml.Children.Add(new PlayHistoryPage { Title = "Queue", Icon = "queue.png" });
+            tabsXaml.Children.Add(new SettingsPage { Title = "Settings", Icon = "settings.png" });
+
+            MainPage = tabsXaml;
         }
 
         protected override void OnStart()
