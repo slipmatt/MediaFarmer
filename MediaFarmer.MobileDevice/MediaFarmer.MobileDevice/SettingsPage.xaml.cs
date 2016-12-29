@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +7,9 @@ using Xamarin.Forms;
 
 namespace MediaFarmer.MobileDevice
 {
-    public partial class MainPage : TabbedPage
+    public partial class SettingsPage : ContentPage
     {
-        public MainPage()
+        public SettingsPage()
         {
             InitializeComponent();
         }
