@@ -11,31 +11,25 @@ namespace MediaFarmer.MobileDevice.Helpers
   /// </summary>
   public static class Settings
   {
-    private static ISettings AppSettings
-    {
-      get
-      {
-        return CrossSettings.Current;
-      }
-    }
+        private static ISettings AppSettings;
 
     #region Setting Constants
 
-    private const string SettingsKey = "settings_key";
-    private static readonly string SettingsDefault = string.Empty;
+    private const string HostKey = "settings_key";
+    private static readonly string HostKeyDefault = string.Empty;
 
     #endregion
 
 
-    public static string GeneralSettings
+    public static string HostKeySettings
     {
       get
       {
-        return AppSettings.GetValueOrDefault<string>(SettingsKey, SettingsDefault);
+        return AppSettings.GetValueOrDefault<string>(HostKey, HostKeyDefault);
       }
       set
       {
-        AppSettings.AddOrUpdateValue<string>(SettingsKey, value);
+        AppSettings.AddOrUpdateValue<string>(HostKey, value);
       }
     }
 

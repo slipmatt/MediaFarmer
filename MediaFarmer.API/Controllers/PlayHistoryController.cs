@@ -10,6 +10,9 @@ using UnitOfWork;
 using Newtonsoft.Json;
 using System.Web.Http.Results;
 using MediaFarmer.Context.Extensions;
+using System.Net.Http;
+using System.Net;
+using MediaFarmer.API.Models;
 
 namespace MediaFarmer.API.Controllers
 {
@@ -42,18 +45,26 @@ namespace MediaFarmer.API.Controllers
 
         [Route("Que/{id}")]
         [System.Web.Http.HttpGet]
-        public string Que(int id)
+        public HttpResponseMessage Que(int id)
         {
-            var playHistory = _playHistory.Queue(id);
-            return JsonConvert.SerializeObject(playHistory);
+            ResponseModel queResponse = new ResponseModel();
+            queResponse.Success = _playHistory.Queue(id);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(queResponse), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
 
         [Route("Eject/{id}")]
         [System.Web.Http.HttpGet]
-        public string Eject(int id)
+        public HttpResponseMessage Eject(int id)
         {
-            var playHistory = _playHistory.SetTrackToStop(id);
-            return JsonConvert.SerializeObject(playHistory);
+            ResponseModel queResponse = new ResponseModel();
+            queResponse.Success = _playHistory.SetTrackToStop(id);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(queResponse), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
     }
 }

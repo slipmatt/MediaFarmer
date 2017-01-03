@@ -4,8 +4,16 @@
              xmlns:local="clr-namespace:MediaFarmer.MobileDevice"
              x:Class="MediaFarmer.MobileDevice.SettingsPage">
 
-  <Label Text="Welcome to the Settings Page!"
-           VerticalOptions="Center"
-           HorizontalOptions="Center" />
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="150" />
+      <RowDefinition Height="50" />
+      <RowDefinition Height="50" />
+      <RowDefinition Height="50" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+    <Entry Text="{Binding Host}" Placeholder="Enter Host IP or Name" Grid.Row="1" />
+    <Button Text="Update" Command="{Binding ExecuteChangeHostCommand}" Grid.Row="3" />
 
+  </Grid>
 </ContentPage>
