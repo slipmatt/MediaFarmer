@@ -9,6 +9,9 @@ using System.Web.Http;
 using UnitOfWork;
 using Newtonsoft.Json;
 using System.Web.Http.Results;
+using System.Net.Http;
+using System.Net;
+using MediaFarmer.API.Models;
 
 namespace MediaFarmer.API.Controllers
 {
@@ -24,30 +27,41 @@ namespace MediaFarmer.API.Controllers
         // GET: api/Settings
         [Route("")]
         [System.Web.Http.HttpGet]
-        public string GetAllSettings()
+        public HttpResponseMessage GetAllSettings()
         {
             List<SettingValueViewModel> settings = new List<SettingValueViewModel>();
             settings = _settings.GetAllSettings();
-            return JsonConvert.SerializeObject(settings);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(settings), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
 
         // GET: api/Settings/5
         [Route("{id}")]
         [System.Web.Http.HttpGet]
-        public string GetSetting(int id)
+        public HttpResponseMessage GetSetting(int id)
         {
             SettingValueViewModel settings = _settings.GetAllSettings().Find(i => i.SettingId == id);
-            return JsonConvert.SerializeObject(settings);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(settings), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
 
         // GET: api/Settings/5
         [Route("Update")]
         [System.Web.Http.HttpPost]
-        public OkResult Post(SettingValueViewModel setting)
+        public HttpResponseMessage Post(SettingValueViewModel setting)
         {
             SettingValueViewModel settings = new SettingValueViewModel();
             _settings.UpdateSetting(setting);
-            return Ok();
+            ResponseModel Response = new ResponseModel();
+            Response.Success = true;
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(Response), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
     }
 }

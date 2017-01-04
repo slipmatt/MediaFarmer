@@ -34,7 +34,7 @@ namespace MediaFarmer.MobileDevice
             }
             return response.Result;
         }
-
+        #region Tracks
         public async Task<List<TrackViewModel>> GetTracks(string Url)
         {
             var request = new RestRequest(String.Concat("/Track/","?q=",Url), HttpMethod.Get) { ContentType = ContentTypes.Json };
@@ -46,11 +46,22 @@ namespace MediaFarmer.MobileDevice
             var request = new RestRequest(String.Concat("/PlayHistory/Que/", TrackId), HttpMethod.Get) { ContentType = ContentTypes.Json };
             return Execute<ResponseModel>(request);
         }
+        #endregion
 
+        #region Auth
         public async Task<ResponseModel> Ping()
         {
             var request = new RestRequest(String.Concat("/Auth/Ping"), HttpMethod.Get) { ContentType = ContentTypes.Json };
             return Execute<ResponseModel>(request);
         }
+        #endregion
+
+        #region Settings
+        public async Task<List<SettingsViewModel>> GetSettings()
+        {
+            var request = new RestRequest("/Settings/", HttpMethod.Get) { ContentType = ContentTypes.Json };
+            return Execute<List<SettingsViewModel>>(request);
+        }
+        #endregion
     }
 }

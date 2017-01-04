@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:b="clr-namespace:MediaFarmer.MobileDevice.Behaviors;assembly=MediaFarmer.MobileDevice" 
+             xmlns:c="clr-namespace:MediaFarmer.MobileDevice.Converters;assembly=MediaFarmer.MobileDevice" 
              xmlns:local="clr-namespace:MediaFarmer.MobileDevice"
              x:Class="MediaFarmer.MobileDevice.SettingsPage">
-
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <c:ItemTappedEventArgsConverter x:Key="ItemTappedConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+   <ContentPage.Content>
+    <StackLayout VerticalOptions="StartAndExpand">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="150" />
@@ -15,6 +23,25 @@
     <Entry Text="{Binding Host}" Placeholder="Host IP or Host Name" Grid.Row="1" />
     <Entry Text="{Binding Port}" Placeholder="Port" Grid.Row="2" />
     <Button Text="{Binding SettingsButtonText}" Command="{Binding ExecuteChangeHostCommand}" Grid.Row="3" />
-
+    
   </Grid>
+<ListView ItemsSource="{Binding SettingsList}"  >
+      <!-- 
+        References for Behaviours
+        https://anthonysimmon.com/eventtocommand-in-xamarin-forms-apps/ 
+        https://blog.xamarin.com/behaviors-in-xamarin-forms/  -->
+
+      <ListView.Behaviors>
+        <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding SettingDetail}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
+      </ListView.Behaviors>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <TextCell Text="{Binding SettingName}" Detail="{Binding SettingValue}"></TextCell>
+
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+      
+    </StackLayout>
+  </ContentPage.Content>
 </ContentPage>

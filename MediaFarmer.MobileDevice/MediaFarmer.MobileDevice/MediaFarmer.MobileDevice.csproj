@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="MediaFarmerApi.cs" />
     <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\SettingsViewModel.cs" />
     <Compile Include="Models\TrackViewModel.cs" />
     <Compile Include="PlayHistoryPage.xaml.cs">
       <DependentUpon>PlayHistoryPage.xaml</DependentUpon>

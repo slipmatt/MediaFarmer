@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using MediaFarmer.MobileDevice.Helpers;
 using Plugin.Connectivity;
 using MediaFarmer.MobileDevice.Models;
+using System.Collections.ObjectModel;
 
 namespace MediaFarmer.MobileDevice
 {
@@ -27,6 +28,8 @@ namespace MediaFarmer.MobileDevice
         public string Port { get; set; }
         public string SettingsButtonText { get; set; }
         public ICommand ExecuteChangeHostCommand { private set; get; }
+        public ICommand SettingDetail { private set; get; }
+        public ObservableCollection<SettingsViewModel> SettingsList { get; set; }
 
         public SettingsPageModel()
         {
@@ -35,8 +38,10 @@ namespace MediaFarmer.MobileDevice
             if (Settings.HostValidSetting)
             {
                 Host = Settings.HostKeySettings.ToString();
+                Port = Settings.PortKeySettings.ToString();
             }
             ExecuteChangeHostCommand = new Command(ExecuteChangeHost);
+         //   SettingDetail = new Command<SettingsViewModel>(SettingDetailCommand);
         }
 
         public async void ExecuteChangeHost()
@@ -53,6 +58,22 @@ namespace MediaFarmer.MobileDevice
             {
                 Settings.HostValidSetting = true;
                 SettingsButtonText = "Connected!!!";
+                PopulateSettingsList();
+            }
+        }
+
+        public void SettingDetailCommand(SettingsViewModel SettingDetail)
+        {
+
+        }
+
+        private async void PopulateSettingsList()
+        {
+            var api = new MediaFarmerApi();
+            List<SettingsViewModel> settings = await api.GetSettings();
+            if (settings.Count > 0)
+            {
+                SettingsList = new ObservableCollection<SettingsViewModel>(settings);
             }
         }
 
