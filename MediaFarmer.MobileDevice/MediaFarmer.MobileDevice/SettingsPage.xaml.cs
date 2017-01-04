@@ -26,7 +26,11 @@ namespace MediaFarmer.MobileDevice
 
         public SettingsPageModel()
         {
-            Host = Settings.HostKeySettings.ToString();
+            Host = string.Empty;
+            if (Settings.HostValidSetting)
+            {
+                Host = Settings.HostKeySettings.ToString();
+            }
             ExecuteChangeHostCommand = new Command(ExecuteChangeHost);
         }
 
@@ -34,5 +38,6 @@ namespace MediaFarmer.MobileDevice
         {
             Settings.HostKeySettings = Host;
         }
+
     }
 }

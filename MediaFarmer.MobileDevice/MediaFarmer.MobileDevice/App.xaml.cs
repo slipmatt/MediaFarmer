@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MediaFarmer.MobileDevice.Helpers;
 
 using Xamarin.Forms;
 
@@ -23,11 +24,11 @@ namespace MediaFarmer.MobileDevice
 
             //FreshMvvm Tabbed Page
             //https://forums.xamarin.com/discussion/65571/freshmvvm-nagivation-with-tabbedpage
-
+            Settings.HostValidSetting = false;
             var tabbedNavigation = new FreshTabbedNavigationContainer("MediaFarmer Mobile");
             tabbedNavigation.AddTab<TracksPageModel>("Track Search", "tracks.png");
-         //   tabbedNavigation.AddTab<SettingsPageModel>("Settings", "settings.png");
-            MainPage = tabbedNavigation;
+            tabbedNavigation.AddTab<SettingsPageModel>("Settings", "settings.png");
+            MainPage = Settings.HostValidSetting ? tabbedNavigation : FreshPageModelResolver.ResolvePageModel<SettingsPageModel>();
         }
 
         protected override void OnStart()
