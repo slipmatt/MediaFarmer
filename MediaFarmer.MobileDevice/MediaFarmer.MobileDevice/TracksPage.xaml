@@ -32,8 +32,8 @@
         https://blog.xamarin.com/behaviors-in-xamarin-forms/  -->
         
         <ListView.Behaviors>
-      <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding QueSelected}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
-</ListView.Behaviors>
+              <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding QueSelected}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
+        </ListView.Behaviors>
         <ListView.ItemTemplate>
           <DataTemplate>
             <TextCell Text="{Binding TrackName}" Detail="{Binding ArtistName}"></TextCell>

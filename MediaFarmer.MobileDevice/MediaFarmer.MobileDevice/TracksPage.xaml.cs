@@ -35,9 +35,7 @@ namespace MediaFarmer.MobileDevice
         }
 
         public ObservableCollection<TrackViewModel> Tracks { get; set; }
-        private TrackViewModel _selectedItem;
         private string _trackSearch;
-        private List<TrackViewModel> _tracks;
         public TracksPageModel()
         {
             ExecuteSearchCommand = new Command(ExecuteSearch);
