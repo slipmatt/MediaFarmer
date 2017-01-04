@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PlayHistoryController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Controllers\TrackController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />

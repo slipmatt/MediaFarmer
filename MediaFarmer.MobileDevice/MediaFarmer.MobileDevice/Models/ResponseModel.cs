@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MediaFarmer.MobileDevice.Models
 {
     [DataContract]
-    public class QueTrackResponseModel
+    public class ResponseModel
     {
         [DataMember]
         public bool Success { get; set; }

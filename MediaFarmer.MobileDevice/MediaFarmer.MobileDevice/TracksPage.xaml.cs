@@ -10,6 +10,7 @@ using System.Windows.Input;
 using PropertyChanged;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using MediaFarmer.MobileDevice.Helpers;
 
 namespace MediaFarmer.MobileDevice
 {
@@ -45,9 +46,15 @@ namespace MediaFarmer.MobileDevice
         }
         public async void ExecuteSearch()
         {
+            if (!Settings.HostValidSetting)
+            {
+                await CoreMethods.DisplayAlert("Invalid Host", "Please check your Host and Port settings on the Settings Tab", "Ok");
+                return;
+            }
+           
             var trackSearch = TrackSearch ?? "";
             var api = new MediaFarmerApi();
-            List<TrackViewModel> res = api.GetTracks(trackSearch).GetAwaiter().GetResult();
+            List<TrackViewModel> res = await api.GetTracks(trackSearch);
             if (res.Count > 0)
             {
                 Tracks = new ObservableCollection<TrackViewModel>(res);
@@ -60,7 +67,7 @@ namespace MediaFarmer.MobileDevice
             if (!confirmed) return;
 
             var api = new MediaFarmerApi();
-            QueTrackResponseModel QueResponse = await api.QueTrack(Track.TrackId);
+            ResponseModel QueResponse = await api.QueTrack(Track.TrackId);
             if (QueResponse.Success)
             {
                 await CoreMethods.DisplayAlert("Success", "Track has been successfully Queued", "Ok");

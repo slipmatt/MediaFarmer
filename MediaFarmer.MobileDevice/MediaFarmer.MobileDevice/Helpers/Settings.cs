@@ -15,10 +15,13 @@ namespace MediaFarmer.MobileDevice.Helpers
 
         #region Setting Constants
 
-        private const string HostKey = "settings_key";
+        private const string HostKey = "host_key";
         private static readonly string HostKeyDefault = string.Empty;
 
-        private const string HostValidKey = "host_valid";
+        private const string PortKey = "port_key";
+        private static readonly string PortKeyDefault = "80";
+
+        private const string HostValidKey = "host_valid_key";
         private static readonly bool HostValidKeyDefault = false;
         #endregion
 
@@ -34,6 +37,19 @@ namespace MediaFarmer.MobileDevice.Helpers
                 AppSettings.AddOrUpdateValue<string>(HostKey, value);
             }
         }
+
+        public static string PortKeySettings
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault<string>(PortKey, PortKeyDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue<string>(PortKey, value);
+            }
+        }
+
         public static bool HostValidSetting
         {
             get { return AppSettings.GetValueOrDefault(HostValidKey, HostValidKeyDefault); }
