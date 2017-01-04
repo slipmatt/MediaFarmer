@@ -12,8 +12,9 @@
       <RowDefinition Height="50" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Entry Text="{Binding Host}" Placeholder="Enter Host IP or Name" Grid.Row="1" />
-    <Button Text="Update" Command="{Binding ExecuteChangeHostCommand}" Grid.Row="3" />
+    <Entry Text="{Binding Host}" Placeholder="Host IP or Host Name" Grid.Row="1" />
+    <Entry Text="{Binding Port}" Placeholder="Port" Grid.Row="2" />
+    <Button Text="{Binding SettingsButtonText}" Command="{Binding ExecuteChangeHostCommand}" Grid.Row="3" />
 
   </Grid>
 </ContentPage>

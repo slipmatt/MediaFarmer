@@ -5,6 +5,7 @@ using PortableRest;
 using System.Net.Http;
 using System.Collections.Generic;
 using MediaFarmer.MobileDevice.Models;
+using MediaFarmer.MobileDevice.Helpers;
 
 namespace MediaFarmer.MobileDevice
 {
@@ -16,7 +17,8 @@ namespace MediaFarmer.MobileDevice
     }
     public class MediaFarmerApi
     {
-        private string BaseUrl = "http://10.0.0.13:9090/api";
+
+        private string BaseUrl = string.Concat("http://", Settings.HostKeySettings,":", Settings.PortKeySettings,"/api");
 
         public T Execute<T>(RestRequest request) where T : class
         {
@@ -39,10 +41,16 @@ namespace MediaFarmer.MobileDevice
             return Execute<List<TrackViewModel>>(request);
         }
 
-        public async Task<QueTrackResponseModel> QueTrack(int TrackId)
+        public async Task<ResponseModel> QueTrack(int TrackId)
         {
             var request = new RestRequest(String.Concat("/PlayHistory/Que/", TrackId), HttpMethod.Get) { ContentType = ContentTypes.Json };
-            return Execute<QueTrackResponseModel>(request);
+            return Execute<ResponseModel>(request);
+        }
+
+        public async Task<ResponseModel> Ping()
+        {
+            var request = new RestRequest(String.Concat("/Auth/Ping"), HttpMethod.Get) { ContentType = ContentTypes.Json };
+            return Execute<ResponseModel>(request);
         }
     }
 }
