@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FreshMvvm;
+using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +15,11 @@ namespace MediaFarmer.MobileDevice
         {
             InitializeComponent();
         }
+    }
+
+    [ImplementPropertyChanged]
+    public class PlayHistoryPageModel : FreshBasePageModel
+    {
+
     }
 }

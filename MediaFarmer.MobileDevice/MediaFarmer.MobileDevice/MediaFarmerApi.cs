@@ -62,6 +62,13 @@ namespace MediaFarmer.MobileDevice
             var request = new RestRequest("/Settings/", HttpMethod.Get) { ContentType = ContentTypes.Json };
             return Execute<List<SettingsViewModel>>(request);
         }
+
+        public async Task<ResponseModel> UpdateSettings(SettingsViewModel UpdatedSetting)
+        {
+            var request = new RestRequest("/Settings/Update", HttpMethod.Post) { ContentType = ContentTypes.Json };
+            request.AddParameter(UpdatedSetting);
+            return Execute<ResponseModel>(request);
+        }
         #endregion
     }
 }

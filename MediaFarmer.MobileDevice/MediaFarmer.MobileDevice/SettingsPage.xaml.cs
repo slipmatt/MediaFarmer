@@ -41,7 +41,7 @@ namespace MediaFarmer.MobileDevice
                 Port = Settings.PortKeySettings.ToString();
             }
             ExecuteChangeHostCommand = new Command(ExecuteChangeHost);
-         //   SettingDetail = new Command<SettingsViewModel>(SettingDetailCommand);
+            SettingDetail = new Command<SettingsViewModel>(SettingDetailCommand);
         }
 
         public async void ExecuteChangeHost()
@@ -62,9 +62,35 @@ namespace MediaFarmer.MobileDevice
             }
         }
 
-        public void SettingDetailCommand(SettingsViewModel SettingDetail)
+        public async void SettingDetailCommand(SettingsViewModel SettingDetail)
         {
+            string action;
+            var api = new MediaFarmerApi();
 
+            if (SettingDetail.DataType == 1)
+            {
+                action = await CoreMethods.DisplayActionSheet(string.Concat("Change value for ", SettingDetail.SettingName), "Cancel", null, "10", "30", "50", "70", "100");
+                if (action=="Cancel")
+                {
+                    return;
+                }
+                SettingDetail.SettingValue = int.Parse(action);
+            }
+            else if (SettingDetail.DataType == 2)
+            {
+                action = await CoreMethods.DisplayActionSheet(string.Concat("Change value for ", SettingDetail.SettingName), "Cancel", null, "true", "false");
+                if (action == "Cancel")
+                {
+                    return;
+                }
+                SettingDetail.Active = bool.Parse(action);
+            }
+            else
+            {
+                return;
+            }
+            await api.UpdateSettings(SettingDetail);
+            PopulateSettingsList();
         }
 
         private async void PopulateSettingsList()

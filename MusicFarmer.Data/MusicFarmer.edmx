@@ -51,9 +51,10 @@
           <Key>
             <PropertyRef Name="SettingValueId" />
           </Key>
-          <Property Name="SettingValueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingValueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="SettingName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SettingValue" Type="int" Nullable="false" />
+          <Property Name="DataType" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Track">
@@ -561,6 +562,7 @@
           <Property Name="SettingName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SettingValue1" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="DataType" Type="Int32" Nullable="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -660,6 +662,7 @@
           <EntitySetMapping Name="SettingValues">
             <EntityTypeMapping TypeName="MusicFarmerModel.SettingValue">
               <MappingFragment StoreEntitySet="SettingValue">
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="SettingValue1" ColumnName="SettingValue" />
                 <ScalarProperty Name="SettingName" ColumnName="SettingName" />

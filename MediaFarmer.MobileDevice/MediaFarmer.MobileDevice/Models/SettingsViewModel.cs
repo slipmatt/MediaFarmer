@@ -17,6 +17,8 @@ namespace MediaFarmer.MobileDevice.Models
         [DataMember]
         public int SettingValue { get; set; }
         [DataMember]
+        public int DataType { get; set; }
+        [DataMember]
         public bool Active { get; set; }
     }
 }
