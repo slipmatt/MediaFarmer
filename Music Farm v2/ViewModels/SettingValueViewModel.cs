@@ -16,6 +16,8 @@ namespace MediaFarmer.ViewModels
         [Required]
         public int SettingValue { get; set; }
         [Required]
+        public int DataType { get; set; }
+        [Required]
         public bool Active { get; set; }
     }
 }

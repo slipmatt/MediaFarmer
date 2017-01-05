@@ -288,7 +288,7 @@ namespace MediaFarmer.Context.Extensions
         }
         #endregion
 
-        #region Vote
+        #region Settings
         public static SettingValueViewModel ToModel(this SettingValue item)
         {
             if (item == null) return null;
@@ -297,6 +297,7 @@ namespace MediaFarmer.Context.Extensions
                 SettingId = item.SettingValueId,
                 SettingName = item.SettingName,
                 SettingValue = item.SettingValue1,
+                DataType = item.DataType,
                 Active = item.Active
             };
         }
@@ -308,6 +309,7 @@ namespace MediaFarmer.Context.Extensions
                 SettingValueId = item.SettingId,
                 SettingName = item.SettingName,
                 SettingValue1 = item.SettingValue,
+                DataType = item.DataType,
                 Active = item.Active
             };
         }
@@ -316,6 +318,7 @@ namespace MediaFarmer.Context.Extensions
             if (item == null) return dbItem;
             dbItem.SettingName = item.SettingName;
             dbItem.SettingValue1 = item.SettingValue;
+            dbItem.DataType = item.DataType;
             dbItem.Active = item.Active;
             return dbItem;
         }
