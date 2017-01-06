@@ -46,6 +46,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MediaFarmerApi.cs" />
+    <Compile Include="Models\QueModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SettingsViewModel.cs" />
     <Compile Include="Models\TrackViewModel.cs" />

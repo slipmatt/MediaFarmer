@@ -70,5 +70,19 @@ namespace MediaFarmer.MobileDevice
             return Execute<ResponseModel>(request);
         }
         #endregion
+
+        #region Que
+        public async Task<List<QueModel>> GetPlaying()
+        {
+            var request = new RestRequest("PlayHistory/GetPlaying", HttpMethod.Get) { ContentType = ContentTypes.Json };
+            return Execute<List<QueModel>>(request);
+        }
+
+        public async Task<List<QueModel>> GetQueued()
+        {
+            var request = new RestRequest("PlayHistory/GetQueued", HttpMethod.Get) { ContentType = ContentTypes.Json };
+            return Execute<List<QueModel>>(request);
+        }
+        #endregion
     }
 }
