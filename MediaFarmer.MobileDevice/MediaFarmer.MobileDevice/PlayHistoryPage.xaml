@@ -8,9 +8,6 @@
       <Grid.RowDefinitions>
         <RowDefinition Height="150" />
         <RowDefinition Height="50" />
-        <RowDefinition Height="50" />
-        <RowDefinition Height="50" />
-        <RowDefinition Height="*" />
       </Grid.RowDefinitions>
       <Button Text="Refresh" Command="{Binding ExecuteRefreshCommand}" Grid.Row="1" />
 
