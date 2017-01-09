@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.MobileDevice.Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer.MobileDevice.Windows", "MediaFarmer.MobileDevice\MediaFarmer.MobileDevice.Windows\MediaFarmer.MobileDevice.Windows.csproj", "{8A1BF9E0-B93E-4AAE-96DE-AEC4AED5C4F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableRest", "MediaFarmer.Mobile\PortableRest\PortableRest.csproj", "{A3546D1A-CE87-49BB-800A-98018C1FCA00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableRest", "..\Users\Aspire\Documents\Visual Studio 2015\Repos\MusicFarmer\MediaFarmer.MobileDevice\PortableRest\PortableRest.csproj", "{A3546D1A-CE87-49BB-800A-98018C1FCA00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

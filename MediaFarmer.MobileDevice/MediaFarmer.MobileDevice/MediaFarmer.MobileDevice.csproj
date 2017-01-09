@@ -182,7 +182,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MediaFarmer.Mobile\PortableRest\PortableRest.csproj">
+    <ProjectReference Include="..\..\..\Users\Aspire\Documents\Visual Studio 2015\Repos\MusicFarmer\MediaFarmer.MobileDevice\PortableRest\PortableRest.csproj">
       <Project>{a3546d1a-ce87-49bb-800a-98018c1fca00}</Project>
       <Name>PortableRest</Name>
     </ProjectReference>
