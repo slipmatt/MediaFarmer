@@ -27,20 +27,26 @@ namespace MediaFarmer.API.Controllers
 
         [Route("GetQueued")]
         [System.Web.Http.HttpGet]
-        public string GetQueued()
+        public HttpResponseMessage GetQueued()
         {
             IEnumerable<PlayHistoryViewModel> playHistory;
             playHistory = _playHistory.GetCurrentlyQueued().Select(i => i.ToAPIModel());
-            return JsonConvert.SerializeObject(playHistory);
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(playHistory), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
 
         [Route("GetPlaying")]
         [System.Web.Http.HttpGet]
-        public string GetPlaying()
+        public HttpResponseMessage GetPlaying()
         {
             IEnumerable<PlayHistoryViewModel> playHistory;
-            playHistory = _playHistory.GetCurrentlyPlaying().Select(i=>i.ToAPIModel());
-            return JsonConvert.SerializeObject(playHistory);
+            playHistory = _playHistory.GetCurrentlyPlaying().Select(i => i.ToAPIModel());
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(JsonConvert.SerializeObject(playHistory), System.Text.Encoding.UTF8, "application/json");
+
+            return response;
         }
 
         [Route("Que/{id}")]

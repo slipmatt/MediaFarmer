@@ -18,7 +18,6 @@
       <RowDefinition Height="50" />
       <RowDefinition Height="50" />
       <RowDefinition Height="50" />
-      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Entry Text="{Binding Host}" Placeholder="Host IP or Host Name" Grid.Row="1" />
     <Entry Text="{Binding Port}" Placeholder="Port" Grid.Row="2" />

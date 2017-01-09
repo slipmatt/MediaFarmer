@@ -26,6 +26,7 @@ namespace MediaFarmer.MobileDevice
             //https://forums.xamarin.com/discussion/65571/freshmvvm-nagivation-with-tabbedpage
             var tabbedNavigation = new FreshTabbedNavigationContainer("MediaFarmer Mobile");
             tabbedNavigation.AddTab<TracksPageModel>("Track Search", "tracks.png");
+            tabbedNavigation.AddTab<PlayHistoryPageModel>("Queue", "queue.png");
             tabbedNavigation.AddTab<SettingsPageModel>("Settings", "settings.png");
             MainPage = tabbedNavigation;
         }

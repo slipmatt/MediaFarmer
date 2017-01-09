@@ -18,11 +18,9 @@
           <RowDefinition Height="150" />
           <RowDefinition Height="50" />
           <RowDefinition Height="50" />
-          <RowDefinition Height="50" />
-          <RowDefinition Height="*" />
         </Grid.RowDefinitions>
        <Entry Text="{Binding TrackSearch}" Placeholder="Search Track" Grid.Row="1" />
-        <Button Text="Search" Command="{Binding ExecuteSearchCommand}" Grid.Row="3" />
+        <Button Text="Search" Command="{Binding ExecuteSearchCommand}" Grid.Row="2" />
        
       </Grid>
       <ListView ItemsSource="{Binding Tracks}"  >
@@ -36,6 +34,7 @@
         </ListView.Behaviors>
         <ListView.ItemTemplate>
           <DataTemplate>
+            
             <TextCell Text="{Binding TrackName}" Detail="{Binding ArtistName}"></TextCell>
             
           </DataTemplate>
