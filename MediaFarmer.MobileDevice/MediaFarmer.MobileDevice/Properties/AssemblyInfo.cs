@@ -6,13 +6,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MediaFarmer.MobileDevice")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("MediaFarmer")]
+[assembly: AssemblyDescription("Client app for the MediaFarmer Service")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MediaFarmer.MobileDevice")]
+[assembly: AssemblyCompany("Mawashi Entertainment")]
+[assembly: AssemblyProduct("MediaFarmer Mobile")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("(C) Copyright 2017 Mawashi Entertainment")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
 

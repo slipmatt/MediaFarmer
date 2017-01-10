@@ -72,9 +72,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="..\PortableRest.snk">
-      <Link>PortableRest.snk</Link>
-    </None>
     <None Include="app.config" />
     <None Include="project.json" />
   </ItemGroup>
