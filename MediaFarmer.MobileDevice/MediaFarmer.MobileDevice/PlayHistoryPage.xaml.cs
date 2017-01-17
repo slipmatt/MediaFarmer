@@ -29,18 +29,16 @@ namespace MediaFarmer.MobileDevice
         public ICommand ExecuteRefreshCommand { private set; get; }
         public PlayHistoryPageModel()
         {
+            ExecuteRefreshCommand = new Command(RefreshTracks);
+        }
+
+        public void RefreshTracks()
+        {
             if (!Settings.HostValidSetting)
             {
                 CoreMethods.DisplayAlert("Invalid Host", "Please check your Host and Port settings on the Settings Tab", "Ok");
                 return;
             }
-            ExecuteRefreshCommand = new Command(RefreshTracks);
-           
-            
-        }
-
-        public void RefreshTracks()
-        {
             ExecuteGetPlaying();
             ExecuteGetQueued();
         }
