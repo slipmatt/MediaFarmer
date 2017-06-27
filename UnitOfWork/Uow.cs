@@ -3,10 +3,12 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Reflection;
 using System.Text;
+using TrackerEnabledDbContext;
+using TrackerEnabledDbContext.Common.Interfaces;
 
 namespace UnitOfWork
 {
-    public class Uow : IUow, IDisposable
+    public class Uow : TrackerContext,IUow, IDisposable
     {
         /// <summary>
         /// Gets or sets the database context.
