@@ -3,6 +3,8 @@ using MediaFarmer.ViewModels;
 using MusicFarmer.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,8 @@ using UnitOfWork;
 
 namespace MediaFarmer.Context.Repositories
 {
+    [TrackChanges]
+    [Table("Track")]
     public class RepositoryTrack
     {
         private static IUow _uow;
@@ -138,7 +142,8 @@ namespace MediaFarmer.Context.Repositories
             existingTrack.ArtistId = ThisArtist.ArtistId;
             existingTrack.TrackURL = _Track.TrackURL;
             repo.Update(existingTrack.UpdateData(existingTrack.ToModel()));
-            repo.SaveChanges();
+            var something = repo.SaveChanges();
+            int ghj = 9;
         }
 
         private AlbumViewModel AddAlbum(string Album)

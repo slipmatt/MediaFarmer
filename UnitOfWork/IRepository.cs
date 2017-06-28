@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using TrackerEnabledDbContext.Common.Interfaces;
 
 namespace UnitOfWork
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T>: ITrackerContext where T : class
     {
         DbContext DbContext { get; set; }
 
@@ -23,7 +24,7 @@ namespace UnitOfWork
 
         T GetUpdatedItem(T entity);
         
-        void SaveChanges();
+        int SaveChanges();
 
         IEnumerable<T> GetByQuery(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

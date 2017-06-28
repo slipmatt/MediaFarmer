@@ -57,6 +57,12 @@
     <Compile Include="Artist.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
+    <Compile Include="AuditLog1.cs">
+      <DependentUpon>MusicFarmer.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuditLogDetail.cs">
+      <DependentUpon>MusicFarmer.tt</DependentUpon>
+    </Compile>
     <Compile Include="Comment.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>

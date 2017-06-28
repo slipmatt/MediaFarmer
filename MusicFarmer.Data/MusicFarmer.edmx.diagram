@@ -24,6 +24,9 @@
         <AssociationConnector Association="MusicFarmerModel.FK_Favourite_Track" />
         <AssociationConnector Association="MusicFarmerModel.FK_Favourite_User" />
         <EntityTypeShape EntityType="MusicFarmerModel.SettingValue" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MusicFarmerModel.AuditLogDetail" Width="1.5" PointX="9.625" PointY="4" />
+        <EntityTypeShape EntityType="MusicFarmerModel.AuditLog1" Width="1.5" PointX="7.375" PointY="4" />
+        <AssociationConnector Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

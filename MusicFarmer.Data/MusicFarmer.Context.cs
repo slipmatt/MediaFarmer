@@ -36,6 +36,8 @@ namespace MusicFarmer.Data
         public virtual DbSet<Vote> Votes { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<SettingValue> SettingValues { get; set; }
+        public virtual DbSet<AuditLogDetail> AuditLogDetails { get; set; }
+        public virtual DbSet<AuditLog1> AuditLog1 { get; set; }
     
         public virtual ObjectResult<JukeBoxTracks_Result> JukeBoxTracks()
         {

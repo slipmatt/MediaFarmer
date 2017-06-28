@@ -19,6 +19,27 @@
           <Property Name="ArtistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArtistName" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="AuditLogDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColumnName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="OriginalValue" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="NewValue" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="AuditLogId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AuditLogs">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventDateUTC" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventType" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="TableName" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="RecordId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
@@ -85,6 +106,18 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="PlayHistoryId" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AuditLogDetails_AuditLogs">
+          <End Role="AuditLogs" Type="Self.AuditLogs" Multiplicity="1" />
+          <End Role="AuditLogDetails" Type="Self.AuditLogDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditLogs">
+              <PropertyRef Name="AuditLogId" />
+            </Principal>
+            <Dependent Role="AuditLogDetails">
+              <PropertyRef Name="AuditLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_comments_play_history">
           <End Role="PlayHistory" Type="Self.PlayHistory" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -221,6 +254,8 @@
         <EntityContainer Name="MusicFarmerModelStoreContainer">
           <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLogDetails" EntityType="Self.AuditLogDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLogs" EntityType="Self.AuditLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favourite" EntityType="Self.Favourite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayHistory" EntityType="Self.PlayHistory" Schema="dbo" store:Type="Tables" />
@@ -228,6 +263,10 @@
           <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vote" EntityType="Self.Vote" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AuditLogDetails_AuditLogs" Association="Self.FK_AuditLogDetails_AuditLogs">
+            <End Role="AuditLogs" EntitySet="AuditLogs" />
+            <End Role="AuditLogDetails" EntitySet="AuditLogDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_comments_play_history" Association="Self.FK_comments_play_history">
             <End Role="PlayHistory" EntitySet="PlayHistory" />
             <End Role="Comment" EntitySet="Comment" />
@@ -324,6 +363,12 @@
           </AssociationSet>
           <FunctionImport Name="JukeBoxTracks" ReturnType="Collection(MusicFarmerModel.JukeBoxTracks_Result)" />
           <EntitySet Name="SettingValues" EntityType="MusicFarmerModel.SettingValue" />
+          <EntitySet Name="AuditLogDetails" EntityType="MusicFarmerModel.AuditLogDetail" />
+          <EntitySet Name="AuditLog1" EntityType="MusicFarmerModel.AuditLog1" />
+          <AssociationSet Name="FK_AuditLogDetails_AuditLogs" Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs">
+            <End Role="AuditLog1" EntitySet="AuditLog1" />
+            <End Role="AuditLogDetail" EntitySet="AuditLogDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Album">
           <Key>
@@ -564,6 +609,41 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="DataType" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="AuditLogDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="OriginalValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="AuditLogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AuditLog" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLogDetail" ToRole="AuditLog1" />
+        </EntityType>
+        <EntityType Name="AuditLog1">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="EventDateUTC" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="EventType" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AuditLogDetails" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLog1" ToRole="AuditLogDetail" />
+        </EntityType>
+        <Association Name="FK_AuditLogDetails_AuditLogs">
+          <End Type="MusicFarmerModel.AuditLog1" Role="AuditLog1" Multiplicity="1" />
+          <End Type="MusicFarmerModel.AuditLogDetail" Role="AuditLogDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditLog1">
+              <PropertyRef Name="AuditLogId" />
+            </Principal>
+            <Dependent Role="AuditLogDetail">
+              <PropertyRef Name="AuditLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -667,6 +747,29 @@
                 <ScalarProperty Name="SettingValue1" ColumnName="SettingValue" />
                 <ScalarProperty Name="SettingName" ColumnName="SettingName" />
                 <ScalarProperty Name="SettingValueId" ColumnName="SettingValueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogDetails">
+            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLogDetail">
+              <MappingFragment StoreEntitySet="AuditLogDetails">
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLog1">
+            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLog1">
+              <MappingFragment StoreEntitySet="AuditLogs">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventDateUTC" ColumnName="EventDateUTC" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

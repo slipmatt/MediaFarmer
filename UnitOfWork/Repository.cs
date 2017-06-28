@@ -6,10 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using TrackerEnabledDbContext.Common.Models;
 
 namespace UnitOfWork
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : TrackerEnabledDbContext.TrackerContext, IRepository<T> where T : class
     {
         public DbContext DbContext { get; set; }
 
@@ -72,7 +73,7 @@ namespace UnitOfWork
 
         public T GetById(object id)
         {
-            return DbSet.Find(id);       
+            return DbSet.Find(id);
         }
 
         public IEnumerable<T> ExecWithStoreProcedure(string query, params object[] parameters)
@@ -99,7 +100,7 @@ namespace UnitOfWork
             }
 
             foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                (new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
             {
                 query = query.Include(includeProperty.Trim());
             }
@@ -114,8 +115,9 @@ namespace UnitOfWork
             }
         }
 
-        public void SaveChanges()
+        public override int SaveChanges()
         {
+
             try
             {
                 DbContext.SaveChanges();
@@ -134,13 +136,26 @@ namespace UnitOfWork
                         foreach (var propertyName in dbEntityValidationResult.Entry.CurrentValues.PropertyNames)
                         {
                             logMessage.AppendLine(propertyName + ": '" +
-                                              dbEntityValidationResult.Entry.CurrentValues[propertyName]);
+                                                  dbEntityValidationResult.Entry.CurrentValues[propertyName]);
                         }
                         logMessage.AppendLine("---------Entity End------------");
                     }
                 }
                 throw ex;
             }
+            var a = 1;
+            try
+            {
+                base.ConfigureUsername("Test");
+                 a = base.SaveChanges("Test");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
+            return a;
+            
         }
     }
 }
