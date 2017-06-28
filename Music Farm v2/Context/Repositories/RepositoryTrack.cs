@@ -12,8 +12,7 @@ using UnitOfWork;
 
 namespace MediaFarmer.Context.Repositories
 {
-    [TrackChanges]
-    [Table("Track")]
+
     public class RepositoryTrack
     {
         private static IUow _uow;
