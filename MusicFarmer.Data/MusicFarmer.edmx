@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="SettingValueId" />
           </Key>
-          <Property Name="SettingValueId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SettingValueId" Type="int" Nullable="false" />
           <Property Name="SettingName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SettingValue" Type="int" Nullable="false" />
           <Property Name="DataType" Type="int" Nullable="false" />
@@ -145,9 +145,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favourite_Track">
-          <End Role="Track" Type="Self.Track" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Track" Type="Self.Track" Multiplicity="1" />
           <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Track">
@@ -159,9 +157,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Favourite_User">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -173,9 +169,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_play_history_track">
-          <End Role="Track" Type="Self.Track" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Track" Type="Self.Track" Multiplicity="1" />
           <End Role="PlayHistory" Type="Self.PlayHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Track">
@@ -187,9 +181,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_play_history_users">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="PlayHistory" Type="Self.PlayHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -237,9 +229,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_votes_users">
-          <End Role="User" Type="Self.User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Vote" Type="Self.Vote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -313,10 +303,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="MusicFarmerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MusicFarmerEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="JukeBoxTracks" ReturnType="Collection(MusicFarmerModel.JukeBoxTracks_Result)" />
           <EntitySet Name="Albums" EntityType="MusicFarmerModel.Album" />
           <EntitySet Name="Artists" EntityType="MusicFarmerModel.Artist" />
+          <EntitySet Name="AuditLogDetails" EntityType="MusicFarmerModel.AuditLogDetail" />
+          <EntitySet Name="AuditLogs" EntityType="MusicFarmerModel.AuditLog" />
           <EntitySet Name="Comments" EntityType="MusicFarmerModel.Comment" />
+          <EntitySet Name="Favourites" EntityType="MusicFarmerModel.Favourite" />
           <EntitySet Name="PlayHistories" EntityType="MusicFarmerModel.PlayHistory" />
+          <EntitySet Name="SettingValues" EntityType="MusicFarmerModel.SettingValue" />
           <EntitySet Name="Tracks" EntityType="MusicFarmerModel.Track" />
           <EntitySet Name="Users" EntityType="MusicFarmerModel.User" />
           <EntitySet Name="Votes" EntityType="MusicFarmerModel.Vote" />
@@ -328,6 +323,10 @@
             <End Role="Artist" EntitySet="Artists" />
             <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
+          <AssociationSet Name="FK_AuditLogDetails_AuditLogs" Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs">
+            <End Role="AuditLog" EntitySet="AuditLogs" />
+            <End Role="AuditLogDetail" EntitySet="AuditLogDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_comments_play_history" Association="MusicFarmerModel.FK_comments_play_history">
             <End Role="PlayHistory" EntitySet="PlayHistories" />
             <End Role="Comment" EntitySet="Comments" />
@@ -335,6 +334,14 @@
           <AssociationSet Name="FK_comments_users" Association="MusicFarmerModel.FK_comments_users">
             <End Role="User" EntitySet="Users" />
             <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_Track" Association="MusicFarmerModel.FK_Favourite_Track">
+            <End Role="Track" EntitySet="Tracks" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="MusicFarmerModel.FK_Favourite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Favourite" EntitySet="Favourites" />
           </AssociationSet>
           <AssociationSet Name="FK_play_history_track" Association="MusicFarmerModel.FK_play_history_track">
             <End Role="Track" EntitySet="Tracks" />
@@ -352,24 +359,14 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Vote" EntitySet="Votes" />
           </AssociationSet>
-          <EntitySet Name="Favourites" EntityType="MusicFarmerModel.Favourite" />
-          <AssociationSet Name="FK_Favourite_Track" Association="MusicFarmerModel.FK_Favourite_Track">
-            <End Role="Track" EntitySet="Tracks" />
-            <End Role="Favourite" EntitySet="Favourites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favourite_User" Association="MusicFarmerModel.FK_Favourite_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Favourite" EntitySet="Favourites" />
-          </AssociationSet>
-          <FunctionImport Name="JukeBoxTracks" ReturnType="Collection(MusicFarmerModel.JukeBoxTracks_Result)" />
-          <EntitySet Name="SettingValues" EntityType="MusicFarmerModel.SettingValue" />
-          <EntitySet Name="AuditLogDetails" EntityType="MusicFarmerModel.AuditLogDetail" />
-          <EntitySet Name="AuditLog1" EntityType="MusicFarmerModel.AuditLog1" />
-          <AssociationSet Name="FK_AuditLogDetails_AuditLogs" Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs">
-            <End Role="AuditLog1" EntitySet="AuditLog1" />
-            <End Role="AuditLogDetail" EntitySet="AuditLogDetails" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <ComplexType Name="JukeBoxTracks_Result">
+          <Property Type="Int32" Name="TrackId" Nullable="false" />
+          <Property Type="String" Name="TrackName" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Votes" Nullable="true" />
+          <Property Type="Int32" Name="Favourites" Nullable="true" />
+          <Property Type="Int32" Name="Played" Nullable="true" />
+        </ComplexType>
         <EntityType Name="Album">
           <Key>
             <PropertyRef Name="AlbumId" />
@@ -386,6 +383,29 @@
           <Property Name="ArtistName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tracks" Relationship="MusicFarmerModel.FK_track_artist" FromRole="Artist" ToRole="Track" />
         </EntityType>
+        <EntityType Name="AuditLogDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="OriginalValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="AuditLogId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AuditLog" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLogDetail" ToRole="AuditLog" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="EventDateUTC" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="EventType" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="RecordId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AuditLogDetails" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLog" ToRole="AuditLogDetail" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
@@ -396,6 +416,16 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="PlayHistory" Relationship="MusicFarmerModel.FK_comments_play_history" FromRole="Comment" ToRole="PlayHistory" />
           <NavigationProperty Name="User" Relationship="MusicFarmerModel.FK_comments_users" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="FavouriteId" />
+          </Key>
+          <Property Name="FavouriteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TrackId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Track" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Favourite" ToRole="Track" />
+          <NavigationProperty Name="User" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="Favourite" ToRole="User" />
         </EntityType>
         <EntityType Name="PlayHistory">
           <Key>
@@ -412,6 +442,16 @@
           <NavigationProperty Name="User" Relationship="MusicFarmerModel.FK_play_history_users" FromRole="PlayHistory" ToRole="User" />
           <NavigationProperty Name="Votes" Relationship="MusicFarmerModel.FK_Vote_PlayHistory" FromRole="PlayHistory" ToRole="Vote" />
         </EntityType>
+        <EntityType Name="SettingValue">
+          <Key>
+            <PropertyRef Name="SettingValueId" />
+          </Key>
+          <Property Name="SettingValueId" Type="Int32" Nullable="false" />
+          <Property Name="SettingName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettingValue1" Type="Int32" Nullable="false" />
+          <Property Name="DataType" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Track">
           <Key>
             <PropertyRef Name="TrackId" />
@@ -421,11 +461,11 @@
           <Property Name="ArtistId" Type="Int32" />
           <Property Name="AlbumId" Type="Int32" />
           <Property Name="TrackURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UploadTime" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Album" Relationship="MusicFarmerModel.FK_track_album" FromRole="Track" ToRole="Album" />
           <NavigationProperty Name="Artist" Relationship="MusicFarmerModel.FK_track_artist" FromRole="Track" ToRole="Artist" />
-          <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_track" FromRole="Track" ToRole="PlayHistory" />
           <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Track" ToRole="Favourite" />
-          <Property Name="UploadTime" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_track" FromRole="Track" ToRole="PlayHistory" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -435,9 +475,9 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="MusicFarmerModel.FK_comments_users" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
           <NavigationProperty Name="PlayHistories" Relationship="MusicFarmerModel.FK_play_history_users" FromRole="User" ToRole="PlayHistory" />
           <NavigationProperty Name="Votes" Relationship="MusicFarmerModel.FK_votes_users" FromRole="User" ToRole="Vote" />
-          <NavigationProperty Name="Favourites" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
         </EntityType>
         <EntityType Name="Vote">
           <Key>
@@ -474,6 +514,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AuditLogDetails_AuditLogs">
+          <End Type="MusicFarmerModel.AuditLog" Role="AuditLog" Multiplicity="1" />
+          <End Type="MusicFarmerModel.AuditLogDetail" Role="AuditLogDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditLog">
+              <PropertyRef Name="AuditLogId" />
+            </Principal>
+            <Dependent Role="AuditLogDetail">
+              <PropertyRef Name="AuditLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_comments_play_history">
           <End Type="MusicFarmerModel.PlayHistory" Role="PlayHistory" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -500,10 +552,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Favourite_Track">
+          <End Type="MusicFarmerModel.Track" Role="Track" Multiplicity="1" />
+          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Track">
+              <PropertyRef Name="TrackId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="TrackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1" />
+          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_play_history_track">
-          <End Type="MusicFarmerModel.Track" Role="Track" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="MusicFarmerModel.Track" Role="Track" Multiplicity="1" />
           <End Type="MusicFarmerModel.PlayHistory" Role="PlayHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Track">
@@ -515,9 +589,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_play_history_users">
-          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1" />
           <End Type="MusicFarmerModel.PlayHistory" Role="PlayHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -541,9 +613,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_votes_users">
-          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1" />
           <End Type="MusicFarmerModel.Vote" Role="Vote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -554,102 +624,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Favourite">
-          <Key>
-            <PropertyRef Name="FavouriteId" />
-          </Key>
-          <Property Name="FavouriteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TrackId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Track" Relationship="MusicFarmerModel.FK_Favourite_Track" FromRole="Favourite" ToRole="Track" />
-          <NavigationProperty Name="User" Relationship="MusicFarmerModel.FK_Favourite_User" FromRole="Favourite" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Favourite_Track">
-          <End Type="MusicFarmerModel.Track" Role="Track" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Track">
-              <PropertyRef Name="TrackId" />
-            </Principal>
-            <Dependent Role="Favourite">
-              <PropertyRef Name="TrackId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Favourite_User">
-          <End Type="MusicFarmerModel.User" Role="User" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="MusicFarmerModel.Favourite" Role="Favourite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Favourite">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="JukeBoxTracks_Result">
-          <Property Type="Int32" Name="TrackId" Nullable="false" />
-          <Property Type="String" Name="TrackName" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="Votes" Nullable="true" />
-          <Property Type="Int32" Name="Favourites" Nullable="true" />
-          <Property Type="Int32" Name="Played" Nullable="true" />
-        </ComplexType>
-        <EntityType Name="SettingValue">
-          <Key>
-            <PropertyRef Name="SettingValueId" />
-          </Key>
-          <Property Name="SettingValueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SettingName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SettingValue1" Type="Int32" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="DataType" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AuditLogDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="OriginalValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
-          <Property Name="NewValue" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
-          <Property Name="AuditLogId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AuditLog" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLogDetail" ToRole="AuditLog1" />
-        </EntityType>
-        <EntityType Name="AuditLog1">
-          <Key>
-            <PropertyRef Name="AuditLogId" />
-          </Key>
-          <Property Name="AuditLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="EventDateUTC" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="EventType" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="RecordId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AuditLogDetails" Relationship="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" FromRole="AuditLog1" ToRole="AuditLogDetail" />
-        </EntityType>
-        <Association Name="FK_AuditLogDetails_AuditLogs">
-          <End Type="MusicFarmerModel.AuditLog1" Role="AuditLog1" Multiplicity="1" />
-          <End Type="MusicFarmerModel.AuditLogDetail" Role="AuditLogDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AuditLog1">
-              <PropertyRef Name="AuditLogId" />
-            </Principal>
-            <Dependent Role="AuditLogDetail">
-              <PropertyRef Name="AuditLogId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MusicFarmerModelStoreContainer" CdmEntityContainer="MusicFarmerEntities">
+          <FunctionImportMapping FunctionImportName="JukeBoxTracks" FunctionName="MusicFarmerModel.Store.JukeBoxTracks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MusicFarmerModel.JukeBoxTracks_Result">
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+                <ScalarProperty Name="TrackName" ColumnName="TrackName" />
+                <ScalarProperty Name="Votes" ColumnName="Votes" />
+                <ScalarProperty Name="Favourites" ColumnName="Favourites" />
+                <ScalarProperty Name="Played" ColumnName="Played" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="Albums">
             <EntityTypeMapping TypeName="MusicFarmerModel.Album">
               <MappingFragment StoreEntitySet="Album">
@@ -666,6 +657,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogDetails">
+            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLogDetail">
+              <MappingFragment StoreEntitySet="AuditLogDetails">
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLogs">
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventDateUTC" ColumnName="EventDateUTC" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="MusicFarmerModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
@@ -673,6 +687,15 @@
                 <ScalarProperty Name="CommentText" ColumnName="CommentText" />
                 <ScalarProperty Name="PlayHistoryId" ColumnName="PlayHistoryId" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="MusicFarmerModel.Favourite">
+              <MappingFragment StoreEntitySet="Favourite">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
+                <ScalarProperty Name="FavouriteId" ColumnName="FavouriteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -685,6 +708,17 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="TrackId" ColumnName="TrackId" />
                 <ScalarProperty Name="PlayHistoryId" ColumnName="PlayHistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SettingValues">
+            <EntityTypeMapping TypeName="MusicFarmerModel.SettingValue">
+              <MappingFragment StoreEntitySet="SettingValue">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="SettingValue1" ColumnName="SettingValue" />
+                <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+                <ScalarProperty Name="SettingValueId" ColumnName="SettingValueId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -719,61 +753,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Favourites">
-            <EntityTypeMapping TypeName="MusicFarmerModel.Favourite">
-              <MappingFragment StoreEntitySet="Favourite">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
-                <ScalarProperty Name="FavouriteId" ColumnName="FavouriteId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="JukeBoxTracks" FunctionName="MusicFarmerModel.Store.JukeBoxTracks">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MusicFarmerModel.JukeBoxTracks_Result">
-                <ScalarProperty Name="TrackId" ColumnName="TrackId" />
-                <ScalarProperty Name="TrackName" ColumnName="TrackName" />
-                <ScalarProperty Name="Votes" ColumnName="Votes" />
-                <ScalarProperty Name="Favourites" ColumnName="Favourites" />
-                <ScalarProperty Name="Played" ColumnName="Played" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="SettingValues">
-            <EntityTypeMapping TypeName="MusicFarmerModel.SettingValue">
-              <MappingFragment StoreEntitySet="SettingValue">
-                <ScalarProperty Name="DataType" ColumnName="DataType" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="SettingValue1" ColumnName="SettingValue" />
-                <ScalarProperty Name="SettingName" ColumnName="SettingName" />
-                <ScalarProperty Name="SettingValueId" ColumnName="SettingValueId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AuditLogDetails">
-            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLogDetail">
-              <MappingFragment StoreEntitySet="AuditLogDetails">
-                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
-                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
-                <ScalarProperty Name="OriginalValue" ColumnName="OriginalValue" />
-                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AuditLog1">
-            <EntityTypeMapping TypeName="MusicFarmerModel.AuditLog1">
-              <MappingFragment StoreEntitySet="AuditLogs">
-                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
-                <ScalarProperty Name="TableName" ColumnName="TableName" />
-                <ScalarProperty Name="EventType" ColumnName="EventType" />
-                <ScalarProperty Name="EventDateUTC" ColumnName="EventDateUTC" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

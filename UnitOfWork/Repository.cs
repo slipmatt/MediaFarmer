@@ -6,24 +6,29 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using TrackerEnabledDbContext;
+using TrackerEnabledDbContext.Common.Configuration;
 using TrackerEnabledDbContext.Common.Models;
 
 namespace UnitOfWork
 {
-    public class Repository<T> : TrackerEnabledDbContext.TrackerContext, IRepository<T> where T : class
+    public class Repository<T> : TrackerContext, IRepository<T> where T : class
     {
-        public DbContext DbContext { get; set; }
+        public TrackerContext DbContext { get; set; }
 
         protected DbSet<T> DbSet { get; set; }
 
-        public Repository(DbContext dbContext)
+        public Repository(TrackerContext dbContext)
         {
             if (dbContext == null)
             {
                 throw new ArgumentNullException("dbContext");
             }
+            GlobalTrackingConfig.Enabled = true;
+            GlobalTrackingConfig.DisconnectedContext = true;
             DbContext = dbContext;
             DbSet = DbContext.Set<T>();
+
         }
 
         public void Add(T entity)
@@ -143,15 +148,15 @@ namespace UnitOfWork
                 throw ex;
             }
             var a = 1;
-            try
-            {
-                base.ConfigureUsername("Test");
-                 a = base.SaveChanges("Test");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    base.ConfigureUsername("Test");
+            //     a = base.SaveChanges("Test");
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
            
             return a;
             

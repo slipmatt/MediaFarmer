@@ -20,6 +20,6 @@ namespace MusicFarmer.Data
         public string NewValue { get; set; }
         public int AuditLogId { get; set; }
     
-        public virtual AuditLog1 AuditLog { get; set; }
+        public virtual AuditLog AuditLog { get; set; }
     }
 }

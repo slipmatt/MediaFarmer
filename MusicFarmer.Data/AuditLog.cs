@@ -12,10 +12,10 @@ namespace MusicFarmer.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditLog1
+    public partial class AuditLog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AuditLog1()
+        public AuditLog()
         {
             this.AuditLogDetails = new HashSet<AuditLogDetail>();
         }

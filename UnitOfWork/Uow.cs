@@ -16,9 +16,9 @@ namespace UnitOfWork
         /// <value>
         /// The database context.
         /// </value>
-        private DbContext DbContext { get; set; }
+        private TrackerContext DbContext { get; set; }
 
-        public Uow(DbContext context)
+        public Uow(TrackerContext context)
         {
             DbContext = context;
         }

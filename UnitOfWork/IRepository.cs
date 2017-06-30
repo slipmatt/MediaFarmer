@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using TrackerEnabledDbContext;
 using TrackerEnabledDbContext.Common.Interfaces;
 
 namespace UnitOfWork
 {
     public interface IRepository<T>: ITrackerContext where T : class
     {
-        DbContext DbContext { get; set; }
+        TrackerContext DbContext { get; set; }
 
         void Add(T entity);
 

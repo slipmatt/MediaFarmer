@@ -142,14 +142,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TrackerEnabledDbContext, Version=3.6.1.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
-      <HintPath>..\packages\TrackerEnabledDbContext.3.6.1\lib\net45\TrackerEnabledDbContext.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="TrackerEnabledDbContext.Common, Version=3.6.1.0, Culture=neutral, PublicKeyToken=4f92af0b908c4a0a, processorArchitecture=MSIL">
-      <HintPath>..\packages\TrackerEnabledDbContext.Common.3.6.1\lib\net45\TrackerEnabledDbContext.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
       <Private>True</Private>
@@ -227,6 +219,14 @@
     <ProjectReference Include="..\MusicFarmer.Data\MediaFarmer.Data.csproj">
       <Project>{8C0CFAD9-53A5-434D-854F-F550F9899699}</Project>
       <Name>MediaFarmer.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrackerEnabledDbContext.Common\TrackerEnabledDbContext.Common.csproj">
+      <Project>{ac9808cc-8932-40ae-8f26-3fba558a5549}</Project>
+      <Name>TrackerEnabledDbContext.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrackerEnabledDbContext\TrackerEnabledDbContext.csproj">
+      <Project>{bde8feb8-3a4f-491d-9aad-426c355aac76}</Project>
+      <Name>TrackerEnabledDbContext</Name>
     </ProjectReference>
     <ProjectReference Include="..\UnitOfWork\UnitOfWork.csproj">
       <Project>{D5E3F1B9-033F-44EA-BE16-D33C18A2B469}</Project>

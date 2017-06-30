@@ -17,7 +17,7 @@ namespace MusicFarmer.Data
         public int SettingValueId { get; set; }
         public string SettingName { get; set; }
         public int SettingValue1 { get; set; }
-        public bool Active { get; set; }
         public int DataType { get; set; }
+        public bool Active { get; set; }
     }
 }

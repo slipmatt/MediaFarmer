@@ -18,9 +18,9 @@ namespace MusicFarmer.Data
         public User()
         {
             this.Comments = new HashSet<Comment>();
+            this.Favourites = new HashSet<Favourite>();
             this.PlayHistories = new HashSet<PlayHistory>();
             this.Votes = new HashSet<Vote>();
-            this.Favourites = new HashSet<Favourite>();
         }
     
         public int UserId { get; set; }
@@ -30,10 +30,10 @@ namespace MusicFarmer.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourite> Favourites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayHistory> PlayHistories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vote> Votes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Favourite> Favourites { get; set; }
     }
 }

@@ -7,15 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using TrackerEnabledDbContext;
+
 namespace MusicFarmer.Data
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using TrackerEnabledDbContext.Common.Configuration;
+    using TrackerEnabledDbContext.Common.Models;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class MusicFarmerEntities : DbContext
+    public partial class MusicFarmerEntities : TrackerContext
     {
         public MusicFarmerEntities()
             : base("name=MusicFarmerEntities")
@@ -29,15 +33,15 @@ namespace MusicFarmer.Data
     
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
+        public virtual DbSet<AuditLogDetail> AuditLogDetails { get; set; }
+        public virtual DbSet<AuditLog> AuditLogs { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<PlayHistory> PlayHistories { get; set; }
+        public virtual DbSet<SettingValue> SettingValues { get; set; }
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
-        public virtual DbSet<Favourite> Favourites { get; set; }
-        public virtual DbSet<SettingValue> SettingValues { get; set; }
-        public virtual DbSet<AuditLogDetail> AuditLogDetails { get; set; }
-        public virtual DbSet<AuditLog1> AuditLog1 { get; set; }
     
         public virtual ObjectResult<JukeBoxTracks_Result> JukeBoxTracks()
         {

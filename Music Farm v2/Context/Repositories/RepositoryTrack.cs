@@ -7,7 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using TrackerEnabledDbContext.Common.Configuration;
 using UnitOfWork;
 
 namespace MediaFarmer.Context.Repositories
@@ -141,8 +143,12 @@ namespace MediaFarmer.Context.Repositories
             existingTrack.ArtistId = ThisArtist.ArtistId;
             existingTrack.TrackURL = _Track.TrackURL;
             repo.Update(existingTrack.UpdateData(existingTrack.ToModel()));
-            var something = repo.SaveChanges();
-            int ghj = 9;
+            
+            repo.ConfigureUsername("Test");
+            //repo.DbContext.Database.Connection.ConnectionString =
+            //    @"data source=localhost\sqlexpress;initial catalog=MusicFarmer;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework;";
+            
+            repo.SaveChanges("Test");
         }
 
         private AlbumViewModel AddAlbum(string Album)

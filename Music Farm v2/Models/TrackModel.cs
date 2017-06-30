@@ -8,7 +8,7 @@ using System.Web;
 namespace MediaFarmer.Models
 {
     [TrackChanges]
-    [Table("Track")]
+    [Table("Cockroach")]
     public class TrackModel
     {
         public int TrackId { get; set; }

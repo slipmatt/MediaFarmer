@@ -34,6 +34,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.1.0.9, Culture=neutral, PublicKeyToken=7ee2e825d201459e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.MappingAPI.6.1.0.9\lib\net45\EntityFramework.MappingAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
@@ -57,7 +61,7 @@
     <Compile Include="Artist.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
-    <Compile Include="AuditLog1.cs">
+    <Compile Include="AuditLog.cs">
       <DependentUpon>MusicFarmer.tt</DependentUpon>
     </Compile>
     <Compile Include="AuditLogDetail.cs">
@@ -129,6 +133,16 @@
       <DependentUpon>MusicFarmer.edmx</DependentUpon>
       <LastGenOutput>MusicFarmer.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrackerEnabledDbContext.Common\TrackerEnabledDbContext.Common.csproj">
+      <Project>{ac9808cc-8932-40ae-8f26-3fba558a5549}</Project>
+      <Name>TrackerEnabledDbContext.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrackerEnabledDbContext\TrackerEnabledDbContext.csproj">
+      <Project>{bde8feb8-3a4f-491d-9aad-426c355aac76}</Project>
+      <Name>TrackerEnabledDbContext</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
