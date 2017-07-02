@@ -148,7 +148,7 @@ namespace MediaFarmer.Context.Repositories
             //repo.DbContext.Database.Connection.ConnectionString =
             //    @"data source=localhost\sqlexpress;initial catalog=MusicFarmer;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework;";
             
-            repo.SaveChanges("Test");
+            repo.SaveChanges();
         }
 
         private AlbumViewModel AddAlbum(string Album)

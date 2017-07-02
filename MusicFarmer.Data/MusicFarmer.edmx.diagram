@@ -7,8 +7,6 @@
       <Diagram DiagramId="85d791b8d0894ad39cd4387c748ecee2" Name="Diagram1">
         <EntityTypeShape EntityType="MusicFarmerModel.Album" Width="1.5" PointX="1.5" PointY="7.625" />
         <EntityTypeShape EntityType="MusicFarmerModel.Artist" Width="1.5" PointX="1.5" PointY="9.875" />
-        <EntityTypeShape EntityType="MusicFarmerModel.AuditLogDetail" Width="1.5" PointX="11" PointY="1" />
-        <EntityTypeShape EntityType="MusicFarmerModel.AuditLog" Width="1.5" PointX="8.75" PointY="1" />
         <EntityTypeShape EntityType="MusicFarmerModel.Comment" Width="1.5" PointX="3" PointY="1.5" />
         <EntityTypeShape EntityType="MusicFarmerModel.Favourite" Width="1.5" PointX="3" PointY="4.5" />
         <EntityTypeShape EntityType="MusicFarmerModel.PlayHistory" Width="1.5" PointX="6" PointY="4.125" />
@@ -18,7 +16,6 @@
         <EntityTypeShape EntityType="MusicFarmerModel.Vote" Width="1.5" PointX="8.25" PointY="4.5" />
         <AssociationConnector Association="MusicFarmerModel.FK_track_album" />
         <AssociationConnector Association="MusicFarmerModel.FK_track_artist" />
-        <AssociationConnector Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" />
         <AssociationConnector Association="MusicFarmerModel.FK_comments_play_history" />
         <AssociationConnector Association="MusicFarmerModel.FK_comments_users" />
         <AssociationConnector Association="MusicFarmerModel.FK_Favourite_Track" />

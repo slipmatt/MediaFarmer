@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using TrackerEnabledDbContext;
+
 
 namespace MusicFarmer.Data
 {
@@ -18,7 +18,8 @@ namespace MusicFarmer.Data
     using TrackerEnabledDbContext.Common.Models;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+    using TrackerEnabledDbContext;
+
     public partial class MusicFarmerEntities : TrackerContext
     {
         public MusicFarmerEntities()
@@ -33,8 +34,6 @@ namespace MusicFarmer.Data
     
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
-        public virtual DbSet<AuditLogDetail> AuditLogDetails { get; set; }
-        public virtual DbSet<AuditLog> AuditLogs { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<PlayHistory> PlayHistories { get; set; }
