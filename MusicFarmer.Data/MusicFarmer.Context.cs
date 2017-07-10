@@ -33,8 +33,6 @@ namespace MusicFarmer.Data
     
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
-        public virtual DbSet<AuditLogDetail> AuditLogDetails { get; set; }
-        public virtual DbSet<AuditLog> AuditLogs { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<PlayHistory> PlayHistories { get; set; }
