@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using TrackerEnabledDbContext;
+using TrackerEnabledDbContext.Common;
 using TrackerEnabledDbContext.Common.Interfaces;
 
 namespace UnitOfWork

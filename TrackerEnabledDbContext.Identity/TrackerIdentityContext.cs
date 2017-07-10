@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics.CodeAnalysis;
 using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using TrackerEnabledDbContext.Common;
 using TrackerEnabledDbContext.Common.Configuration;
 using TrackerEnabledDbContext.Common.EventArgs;
 using TrackerEnabledDbContext.Common.Interfaces;
 using TrackerEnabledDbContext.Common.Models;
 
-namespace TrackerEnabledDbContext
+namespace TrackerEnabledDbContext.Identity
 {
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly",
-         Justification =
-             "False positive.  IDisposable is inherited via DbContext.  See http://stackoverflow.com/questions/8925925/code-analysis-ca1063-fires-when-deriving-from-idisposable-and-providing-implemen for details."
-     )]
-    public class TrackerContext : DbContext, ITrackerContext
+         Justification = "False positive.  IDisposable is inherited via DbContext.  See http://stackoverflow.com/questions/8925925/code-analysis-ca1063-fires-when-deriving-from-idisposable-and-providing-implemen for details.")]
+    public class TrackerIdentityContext<TUser, TRole, TKey, TUserLogin, TUserRole, TUserClaim> :
+        IdentityDbContext<TUser, TRole, TKey, TUserLogin, TUserRole, TUserClaim>, ITrackerContext
+        
+        where TUser : IdentityUser<TKey, TUserLogin, TUserRole, TUserClaim> 
+        where TRole : IdentityRole<TKey, TUserRole> 
+        where TUserLogin : IdentityUserLogin<TKey> 
+        where TUserRole : IdentityUserRole<TKey> 
+        where TUserClaim : IdentityUserClaim<TKey>
     {
         private readonly CoreTracker _coreTracker;
 
@@ -29,13 +34,17 @@ namespace TrackerEnabledDbContext
         private string _defaultUsername;
         private Action<dynamic> _metadataConfiguration;
 
-
         private bool _trackingEnabled = true;
-
         public bool TrackingEnabled
         {
-            get { return GlobalTrackingConfig.Enabled && _trackingEnabled; }
-            set { _trackingEnabled = value; }
+            get
+            {
+                return GlobalTrackingConfig.Enabled && _trackingEnabled;
+            }
+            set
+            {
+                _trackingEnabled = value;
+            }
         }
 
         public virtual void ConfigureUsername(Func<string> usernameFactory)
@@ -53,48 +62,42 @@ namespace TrackerEnabledDbContext
             _metadataConfiguration = metadataConfiguration;
         }
 
-        public TrackerContext()
+        public TrackerIdentityContext()
         {
             _coreTracker = new CoreTracker(this);
         }
 
-        public TrackerContext(DbCompiledModel model)
-            : base(model)
+        public TrackerIdentityContext(DbCompiledModel model) : base(model)
         {
             _coreTracker = new CoreTracker(this);
         }
 
-        public TrackerContext(string nameOrConnectionString)
-            : base(nameOrConnectionString)
+        public TrackerIdentityContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
-            //this.Database.Connection.ConnectionString = @"data source=localhost\sqlexpress;initial catalog=MusicFarmer;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework;";
-            
             _coreTracker = new CoreTracker(this);
-                    }
+        }
 
-        public TrackerContext(string nameOrConnectionString, DbCompiledModel model)
+        public TrackerIdentityContext(string nameOrConnectionString, DbCompiledModel model)
             : base(nameOrConnectionString, model)
         {
             _coreTracker = new CoreTracker(this);
         }
 
-        public TrackerContext(DbConnection existingConnection, bool contextOwnsConnection)
+        public TrackerIdentityContext(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
             _coreTracker = new CoreTracker(this);
         }
 
-        public TrackerContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
+        public TrackerIdentityContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
             : base(existingConnection, model, contextOwnsConnection)
         {
             _coreTracker = new CoreTracker(this);
         }
 
-        public TrackerContext(ObjectContext objectContext, bool dbContextOwnsObjectContext)
-            : base(objectContext, dbContextOwnsObjectContext)
-        {
-            _coreTracker = new CoreTracker(this);
-        }
+        public virtual DbSet<AuditLog> AuditLog { get; set; }
+
+        public virtual DbSet<AuditLogDetail> LogDetails { get; set; }
 
         public virtual event EventHandler<AuditLogGeneratedEventArgs> OnAuditLogGenerated
         {
@@ -102,32 +105,31 @@ namespace TrackerEnabledDbContext
             remove { _coreTracker.OnAuditLogGenerated -= value; }
         }
 
-        public virtual DbSet<AuditLog> AuditLog { get; set; }
-
-        public virtual DbSet<AuditLogDetail> LogDetails { get; set; }
-
         /// <summary>
         ///     This method saves the model changes to the database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table.
         ///     Always use this method instead of SaveChanges() whenever possible.
         /// </summary>
         /// <param name="userName">Username of the logged in identity</param>
         /// <returns>Returns the number of objects written to the underlying database.</returns>
         public virtual int SaveChanges(object userName)
         {
-            if (!TrackingEnabled) return base.SaveChanges();
+            if (!TrackingEnabled)
+            {
+                return base.SaveChanges();
+            }
 
-            dynamic metaData = new ExpandoObject();
-            _metadataConfiguration?.Invoke(metaData);
-            _coreTracker.AuditChanges(userName, metaData);
+            dynamic metadata = new ExpandoObject();
+            _metadataConfiguration?.Invoke(metadata);
 
+            _coreTracker.AuditChanges(userName, metadata);
 
             IEnumerable<DbEntityEntry> addedEntries = _coreTracker.GetAdditions();
             // Call the original SaveChanges(), which will save both the changes made and the audit records...Note that added entry auditing is still remaining.
             int result = base.SaveChanges();
             //By now., we have got the primary keys of added entries of added entiries because of the call to savechanges.
 
-            _coreTracker.AuditAdditions(userName, addedEntries, metaData);
+            _coreTracker.AuditAdditions(userName, addedEntries, metadata);
 
             //save changes to audit of added entries
             base.SaveChanges();
@@ -136,12 +138,16 @@ namespace TrackerEnabledDbContext
 
         /// <summary>
         ///     This method saves the model changes to the database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table.
         /// </summary>
+        /// <param name="userName">Username of the logged in identity</param>
         /// <returns>Returns the number of objects written to the underlying database.</returns>
         public override int SaveChanges()
         {
-            if (!TrackingEnabled) return base.SaveChanges();
+            if (!TrackingEnabled)
+            {
+                return base.SaveChanges();
+            }
 
             return SaveChanges(_usernameFactory?.Invoke() ?? _defaultUsername);
         }
@@ -157,13 +163,13 @@ namespace TrackerEnabledDbContext
         }
 
         /// <summary>
-        ///     Get all logs for the given entity name
+        ///     Get all logs for the given table name
         /// </summary>
-        /// <param name="entityName">full name of entity</param>
+        /// <param name="tableName">Name of table</param>
         /// <returns></returns>
-        public virtual IQueryable<AuditLog> GetLogs(string entityName)
+        public virtual IQueryable<AuditLog> GetLogs(string tableName)
         {
-            return _coreTracker.GetLogs(entityName);
+            return _coreTracker.GetLogs(tableName);
         }
 
         /// <summary>
@@ -174,25 +180,25 @@ namespace TrackerEnabledDbContext
         /// <returns></returns>
         public virtual IQueryable<AuditLog> GetLogs<TEntity>(object primaryKey)
         {
-            return _coreTracker.GetLogs<TEntity>( primaryKey);
+            return _coreTracker.GetLogs<TEntity>(primaryKey);
         }
 
         /// <summary>
-        ///     Get all logs for the given entity name for a specific record
+        ///     Get all logs for the given table name for a specific record
         /// </summary>
-        /// <param name="entityName">full name of entity</param>
+        /// <param name="tableName">table name</param>
         /// <param name="primaryKey">primary key of record</param>
         /// <returns></returns>
-        public virtual IQueryable<AuditLog> GetLogs(string entityName, object primaryKey)
+        public virtual IQueryable<AuditLog> GetLogs(string tableName, object primaryKey)
         {
-            return _coreTracker.GetLogs(entityName, primaryKey);
+            return _coreTracker.GetLogs(tableName, primaryKey);
         }
 
         #region -- Async --
 
         /// <summary>
         ///     Asynchronously saves all changes made in this context to the underlying database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table.
         /// </summary>
         /// <param name="userName">Username of the logged in identity</param>
         /// <param name="cancellationToken">
@@ -202,7 +208,10 @@ namespace TrackerEnabledDbContext
         /// <returns>Returns the number of objects written to the underlying database.</returns>
         public virtual async Task<int> SaveChangesAsync(object userName, CancellationToken cancellationToken)
         {
-            if (!TrackingEnabled) return await base.SaveChangesAsync(cancellationToken);
+            if (!TrackingEnabled)
+            {
+                return await base.SaveChangesAsync(cancellationToken);
+            }
 
             if (cancellationToken.IsCancellationRequested)
                 cancellationToken.ThrowIfCancellationRequested();
@@ -228,33 +237,39 @@ namespace TrackerEnabledDbContext
 
         /// <summary>
         ///     Asynchronously saves all changes made in this context to the underlying database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table.
         ///     Always use this method instead of SaveChangesAsync() whenever possible.
         /// </summary>
         /// <returns>Returns the number of objects written to the underlying database.</returns>
         public virtual async Task<int> SaveChangesAsync(int userId)
         {
-            if (!TrackingEnabled) return await base.SaveChangesAsync(CancellationToken.None);
+            if (!TrackingEnabled)
+            {
+                return await base.SaveChangesAsync(CancellationToken.None);
+            }
 
             return await SaveChangesAsync(userId, CancellationToken.None);
         }
 
         /// <summary>
         ///     Asynchronously saves all changes made in this context to the underlying database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table.
         ///     Always use this method instead of SaveChangesAsync() whenever possible.
         /// </summary>
         /// <returns>Returns the number of objects written to the underlying database.</returns>
         public virtual async Task<int> SaveChangesAsync(string userName)
         {
-            if (!TrackingEnabled) return await base.SaveChangesAsync(CancellationToken.None);
+            if (!TrackingEnabled)
+            {
+                return await base.SaveChangesAsync(CancellationToken.None);
+            }
 
             return await SaveChangesAsync(userName, CancellationToken.None);
         }
 
         /// <summary>
         ///     Asynchronously saves all changes made in this context to the underlying database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table with null UserName.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table with null UserName.
         /// </summary>
         /// <returns>
         ///     A task that represents the asynchronous save operation.  The task result
@@ -262,14 +277,17 @@ namespace TrackerEnabledDbContext
         /// </returns>
         public override async Task<int> SaveChangesAsync()
         {
-            if (!TrackingEnabled) return await base.SaveChangesAsync(CancellationToken.None);
+            if (!TrackingEnabled)
+            {
+                return await base.SaveChangesAsync(CancellationToken.None);
+            }
 
             return await SaveChangesAsync(_usernameFactory?.Invoke() ?? _defaultUsername, CancellationToken.None);
         }
 
         /// <summary>
         ///     Asynchronously saves all changes made in this context to the underlying database.
-        ///     If the tracker for an entity is active, it will also put the old values in tracking table with null UserName.
+        ///     If the tracker for a table is active, it will also put the old values in tracking table with null UserName.
         /// </summary>
         /// <param name="cancellationToken">
         ///     A System.Threading.CancellationToken to observe while waiting for the task
@@ -281,11 +299,46 @@ namespace TrackerEnabledDbContext
         /// </returns>
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-            if (!TrackingEnabled) return await base.SaveChangesAsync(cancellationToken);
+            if (!TrackingEnabled)
+            {
+                return await base.SaveChangesAsync(cancellationToken);
+            }
 
             return await SaveChangesAsync(_usernameFactory?.Invoke() ?? _defaultUsername, cancellationToken);
         }
 
-        #endregion
+        #endregion --
+    }
+
+    public class TrackerIdentityContext<TUser> : 
+        TrackerIdentityContext<TUser, IdentityRole, string, IdentityUserLogin, IdentityUserRole, IdentityUserClaim>
+        where TUser : IdentityUser
+    {
+        public TrackerIdentityContext()
+        {
+        }
+
+        public TrackerIdentityContext(DbCompiledModel model) : base(model)
+        {
+        }
+
+        public TrackerIdentityContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        {
+        }
+
+        public TrackerIdentityContext(string nameOrConnectionString, DbCompiledModel model)
+            : base(nameOrConnectionString, model)
+        {
+        }
+
+        public TrackerIdentityContext(DbConnection existingConnection, bool contextOwnsConnection)
+            : base(existingConnection, contextOwnsConnection)
+        {
+        }
+
+        public TrackerIdentityContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
+            : base(existingConnection, model, contextOwnsConnection)
+        {
+        }
     }
 }
