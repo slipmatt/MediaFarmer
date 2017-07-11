@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using TrackerEnabledDbContext;
+
 namespace MusicFarmer.Data
 {
     using System;
