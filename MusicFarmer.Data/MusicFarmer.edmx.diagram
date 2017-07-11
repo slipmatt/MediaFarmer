@@ -24,9 +24,9 @@
         <AssociationConnector Association="MusicFarmerModel.FK_play_history_users" />
         <AssociationConnector Association="MusicFarmerModel.FK_Vote_PlayHistory" />
         <AssociationConnector Association="MusicFarmerModel.FK_votes_users" />
-        <EntityTypeShape EntityType="MusicFarmerModel.AuditLog" Width="1.5" PointX="8.375" PointY="1" />
         <EntityTypeShape EntityType="MusicFarmerModel.AuditLogDetail" Width="1.5" PointX="10.625" PointY="1" />
-        <AssociationConnector Association="MusicFarmerModel.FK_AuditLogDetails_AuditLogs" />
+        <EntityTypeShape EntityType="MusicFarmerModel.AuditLog" Width="1.5" PointX="8.375" PointY="1" />
+        <AssociationConnector Association="MusicFarmerModel.FK_dbo_AuditLogDetails_dbo_AuditLogs_AuditLogId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

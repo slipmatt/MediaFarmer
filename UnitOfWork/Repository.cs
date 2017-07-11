@@ -147,19 +147,7 @@ namespace UnitOfWork
                 }
                 throw ex;
             }
-            var a = 1;
-            //try
-            //{
-            //    base.ConfigureUsername("Test");
-            //     a = base.SaveChanges("Test");
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-           
-            return a;
-            
+            return 1;
         }
 
 

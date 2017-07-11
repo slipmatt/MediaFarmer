@@ -17,17 +17,17 @@ namespace MusicFarmer.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AuditLog()
         {
-            this.AuditLogDetail = new HashSet<AuditLogDetail>();
+            this.AuditLogDetails = new HashSet<AuditLogDetail>();
         }
     
-        public int AuditLogId { get; set; }
+        public long AuditLogId { get; set; }
         public string UserName { get; set; }
         public System.DateTime EventDateUTC { get; set; }
         public int EventType { get; set; }
-        public string TableName { get; set; }
-        public int RecordId { get; set; }
+        public string TypeFullName { get; set; }
+        public string RecordId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AuditLogDetail> AuditLogDetail { get; set; }
+        public virtual ICollection<AuditLogDetail> AuditLogDetails { get; set; }
     }
 }

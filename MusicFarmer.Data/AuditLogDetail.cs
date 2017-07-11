@@ -14,11 +14,11 @@ namespace MusicFarmer.Data
     
     public partial class AuditLogDetail
     {
-        public int Id { get; set; }
-        public string ColumnName { get; set; }
+        public long Id { get; set; }
+        public string PropertyName { get; set; }
         public string OriginalValue { get; set; }
         public string NewValue { get; set; }
-        public int AuditLogId { get; set; }
+        public long AuditLogId { get; set; }
     
         public virtual AuditLog AuditLog { get; set; }
     }
