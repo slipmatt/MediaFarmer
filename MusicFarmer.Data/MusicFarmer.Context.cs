@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using TrackerEnabledDbContext;
-
 namespace MusicFarmer.Data
 {
     using System;
@@ -40,6 +38,8 @@ namespace MusicFarmer.Data
         public virtual DbSet<Track> Tracks { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vote> Votes { get; set; }
+        public virtual DbSet<AuditLog> AuditLog { get; set; }
+        public virtual DbSet<AuditLogDetail> AuditLogDetail { get; set; }
     
         public virtual ObjectResult<JukeBoxTracks_Result> JukeBoxTracks()
         {
