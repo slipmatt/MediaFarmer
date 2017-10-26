@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="85d791b8d0894ad39cd4387c748ecee2" Name="Diagram1">
+        <EntityTypeShape EntityType="MusicFarmerModel.Album" Width="1.5" PointX="1.5" PointY="9.375" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Artist" Width="1.5" PointX="1.5" PointY="11.75" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Comment" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="MusicFarmerModel.PlayHistory" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Track" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MusicFarmerModel.User" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Vote" Width="1.5" PointX="5.25" PointY="2" />
+        <AssociationConnector Association="MusicFarmerModel.FK_track_album" />
+        <AssociationConnector Association="MusicFarmerModel.FK_track_artist" />
+        <AssociationConnector Association="MusicFarmerModel.FK_comments_play_history" />
+        <AssociationConnector Association="MusicFarmerModel.FK_comments_users" />
+        <AssociationConnector Association="MusicFarmerModel.FK_play_history_track" />
+        <AssociationConnector Association="MusicFarmerModel.FK_play_history_users" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Vote_PlayHistory" />
+        <AssociationConnector Association="MusicFarmerModel.FK_votes_users" />
+        <EntityTypeShape EntityType="MusicFarmerModel.Favourite" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Favourite_Track" />
+        <AssociationConnector Association="MusicFarmerModel.FK_Favourite_User" />
+        <EntityTypeShape EntityType="MusicFarmerModel.SettingValue" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

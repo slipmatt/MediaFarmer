@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MediaFarmer.ViewModels.PlayHistoryViewModel>
+<table class="table">
+    <thead>
+        <tr>
+            <th colspan="3">Currently playing <img src="~/Content/images/CurrentlyPlaying.gif" width=110 height=30 /></th>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackName) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+
+                @{ 
+                    Html.RenderAction("GetUpVoteCount", "Vote", new { PlayHistoryId = item.PlayHistoryId });
+                }
+                @{ 
+                    Html.RenderAction("GetDownVoteCount", "Vote", new { PlayHistoryId = item.PlayHistoryId });
+                }
+                @{
+                    Html.RenderAction("GetCommentCount", "Comment", new { PlayHistoryId = item.PlayHistoryId });
+                }
+                @{
+                    <i>@Ajax.ActionLink(" ", "AddFavourite", "Favourite",new { ID = item.TrackId }, null, new { @class = "fa fa-heart-o", @style = "font-size:15px;color:red;" })</i>
+                }
+                @{
+                    if (item.UserName.ToLower() == ViewBag.ThisUser || item.UserName.ToLower() == "jukebox auto queue")
+                    {
+                        <i>@Ajax.ActionLink(" ", "StopTrack", "PlayHistory", new { ID = item.PlayHistoryId },null, new { @class = "fa fa-eject", @style = "font-size:15px;color:black;" })</i>
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>

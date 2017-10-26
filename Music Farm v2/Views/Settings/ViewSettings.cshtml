@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MediaFarmer.ViewModels.SettingValueViewModel>
+
+@{
+    ViewBag.Title = "ViewSettings";
+}
+
+<h2>ViewSettings</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SettingName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SettingValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SettingName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SettingValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { SettingId=item.SettingId }, new { data_modal = "", @class = "fa fa-pencil-square-o" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MediaFarmer.MobileDevice"
+             x:Class="MediaFarmer.MobileDevice.PlayHistoryPage">
+  <StackLayout VerticalOptions="StartAndExpand">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="150" />
+        <RowDefinition Height="50" />
+      </Grid.RowDefinitions>
+      <Button Text="Refresh" Command="{Binding ExecuteRefreshCommand}" Grid.Row="1" />
+
+    </Grid>
+
+    <Label Text="Currently Playing"></Label>
+    <ListView ItemsSource="{Binding CurrentlyPlaying}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+            <TextCell Text="{Binding TrackName}" Detail="{Binding UserName}"></TextCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Label Text="Currently Queued"></Label>
+    <ListView ItemsSource="{Binding CurrentlyQueued}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+           <TextCell Text="{Binding TrackName}" Detail="{Binding UserName}"></TextCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>
+</ContentPage>

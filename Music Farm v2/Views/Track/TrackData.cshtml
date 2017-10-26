@@ -1,0 +1,57 @@
+﻿@model MediaFarmer.ViewModels.TrackViewModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Track Info</h3>
+</div>
+@using (Html.BeginForm("TrackData", "Track", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <div class="modal-body">
+        <div class="row-fluid">
+            <div class="control-group">
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TrackId)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TrackId)
+                        @Html.HiddenFor(model=>model.TrackId)
+                        @Html.HiddenFor(model => model.TrackURL)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TrackName)
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.TrackName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AlbumName)
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.AlbumName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ArtistName)
+                    </dt>
+
+                    <dd>
+                        @Html.EditorFor(model => model.ArtistName)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </div>
+}

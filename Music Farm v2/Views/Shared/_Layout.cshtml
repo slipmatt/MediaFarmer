@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html id="bodyDiv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Media Farmer by Mawashi Entertainment</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/toastrcss")
+    @Styles.Render("~/Content/jquery")
+    @Styles.Render("~/Content/fa")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/helpers")
+</head >
+<body >
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type = "button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index", "PlayHistory")" class="navbar-brand">
+                    <img src="@Url.Content("~/Content/images/Logo.jpg")"  width="30" height="30" />
+                </a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Currently Playing", "Index", "PlayHistory")</li>
+                    <li>@Html.ActionLink("Track Search", "Index", "Track")</li>
+                    <li>@Html.ActionLink("My Favourites", "My", "Favourite")</li>
+                    <li>@Html.ActionLink("Settings", "ViewSettings", "Settings")</li>
+                </ul>
+                @*@Html.Partial("_SideMenu")*@
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @Html.Partial("_Alerts")
+        <div>
+            @RenderBody()
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year Mawashi Entertainment - <a href = 'http://github.com/slipmatt/mediafarmer'>Media Farmer</a></p>
+        </footer>
+    </div>
+
+    <div id="loadingDialog">
+        <img src="~/Content/images/Loading.GIF" />
+    </div>
+
+    <div id="site-overlay"></div>
+
+    @RenderSection("scripts", required: false)
+
+    <div id='myModal' class='modal fade in'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

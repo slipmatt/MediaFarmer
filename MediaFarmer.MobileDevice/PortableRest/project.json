@@ -1,0 +1,14 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "Newtonsoft.Json": "9.0.1",
+    "NuSpec.ReferenceGenerator": "2.0.0-beta-bld14",
+    "System.Net.Http": "4.3.0",
+    "System.Runtime.Serialization.Xml": "4.3.0",
+    "System.Threading.Tasks": "4.3.0",
+    "System.Xml.XmlSerializer": "4.3.0"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": {}
+  }
+}

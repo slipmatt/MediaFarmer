@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MediaFarmer.ViewModels.TrackViewModel>
+@foreach (var item in Model)
+{
+    {
+        ViewBag.Title = @item.TrackName;
+    }
+
+    <h2>Currently Playing @item.TrackName</h2>
+
+    <div>
+        <hr />
+        <table class="table">
+            <tr>
+
+                    <td>
+                        <audio controls autoplay>
+                            <source src="@item.PreviewURL" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </td>
+            </tr>
+        </table>
+    </div>
+}

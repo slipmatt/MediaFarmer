@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="mawashi.mediafarmer" android:installLocation="auto" android:versionName="1.03" android:versionCode="4">
+	<uses-sdk android:minSdkVersion="19" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<application android:label="MediaFarmer" android:icon="@drawable/icon"></application>
+</manifest>

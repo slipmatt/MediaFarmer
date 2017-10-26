@@ -1,0 +1,46 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:b="clr-namespace:MediaFarmer.MobileDevice.Behaviors;assembly=MediaFarmer.MobileDevice" 
+             xmlns:c="clr-namespace:MediaFarmer.MobileDevice.Converters;assembly=MediaFarmer.MobileDevice" 
+             x:Class="MediaFarmer.MobileDevice.TracksPage" Title="Track Search" >
+    <ContentPage.Resources>
+    <ResourceDictionary>
+      <c:ItemTappedEventArgsConverter x:Key="ItemTappedConverter" />
+    </ResourceDictionary>
+</ContentPage.Resources>
+  <ContentPage.ToolbarItems>
+    <!--		<ToolbarItem Text="Sign Up" Clicked="OnSignUpButtonClicked" /> -->
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <StackLayout VerticalOptions="StartAndExpand">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="150" />
+          <RowDefinition Height="50" />
+          <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+       <Entry Text="{Binding TrackSearch}" Placeholder="Search Track" Grid.Row="1" />
+        <Button Text="Search" Command="{Binding ExecuteSearchCommand}" Grid.Row="2" />
+       
+      </Grid>
+      <ListView ItemsSource="{Binding Tracks}"  >
+        <!-- 
+        References for Behaviours
+        https://anthonysimmon.com/eventtocommand-in-xamarin-forms-apps/ 
+        https://blog.xamarin.com/behaviors-in-xamarin-forms/  -->
+        
+        <ListView.Behaviors>
+              <b:EventToCommandBehavior EventName="ItemTapped" Command="{Binding QueSelected}" EventArgsConverter="{StaticResource ItemTappedConverter}"/>
+        </ListView.Behaviors>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            
+            <TextCell Text="{Binding TrackName}" Detail="{Binding ArtistName}"></TextCell>
+            
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

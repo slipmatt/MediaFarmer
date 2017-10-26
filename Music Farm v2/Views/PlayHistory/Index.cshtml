@@ -1,0 +1,15 @@
+﻿@*@using PagedList
+    @using PagedList.Mvc*@
+
+
+@{
+    ViewBag.Title = "Media Farmer";
+}
+
+<h2>Media Farmer</h2>
+
+@{ Html.RenderAction("GetCurrentlyPlaying", "PlayHistory"); }
+
+@{ Html.RenderAction("GetCurrentlyQueued", "PlayHistory"); }
+
+@*@Html.PagedListPager((IPagedList<MediaFarmer.Models.Category.CategoryViewModel>)Model, page => Url.Action("Index", new { ViewBag.FilterString, ViewBag.ShowInActive, page }))*@
