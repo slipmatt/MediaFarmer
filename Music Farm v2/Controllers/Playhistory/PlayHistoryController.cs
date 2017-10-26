@@ -75,7 +75,7 @@ namespace MediaFarmer.Controllers.Playhistory
                 var repos = new RepositoryPlayHistory(context);
                 if (repos.SetTrackToStop(ID))
                 {
-                    Success("Removed", "Track Removed from Queue.");
+                    Success("Removed", "Track Removed from Queue."); 
                 }
                 else
                 {

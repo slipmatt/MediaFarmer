@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaFarmer", "Music Farm v2\MediaFarmer.csproj", "{A4FE02BB-ECF2-4625-AC22-974B20740AA1}"
 EndProject
@@ -930,5 +930,8 @@ Global
 		{35DB11D8-1406-4E85-9834-721DFF55484E} = {92731B89-857B-4670-BF1C-BDD36648C286}
 		{8A1BF9E0-B93E-4AAE-96DE-AEC4AED5C4F3} = {92731B89-857B-4670-BF1C-BDD36648C286}
 		{A3546D1A-CE87-49BB-800A-98018C1FCA00} = {92731B89-857B-4670-BF1C-BDD36648C286}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35F1DA43-FF30-49AF-BBAD-2A467DCF7DDC}
 	EndGlobalSection
 EndGlobal
